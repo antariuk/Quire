@@ -1,0 +1,47 @@
+name: Bug report
+description: Something in Quire doesn't work as it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time. Please don't paste private writing here; a short made-up example is enough.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+      placeholder: "1. Opened a chapter\n2. Selected a sentence and pressed Tag passage\n3. …"
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where do you use Quire?
+      options:
+        - The downloaded file (quire.html)
+        - The online version
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Firefox 144, Chrome 141, Safari 26…
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Device and system
+      placeholder: Windows 11 laptop, iPhone with iOS 26, Android phone…
+  - type: input
+    id: version
+    attributes:
+      label: Quire version
+      description: Shown at the top of Options → Help and info.
+      placeholder: "1.0"
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots help, as long as they show nothing private.
