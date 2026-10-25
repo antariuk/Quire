@@ -1,0 +1,16 @@
+name: Idea or feature request
+description: Something that would make writing in Quire better
+labels: [idea]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What would help you?
+      description: Describe the situation in your writing where you miss something. The need matters more than a finished solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How do you imagine it?
+      description: Optional. How it could look or work, or another program that does it well.
