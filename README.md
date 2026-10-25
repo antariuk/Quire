@@ -1,1 +1,92 @@
+<p align="center"><img src="docs/social-preview.png" alt="Quire: a writing notebook for stories, in one HTML file" width="760"></p>
+
 # Quire
+
+**A writing notebook for stories, in one HTML file.** Open it in a browser and start writing. No account, no install, and it works offline.
+
+**[Try it online](https://antariuk.github.io/quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/quire/releases/latest/download/quire.html)** · [What's new](CHANGELOG.md)
+
+![Writing a chapter in Quire, with passage tags in the margin](docs/writing.png)
+
+## Private by design
+
+Your writing stays in the file and in your browser. Quire sends nothing anywhere, has no tracking or analytics, and only goes online if you switch on Google Fonts. The whole program is plain JavaScript inside the file, with no outside code, so you can read every line of it.
+
+## Getting started
+
+1. **Download** `quire.html` and keep it where you keep your writing.
+2. **Open** it in your browser (double-click the file).
+3. **Start a story**, or open the example story to see every feature with something in it.
+4. **Save file** (Ctrl+S, or ⌘S on a Mac) writes everything into the HTML file itself. That file is your notebook: back it up like any other document.
+
+How saving works, in short:
+
+- **While you write**, Quire keeps your work in this browser's storage, so nothing is lost if the tab closes.
+- **Save file** stores everything inside `quire.html`. In Chrome and Edge you choose the file once and later saves overwrite it. In Firefox and Safari each save downloads an updated copy, which replaces the old file. A reminder nudges you when work has gone unsaved for a while.
+- **Backups** (Options → Backup) save one story or all of them as a `.json` file, which any copy of Quire can restore.
+- **The online version** keeps your work in that browser only. To keep your writing safe, download the file and use Save file.
+
+## Features
+
+**Writing**
+- A clean editor with headings, quotation blocks, lists, scene breaks, alignment and a choice of fonts
+- Book-style paragraph indents, plus smart quotes (English, German or French style), em dashes and ellipses as you type
+- Focus mode in two stages: *Focus* hides the navigation; *Intense focus* leaves only the text, its toolbar and the buttons above it. On larger screens, full screen hides the browser's own bars too.
+- Picks up where you left off: Quire reopens the chapter you were writing, at the spot where you stopped
+- Typewriter scrolling, adjustable text size and page width, and six themes from light to a warm dark
+- Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints or towards a chapter's word target
+- Word targets per chapter and for the whole story, a word count for any selection, and find and replace
+
+**Drafts and history**
+- Drafts: try out changes in a copy of a chapter, then merge them change by change. A merge can be undone.
+- Version history: replay how a chapter was written, compare versions and name the important ones
+
+**Planning**
+- Sheets for the story, chapters, characters, places and notes, with portraits and place images
+- Story arcs on a tension curve, built from classic structures and checked against your chapters
+- Links between entries with `[[Title]]`, with backlinks shown automatically
+- Tags on three levels: entries, images (sorted as portrait, landscape or square by themselves) and individual passages. A passage tag lists its passages in story order, so you can follow a subplot or a clue through the book.
+
+**Revising**
+- Prose checker: Hemingway-style readability (hard sentences, adverbs, passive voice, wordy phrases), plus word echoes and dialogue
+- Comments on any passage
+- Stats from basic to in-depth: daily progress, dialogue share, sentence rhythm, word variety, reading level, sentence openers, punctuation, repeated phrases and a narration check
+
+**Saving and sharing**
+- Export the manuscript as a Word file in standard manuscript format, a web page, Markdown or plain text, or print it or save it as PDF
+- Optional AO3 sharing: copy a chapter for AO3 in one click and open the right page there
+- Backups of one story or all of them, and importing chapters from text files
+
+Built-in help explains every feature.
+
+## Screenshots
+
+| Intense focus, with a sprint running | A story arc on its tension curve |
+|---|---|
+| ![Intense focus in the Twilight theme](docs/focus.png) | ![A story arc](docs/arc.png) |
+| **A passage tag, followed through the story** | **On a phone** |
+| ![The Tags page](docs/tags.png) | <img src="docs/phone.png" alt="Quire on a phone" width="260"> |
+
+## Browsers
+
+Current Firefox, Chrome, Edge and Safari, on desktop and phone (Firefox 113, Chrome and Edge 111, Safari 16.4 or later). The Prose checker's highlights need Firefox 140 or Safari 17.2 or later; everything else works without them.
+
+Quire needs JavaScript, which browsers allow by default. If you use a blocker such as NoScript, allow it for the file; it runs only on your own device.
+
+## Questions
+
+**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 585 KB empty). Your stories, images and history are stored in the same file when you save.
+
+**Can I use it on more than one computer?** Yes: save, take the file with you, and open it there. Use one copy at a time, so that two copies don't drift apart.
+
+**What about the example story?** It holds two chapters of "The Red-Headed League" by Arthur Conan Doyle (1891), from Project Gutenberg, which are in the public domain. The outlines, sheets, notes and tags around them were written for the example. Delete it from the Story menu whenever you like.
+
+**How was Quire made?** With the help of Claude, Anthropic's AI assistant.
+
+## Feedback
+
+Found a bug or have an idea? [Open an issue](https://github.com/antariuk/quire/issues/new/choose). For bugs, say which browser and system you use and whether you work in the downloaded file or the online version. Please don't paste private writing into issues.
+
+## License
+
+[MIT](LICENSE). The example story's text is in the public domain.
