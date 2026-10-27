@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1 (2026-10-26)
+
+- **Encryption:** optional password protection for backups and for the saved file, with AES-256-GCM and a key derived by PBKDF2-SHA-256 (600,000 rounds), all done by the browser. Encrypted files open behind a lock screen.
+- **Password meter:** rates a new password as you type, estimates how long guessing it would take, and warns about common passwords, years and names from your own story.
+- **Scene viewpoints:** with two or more viewpoint characters, a label at the start of a chapter and at each scene break says whose scene it is. The chapter shows how its words divide between them, and Stats uses the same split.
+- **Status colours** (Options → Display): chapters coloured by status, with a strip of the whole manuscript, each block as wide as its chapter.
+- **Tag suggestions:** the tag box suggests existing tags and entries as you type; picked entries become linked chips, listed under "Tagged in" on the entry.
+- **Search in Help:** a search field at the top of Help shows only the passages that match, marks the words, and steps through them with Enter or the arrow buttons.
+- **Fixes from stress testing:** text typed in the last instant before closing or reloading the page is no longer lost; damaged or hostile backups can't break the page; files that only pretend to be images are refused; very long words no longer push exported web pages and the Tags page sideways; story arc menus fit 320-pixel phones; a save error on one entry is no longer hidden when another saves fine.
+
 ## 1.0 (2026-10-24)
 
 First public release.

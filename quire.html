@@ -217,6 +217,28 @@ select{padding-right:6px}
 #sq,#lpq{width:100%;padding:7px 10px 7px 34px}
 .lp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:10px}
 .lp-list .item{border:1px solid var(--rule);background:var(--field);padding:11px 13px;gap:4px;min-width:0}
+[data-st="idea"]{--stc:color-mix(in oklab, var(--ink-2) 32%, var(--sheet))}
+[data-st="outlined"]{--stc:color-mix(in oklab, var(--ink-2) 72%, var(--sheet))}
+[data-st="drafting"]{--stc:color-mix(in oklab, var(--warn) 52%, var(--sheet))}
+[data-st="firstdraft"]{--stc:var(--warn)}
+[data-st="revising"]{--stc:var(--hi)}
+[data-st="done"]{--stc:var(--ok)}
+[data-st="none"]{--stc:transparent}
+.item[data-st]{box-shadow:inset 4px 0 0 var(--stc);padding-left:14px}
+.item[data-st][aria-current="true"]{box-shadow:inset 4px 0 0 var(--stc),inset 0 0 0 1px var(--rule)}
+.lp-list .item[data-st]{padding-left:17px}
+.st-wrap{display:flex;flex-direction:column;gap:6px;margin:2px 0 6px}
+.st-strip{display:flex;gap:2px;height:14px;min-width:0;overflow:hidden}
+.st-strip.many{gap:1px}
+@media (pointer:coarse){.st-strip{height:22px}}
+.st-blk{flex:1 1 0;min-width:1px;padding:0;border:0;border-radius:3px;background:var(--stc);box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--ink) 10%, transparent);cursor:pointer}
+.st-blk[data-st="none"]{background:none;box-shadow:inset 0 0 0 1px var(--field-line)}
+.st-blk:hover,.st-blk:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.st-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--ink-2)}
+.st-legend span{display:inline-flex;align-items:center;gap:6px}
+.st-legend i{width:10px;height:10px;border-radius:2px;background:var(--stc)}
+.st-legend i[data-st="none"]{box-shadow:inset 0 0 0 1px var(--field-line)}
+.index .st-wrap{padding:0 4px 6px}
 .lp-list .item:hover{border-color:var(--field-line);background:var(--sheet)}
 .item-x{font-size:13px;line-height:1.45;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
 .lp-group{grid-column:1/-1;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-top:8px}
@@ -276,6 +298,16 @@ select{padding-right:6px}
 .tagbox:focus-within{border-color:var(--pencil)}
 .tagbox .tag{background:var(--sheet)}
 .tagbox .tag.rel{background:transparent}
+#tagfield{position:relative}
+.ref-tag{background:var(--sheet);box-shadow:inset 0 0 0 1px var(--field-line)}
+.ref-tag .chip-kind{margin-right:6px}
+.tag-sug{position:absolute;left:0;right:0;top:100%;z-index:30;margin:4px 0 0;padding:4px;list-style:none;max-height:min(300px, 50vh);overflow-y:auto;background:var(--sheet);border:1px solid var(--field-line);border-radius:8px;box-shadow:0 8px 22px rgba(0,0,0,.14);font-size:13.5px}
+.ts-h{padding:6px 8px 2px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.ts-opt{display:flex;align-items:baseline;gap:8px;padding:7px 9px;border-radius:5px;cursor:pointer}
+.ts-opt:hover,.ts-opt[aria-selected="true"]{background:var(--wash)}
+.ts-opt[aria-selected="true"]{box-shadow:inset 3px 0 0 var(--pencil)}
+.ts-t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto}
+.ts-n{font-size:11px;color:var(--ink-2)}
 .tag-input{border:0!important;padding:3px 4px!important;flex:1 1 140px;min-width:0;background:transparent!important}
 .tag-input:focus{outline:none}
 .tag{display:inline-flex;align-items:center;border-radius:4px;background:var(--wash);font-size:12.5px;width:max-content;max-width:100%}
@@ -305,7 +337,7 @@ button.chip:hover{border-color:var(--pencil)}
 :root[data-chiphi] .chip.ref .chip-t{color:inherit}
 :root[data-chiphi] .chip.ref .chip-x{background:color-mix(in oklab, var(--hi) 16%, var(--sheet));color:var(--hi)}
 :root[data-chiphi] .chip.ref .chip-x:hover{background:var(--hi);color:var(--sheet)}
-.chips select, .field .chips select{font-size:12.5px;padding:4px 8px;width:auto;min-width:11rem;max-width:100%}
+.chips select, .field .chips select{font-size:12.5px;padding:4px 8px;width:auto;min-width:min(11rem,100%);max-width:100%}
 
 /* relationships */
 .rels{display:flex;flex-direction:column;gap:8px}
@@ -802,6 +834,21 @@ mark.ptag:hover,mark.ptag.on{background:color-mix(in oklab, var(--hi) 15%, trans
 .nojs{max-width:40rem;margin:48px auto;padding:16px 20px;border:1px solid var(--pencil);border-left-width:4px;border-radius:8px;background:var(--sheet);font-size:15px;line-height:1.55}
 .nojs b{color:var(--pencil)}
 mark.ptag.hl{background:color-mix(in oklab, var(--hi) 15%, transparent)}
+.rte-body.sv-on{padding-top:46px}
+.sv-layer{position:absolute;left:0;top:0;width:0;height:0;z-index:3}
+.sv-pill{position:absolute;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px 0 7px;border:1px solid var(--hi-line);border-radius:999px;background:var(--hi-wash);color:var(--hi);font:500 12px/1 var(--f-ui);white-space:nowrap;cursor:pointer;width:max-content}
+.sv-pill.inh{background:var(--sheet);border-style:dashed;color:var(--ink-2)}
+.sv-pill:hover,.sv-pill:focus-visible{border-color:var(--hi);color:var(--hi)}
+.sv-pill svg{flex:none}
+.sv-n{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.sv-c{font-size:9px;opacity:.8}
+.sv-pop{z-index:12;min-width:12rem;max-height:min(320px, 60vh);overflow-y:auto}
+.sv-ph{margin:4px 8px 2px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.sv-mi{display:block;width:100%;text-align:left;border:0;background:none;padding:7px 10px;border-radius:5px;font-size:13px;cursor:pointer;color:var(--ink)}
+.sv-mi:hover,.sv-mi:focus-visible{background:var(--wash)}
+.sv-mi[aria-pressed="true"]{color:var(--hi);font-weight:600}
+.sv-split{margin:6px 0 0;font-size:13px;color:var(--hi);font-weight:500}
+.sv-how{font-size:12px!important}
 .pt-gutter{position:absolute;left:0;top:0;width:0;height:0;z-index:2}
 :root:not([data-ptag="bar"]) .pt-gutter{display:none}
 .pt-bar{position:absolute;width:13px;margin-left:-5px;cursor:pointer}
@@ -855,7 +902,8 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
   .sheet{border:0!important;box-shadow:none!important;max-width:none!important;padding:0!important;background:#fff!important}
   .rte,.field input,.field textarea,.field select{border:0!important;background:none!important}
   mark.cmt,mark.ptag{background:none;border:0}
-  .pt-gutter{display:none!important}
+  .pt-gutter,.sv-layer{display:none!important}
+  .rte-body.sv-on{padding-top:0}
   .print-main{display:block!important;font-family:var(--f-display);font-size:12pt;line-height:1.7}
   .print-main p{margin:0 0 .8em}
   :root[data-indent] .print-main p{margin:0;text-indent:1.5em}
@@ -867,13 +915,13 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
 .tag-detail{border:1px solid var(--rule);border-radius:8px;padding:12px 14px;margin-top:12px;display:flex;flex-direction:column;gap:10px}
 .tag-detail-h{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap}
 .tag-detail-h .btn{margin-left:auto}
-.tag-big{font-family:var(--f-display);font-size:20px;font-weight:600}
+.tag-big{font-family:var(--f-display);font-size:20px;font-weight:600;overflow-wrap:anywhere;min-width:0}
 .tag-big::before{content:"#";color:var(--ink-2);font-weight:400;margin-right:1px}
 .tag-big.rel{color:var(--pencil)}
 .tag-rename{display:flex;flex-direction:column;gap:5px;border-top:1px solid var(--rule);padding-top:10px}
 .tag-rename-row{display:flex;gap:8px;max-width:28rem}
 .tag-rename-row input{flex:1;min-width:0}
-.tag-chip{border:1px solid var(--rule);background:var(--sheet);border-radius:4px;padding:2px 8px;font-size:12.5px;cursor:pointer}
+.tag-chip{border:1px solid var(--rule);background:var(--sheet);border-radius:4px;padding:2px 8px;font-size:12.5px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;text-align:left}
 .tag-chip:hover{border-color:var(--pencil);color:var(--pencil)}
 .tag-chip.rel{color:var(--pencil);border-color:color-mix(in oklab, var(--pencil) 45%, transparent)}
 .fr-form{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;align-items:end}
@@ -927,7 +975,23 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
 .dlg-b{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:6px}
 .help-wrap{position:fixed;inset:0;z-index:60;background:color-mix(in oklab, var(--ink) 38%, transparent);display:grid;place-items:center;padding:max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px))}
 .help{position:relative;width:min(760px, 100%);max-height:100%;overflow-y:auto;background:var(--sheet);color:var(--ink);border:1px solid var(--rule);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.28);outline:none}
-.help-top{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--sheet);border-bottom:1px solid var(--rule)}
+.help-top{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;padding:14px 20px 12px;background:var(--sheet);border-bottom:1px solid var(--rule)}
+.help-search{flex:1 0 100%;order:3;display:flex;align-items:center;gap:6px 12px;min-width:0;flex-wrap:wrap}
+.hs-field{position:relative;display:flex;flex:1 1 14rem;min-width:0}
+.hs-field svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:none;stroke:var(--ink-2);stroke-width:1.6;stroke-linecap:round;pointer-events:none}
+.help .hs-field input[type=search]{width:100%;min-width:0;height:var(--h-l);padding:0 36px 0 32px;font-size:14px}
+.hs-nav{display:inline-flex;gap:4px}
+.hs-nav[hidden]{display:none}
+.hs-nav .btn{min-width:34px;justify-content:center}
+.hs-field input::-webkit-search-cancel-button{display:none}
+.help-q-x{position:absolute;right:2px;top:50%;transform:translateY(-50%);height:32px;width:32px;border:0;background:none;color:var(--ink-2);font-size:19px;line-height:1;cursor:pointer;border-radius:6px}
+.help-q-x:hover{color:var(--ink)}
+.help-hits{font-size:12.5px;color:var(--ink-2);min-width:0}
+.help-hits:empty{display:none}
+.help.hs-on .hs-off{display:none!important}
+mark.hs{background:var(--hi-wash);color:inherit;border-radius:2px;box-shadow:0 0 0 1px var(--hi-line)}
+mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
+@media (max-width:520px){.help-top{padding:12px 14px 10px}.help-top h2{font-size:21px}.help.hs-on .help-top .mono{display:none}.hs-field{flex-basis:100%}.help-hits{flex:1 1 auto}}
 .help-top h2{margin:0;font-family:var(--f-display);font-style:italic;font-weight:500;font-size:24px}
 .help-top .mono{font-size:11.5px;color:var(--ink-2)}
 .help-top .btn{margin-left:auto}
@@ -936,7 +1000,7 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
 .help-nav a:hover{color:var(--pencil);border-color:var(--pencil);background:var(--pencil-wash)}
 .help-foot{display:flex;justify-content:center;padding:12px 20px 16px;border-top:1px solid var(--rule)}
 .help-body{padding:4px 20px 24px;font-size:14px;line-height:1.6}
-.help-body h3{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:19px;margin:22px 0 6px;scroll-margin-top:70px}
+.help-body h3{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:19px;margin:22px 0 6px;scroll-margin-top:var(--hh, 70px)}
 .help-body p{margin:0 0 10px}
 .help-body ul{margin:0 0 10px;padding-left:20px}
 .help-body li{margin:0 0 4px}
@@ -1015,6 +1079,28 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
   .app[data-nav="tabs"] .ttab-search{display:none}
   .sprint-pop{position:fixed;left:16px;right:16px;top:auto;width:auto;max-width:420px;margin-inline:auto}
 }
+/* passwords and the lock screen */
+.pw-form{display:flex;flex-direction:column;gap:10px;min-width:0}
+.pw-form input[type=password],.pw-form input[type=text],.lock-box input[type=password],.lock-box input[type=text]{font-family:var(--f-ui);letter-spacing:.02em}
+.pw-meter{display:flex;flex-direction:column;gap:5px;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.pw-bars{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.pw-bars i{height:5px;border-radius:3px;background:var(--rule)}
+.pw-meter[data-l="0"] .pw-bars i.on{background:var(--pencil)}
+.pw-meter[data-l="1"] .pw-bars i.on{background:var(--warn)}
+.pw-meter[data-l="2"] .pw-bars i.on{background:color-mix(in oklab, var(--warn) 50%, var(--ok))}
+.pw-meter[data-l="3"] .pw-bars i.on,.pw-meter[data-l="4"] .pw-bars i.on{background:var(--ok)}
+.pw-meter b{color:var(--ink)}
+.pw-err{margin:0;font-size:13px;color:var(--pencil);font-weight:600;line-height:1.45}
+.pw-warn{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink-2);padding:8px 10px;border-radius:6px;background:var(--wash)}
+.lock{position:fixed;inset:0;z-index:200;display:grid;place-items:center;overflow:auto;padding:24px 16px;background:var(--desk)}
+.lock[hidden]{display:none}
+.lock-box{width:min(380px,100%);display:flex;flex-direction:column;gap:12px;padding:28px 24px;border:1px solid var(--rule);border-radius:12px;background:var(--sheet);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.lock-box .mark-icon{width:44px;height:44px}
+.lock-h{margin:0;font:600 20px/1.3 var(--f-ui);color:var(--ink)}
+.lock-p,.lock-note{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.lock-note{font-size:12px}
+.lock-box .btn{height:var(--h-l);justify-content:center}
+@media (max-width:420px){.lock-box{padding:22px 16px}}
 /* drag to reorder, beats on the curve, dialogs with fields */
 .reo-row{position:relative;display:flex;align-items:stretch;gap:2px;min-width:0}
 .reo-row > .item{flex:1 1 auto;min-width:0}
@@ -1089,7 +1175,7 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
   .help-top{flex-wrap:wrap;row-gap:2px}
   .help-top h2{flex:1 1 auto;white-space:nowrap}
   .help-top .mono{order:3;flex-basis:100%}
-  .help-body h3{scroll-margin-top:92px}
+  .help-body h3{scroll-margin-top:var(--hh, 92px)}
   .app.focus-x .text-tools{flex:1 1 auto;flex-wrap:nowrap;min-width:0}
   .nav-row{display:flex;flex:1 1 100%;order:5;gap:8px;min-width:0}
   .nav-row .ch-nav{flex:none;flex-wrap:nowrap}
@@ -1156,9 +1242,13 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
         <hr class="menu-sep">
         <p class="menu-h">Backup</p>
         <div class="menu-fmt" role="group" aria-label="Back up as a .json file"><span>Back up</span><button data-menu="backup-story" data-needs-story title="Back up this story (.json)" aria-label="Back up this story (.json)">This story</button><button data-menu="backup" title="Back up all stories (.json)" aria-label="Back up all stories (.json)">All stories</button></div>
+        <label class="menu-check"><input type="checkbox" id="encBackupItem" data-toggle="encbackup"><span>Encrypt backups <span class="muted">Each backup asks for a password and can’t be read without it.</span></span></label>
         <button data-menu="restore">Restore from a backup…</button>
         <button data-menu="offline" id="offlineItem">Download as an offline file (.html)</button>
         <hr class="menu-sep file-only">
+        <label class="menu-check file-only"><input type="checkbox" id="encFileItem" data-toggle="encfile"><span>Encrypt this file <span class="muted">Save file locks the notebook inside the HTML file with a password. Opening the file asks for it.</span></span></label>
+        <button class="file-only" data-menu="enc-pw" id="encPwItem" hidden>Change the file’s password…</button>
+        <hr class="menu-sep menu-sep-soft file-only">
         <label class="menu-check file-only"><input type="checkbox" id="remindItem" data-toggle="remind"><span>Remind me to save the file <span class="muted">When work has gone unsaved for longer than this:</span></span></label>
         <div class="menu-row stack file-only"><div class="rm-len"><div class="seg-toggle" role="group" aria-label="Remind after this many minutes of unsaved work"><button data-set="rm" data-v="5">5 min</button><button data-set="rm" data-v="10">10 min</button><button data-set="rm" data-v="30">30 min</button></div><input type="number" id="rmCustom" min="1" max="480" step="1" inputmode="numeric" placeholder="Other" aria-label="Custom reminder time in minutes" title="Any number of minutes from 1 to 480"></div></div>
         <hr class="menu-sep">
@@ -1170,6 +1260,7 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
         <label class="menu-check"><input type="checkbox" id="tsSprintItem" data-toggle="tssprint"><span>Sprint above the text <span class="muted">Shows a running sprint above the text you’re writing. In focus mode, also a button to start one.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="tsWordsItem" data-toggle="tswords"><span>Word count above the text <span class="muted">Counts as you type, in focus mode too.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="progBarItem" data-toggle="progbar"><span>Progress bar under the text <span class="muted">During a sprint, or when a chapter has a word target, a slim bar stays at the bottom of the screen.</span></span></label>
+        <label class="menu-check"><input type="checkbox" id="stColorsItem" data-toggle="stcolors"><span>Colour chapters by status <span class="muted">Chapter lists show each chapter’s status as a colour, with a strip of the whole manuscript on top.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="chipHiItem" data-toggle="chiphi"><span>Highlight characters and places <span class="muted">Bold, coloured name chips on chapters and story arcs, easier to spot.</span></span></label>
         <hr class="menu-sep menu-sep-soft">
         <div class="menu-row stack theme-row"><span>Theme</span><div class="seg-toggle" role="group" aria-label="Cool themes"><button data-set="theme" data-v="light">Light</button><button data-set="theme" data-v="twilight">Twilight</button><button data-set="theme" data-v="dark">Dark</button></div><div class="seg-toggle" role="group" aria-label="Warm themes, easier on the eyes"><button data-set="theme" data-v="sepia">Sepia</button><button data-set="theme" data-v="lamplight">Lamplight</button><button data-set="theme" data-v="ember">Ember</button></div></div>
@@ -1223,6 +1314,7 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
 <input type="file" id="importFile" accept=".json,application/json" hidden>
 <input type="file" id="imageFile" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
 <input type="file" id="portraitFile" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
+<div class="lock" id="lock" hidden></div>
 <div class="help-wrap dlg-wrap" id="dlgWrap" hidden><div class="dlg" id="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlgTitle" tabindex="-1"></div></div>
 <div class="help-wrap" id="helpWrap" hidden><div class="help" id="help" role="dialog" aria-modal="true" aria-labelledby="helpTitle" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -1233,8 +1325,8 @@ mark.cmt:hover,mark.cmt.on{background:color-mix(in oklab, var(--warn) 42%, trans
 (function(){
 'use strict';
 const PRISTINE = document.documentElement.outerHTML;
-let EMBED = null;
-try { const t = document.getElementById('sb-data'); const j = t && t.textContent.trim() ? JSON.parse(t.textContent) : null; if (j && Array.isArray(j.entries)) EMBED = j; } catch {}
+let EMBED = null, ENC_EMBED = null;
+try { const t = document.getElementById('sb-data'); const j = t && t.textContent.trim() ? JSON.parse(t.textContent) : null; if (j && j.format === 'quire-encrypted') ENC_EMBED = j; else if (j && Array.isArray(j.entries)) EMBED = j; } catch {}
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1434,11 +1526,11 @@ const app = $('#app'), desk = $('#desk');
 const RM_PRESETS = ['5', '10', '30'];
 function remindOK(v){ const n = Math.round(+v); return v !== '' && v != null && Number.isFinite(n) && n >= 1 && n <= 480; }
 function loadPrefs(){ try { return JSON.parse(localStorage.getItem('storybible.ui') || '{}') || {}; } catch { return {}; } }
-function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
+function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
 { const pr = loadPrefs(); S.tagView = pr.tv === 'list' ? 'list' : 'cloud'; S.tagSort = pr.ts === 'az' ? 'az' : 'count'; S.wordAll = !!pr.wa; S.wordsOpen = !!pr.wo; S.chFold = !!pr.cf; S.hints = ['full','subtle','off'].includes(pr.hn) ? pr.hn : 'subtle'; S.chipHi = !!pr.hc; S.splitAsk = pr.sa !== false; S.smartQ = pr.sq !== false; S.qStyle = ['en','de','fr'].includes(pr.qs) ? pr.qs : 'en'; S.smartDash = pr.sd !== false; S.smartEll = pr.se !== false; S.remindOn = pr.ro !== false; S.remindMin = remindOK(pr.rm) ? String(Math.round(+pr.rm)) : '30'; S.sprintMin = +pr.sm >= 1 && +pr.sm <= 480 ? String(Math.round(+pr.sm)) : '30'; S.sprintSound = pr.ss !== false; S.sprintGoal = +pr.sg > 0 ? +pr.sg : '';
   S.theme = ['light','twilight','dark','sepia','lamplight','ember'].includes(pr.th) ? pr.th : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); S.size = ['s','l'].includes(pr.sz) ? pr.sz : 'm';
   S.pw = ['narrow','medium','wide','full'].includes(pr.pw) ? pr.pw : 'medium'; S.tw = ['narrow','medium','wide','full'].includes(pr.tw) ? pr.tw : 'medium'; S.focus = !!pr.fo;
-  S.histPause = ['off','30','60','120','300','600'].includes(pr.hp) ? pr.hp : '120'; S.histThin = !!pr.ht; S.histFile = pr.hf !== false; S.webFonts = pr.wf === true; S.focusX = !!pr.fx; S.typewriter = !!pr.ty; S.rdLevel = ['off', 'hem', 'full'].includes(pr.rl) ? pr.rl : pr.rb === false ? 'off' : 'full'; S.rdBtn = S.rdLevel !== 'off'; S.statsLevel = ['basic', 'standard', 'deep'].includes(pr.sl) ? pr.sl : 'standard'; S.tsSprint = pr.tsp !== false; S.tsWords = pr.tsw === true; S.rdOn = !!pr.rd; S.indent = pr.ind === true; S.ao3 = pr.ao3 === true; S.ptagStyle = ['bar', 'line', 'off'].includes(pr.ptst) ? pr.ptst : pr.pts === false ? 'off' : 'bar'; S.progBar = pr.pb === true; S.rdOff = S.rdOff || new Set(); S.rdOff.clear(); for (const c of Array.isArray(pr.rx) ? pr.rx : ['echo', 'dlg']) if (typeof c === 'string') S.rdOff.add(c); S.nav = pr.nv === 'sidebar' ? 'sidebar' : 'tabs'; }
+  S.histPause = ['off','30','60','120','300','600'].includes(pr.hp) ? pr.hp : '120'; S.histThin = !!pr.ht; S.histFile = pr.hf !== false; S.webFonts = pr.wf === true; S.focusX = !!pr.fx; S.typewriter = !!pr.ty; S.rdLevel = ['off', 'hem', 'full'].includes(pr.rl) ? pr.rl : pr.rb === false ? 'off' : 'full'; S.rdBtn = S.rdLevel !== 'off'; S.statsLevel = ['basic', 'standard', 'deep'].includes(pr.sl) ? pr.sl : 'standard'; S.tsSprint = pr.tsp !== false; S.tsWords = pr.tsw === true; S.rdOn = !!pr.rd; S.indent = pr.ind === true; S.ao3 = pr.ao3 === true; S.ptagStyle = ['bar', 'line', 'off'].includes(pr.ptst) ? pr.ptst : pr.pts === false ? 'off' : 'bar'; S.progBar = pr.pb === true; S.stColors = pr.stc === true; S.encBackups = pr.eb === true; S.rdOff = S.rdOff || new Set(); S.rdOff.clear(); for (const c of Array.isArray(pr.rx) ? pr.rx : ['echo', 'dlg']) if (typeof c === 'string') S.rdOff.add(c); S.nav = pr.nv === 'sidebar' ? 'sidebar' : 'tabs'; }
 const root = document.documentElement;
 function applyDisplay(){
   const want = S.theme;
@@ -1465,6 +1557,8 @@ function applyDisplay(){
   { const r = $('#remindItem'); if (r) r.checked = !!S.remindOn; }
   { const ai = $('#ao3Item'); if (ai) ai.checked = !!S.ao3; }
   { const pb = $('#progBarItem'); if (pb) pb.checked = !!S.progBar; }
+  { const sc = $('#stColorsItem'); if (sc) sc.checked = !!S.stColors; }
+  encSync();
   S.ptagShow = S.ptagStyle !== 'off'; root.toggleAttribute('data-ptag-off', !S.ptagShow); if (root.dataset.ptag !== S.ptagStyle) { root.dataset.ptag = S.ptagStyle; if (typeof ptagBarsAll === 'function') ptagBarsAll(); }
   root.toggleAttribute('data-indent', !!S.indent); { const ii = $('#indentItem'); if (ii) ii.checked = !!S.indent; $$('.rte-b[data-cmd="indent"]').forEach(x => x.setAttribute('aria-pressed', !!S.indent)); }
   { const rc = $('#rmCustom'); if (rc && document.activeElement !== rc) rc.value = RM_PRESETS.includes(S.remindMin) ? '' : S.remindMin; }
@@ -1489,7 +1583,23 @@ function migratePsych(e){
   if ('line' in e) { e.values = join(e.values, e.line); delete e.line; }
   if ('framework' in e) { const f = typeof e.framework === 'string' ? e.framework.trim() : ''; if (f) e.body = `<p><b>Personality framework:</b> ${esc(f)}</p>` + (e.body || ''); delete e.framework; }
 }
+/* Entries from files, backups and storage may be damaged or hostile: give every known field the type the program expects */
+function normEntry(e){
+  const str = v => typeof v === 'string' ? v : typeof v === 'number' && Number.isFinite(v) ? String(v) : '';
+  if ('title' in e && typeof e.title !== 'string') e.title = str(e.title);
+  for (const k of RICH[e.kind] || []) if (k in e && typeof e[k] !== 'string') e[k] = '';
+  if ('tags' in e && !(Array.isArray(e.tags) && e.tags.every(x => typeof x === 'string'))) e.tags = (Array.isArray(e.tags) ? e.tags : typeof e.tags === 'string' ? e.tags.split(',') : []).filter(x => typeof x === 'string').map(normTag).filter(Boolean);
+  for (const k of ['povs', 'chars', 'places', 'tagRefs', 'arcPatterns']) if (k in e) e[k] = Array.isArray(e[k]) ? e[k].filter(x => typeof x === 'string') : [];
+  const isObj = x => x && typeof x === 'object' && !Array.isArray(x);
+  if ('beats' in e) e.beats = Array.isArray(e.beats) ? e.beats.filter(e.kind === 'chapter' ? x => typeof x === 'string' : isObj) : [];
+  if ('rels' in e) e.rels = Array.isArray(e.rels) ? e.rels.filter(isObj) : [];
+  for (const f of F[e.kind] ? flatFields(F[e.kind]) : []) if (f.k in e && ['line', 'text', 'select', 'charselect'].includes(f.type) && typeof e[f.k] !== 'string') e[f.k] = str(e[f.k]);
+  for (const k of ['project', 'povStart', 'portrait', 'status', 'unit']) if (k in e && typeof e[k] !== 'string') delete e[k];
+  if ('order' in e && !Number.isFinite(+e.order)) delete e.order;
+  for (const k of ['created', 'updated']) if (k in e && !Number.isFinite(+e[k])) e[k] = 0;
+}
 function migrate(e){
+  normEntry(e);
   if (e.kind === 'chapter' && !Array.isArray(e.povs)) { e.povs = e.pov ? [e.pov] : []; delete e.pov; }
   if (e.kind === 'character') migratePsych(e);
   if (e.kind === 'chapter') migrateDrafts(e);
@@ -1646,8 +1756,9 @@ function flush(id){
       } else if (!e) await attempt(() => S.col.doc(id).delete());
       else { const b = body(e); await attempt(() => S.col.doc(id).set(b)); }
       if ((S.ver[id] || 0) === ver) S.dirty.delete(id);
-      S.err = '';
-    } catch (err) { S.err = errText(err); }
+      /* one entry saving fine mustn't hide another that failed */
+      const errs = S.errIds || (S.errIds = new Map()); errs.delete(id); S.err = errs.size ? errs.values().next().value : '';
+    } catch (err) { (S.errIds || (S.errIds = new Map())).set(id, errText(err)); S.err = errText(err); }
     finally { S.inflight--; status(); }
   });
 }
@@ -1743,7 +1854,8 @@ async function buildOfflineHTML(){
   let data = doc.getElementById('sb-data');
   if (!data) { data = doc.createElement('script'); data.type = 'application/json'; data.id = 'sb-data'; doc.body.insertBefore(data, doc.getElementById('sb-app')); }
   const history = S.histFile ? (await histAllRecords()).filter(histRecLive) : [];
-  data.textContent = JSON.stringify({format:'story-bible', version:2, saved:Date.now(), entries, history}).replace(/</g, '\\u003c');
+  const json = JSON.stringify({format:'story-bible', version:2, saved:Date.now(), entries, history});
+  data.textContent = (S.fileCrypt && S.mode === 'file' ? JSON.stringify(await qeSeal(json, S.fileCrypt, 'notebook')) : json).replace(/</g, '\\u003c');
   return '<!doctype html>\n' + doc.documentElement.outerHTML;
 }
 function anchorDownload(filename, data){
@@ -1754,6 +1866,7 @@ function anchorDownload(filename, data){
 }
 const fileName = () => { try { return decodeURIComponent(location.pathname.split('/').pop()) || 'quire.html'; } catch { return 'quire.html'; } };
 async function saveFile(){
+  if (!S.loaded) return;
   const html = await buildOfflineHTML();
   if (window.showSaveFilePicker) {
     try {
@@ -1948,7 +2061,7 @@ function clean(src, dst){
       if (el) { el.setAttribute('alt', (n.getAttribute('alt') || '').slice(0, 300)); const tg = imgTagList(n.getAttribute('data-tags')); if (tg.length) el.setAttribute('data-tags', tg.join(', ')); const sh = n.getAttribute('data-shape'); if (SHAPES[sh]) el.setAttribute('data-shape', sh); dst.appendChild(el); }
       continue;
     }
-    if (tag === 'HR') { const hr = document.createElement('hr'); if (n.classList.contains('line')) hr.className = 'line'; dst.appendChild(hr); continue; }
+    if (tag === 'HR') { const hr = document.createElement('hr'); if (n.classList.contains('line')) hr.className = 'line'; const pv = n.getAttribute('data-pov') || ''; if (/^[A-Za-z0-9-]{6,64}$/.test(pv)) hr.setAttribute('data-pov', pv); dst.appendChild(hr); continue; }
     if (tag === 'BR') { dst.appendChild(document.createElement('br')); continue; }
     if (tag === 'MARK' && n.getAttribute('data-pid')) { const pid = n.getAttribute('data-pid'), tg = imgTagList(n.getAttribute('data-t')); if (!/^[a-z0-9]{4,16}$/i.test(pid) || !tg.length) { clean(n, dst); continue; } const el = document.createElement('mark'); el.className = 'ptag'; el.setAttribute('data-pid', pid); el.setAttribute('data-t', tg.join(', ')); clean(n, el); if (el.childNodes.length) dst.appendChild(el); continue; }
     if (tag === 'MARK') { const c = (n.getAttribute('data-c') || '').slice(0, 4000).trim(); if (!c) { clean(n, dst); continue; } const el = document.createElement('mark'); el.className = 'cmt'; el.setAttribute('data-c', c); clean(n, el); if (el.childNodes.length) dst.appendChild(el); continue; }
@@ -2025,9 +2138,20 @@ function excerpt(e){
   const t = (e.synopsis || e.summary || e.logline || e.look || e.want || '').trim() || htmlText(e.body || '').replace(/\s+/g, ' ').trim();
   return t.length > 160 ? t.slice(0, 157).replace(/\s+\S*$/, '') + '…' : t;
 }
+/* Status colours: a ramp from grey ideas to green finished chapters, built from each theme's own colours */
+const ST_KEY = {'Idea':'idea', 'Outlined':'outlined', 'Drafting':'drafting', 'First draft':'firstdraft', 'Revising':'revising', 'Done':'done'};
+const stAttr = e => e.kind === 'chapter' && S.stColors ? ` data-st="${ST_KEY[e.status] || 'none'}"` : '';
+function statusStripHTML(){
+  if (!S.stColors) return '';
+  const chs = manuscript(); if (!chs.length) return '';
+  const labels = chapterLabels(), ws = chs.map(bodyWords), total = ws.reduce((a, b) => a + b, 0), min = Math.max(1, total / chs.length / 5);
+  const counts = STATUSES.map(st => [st, chs.filter(c => c.status === st).length]).filter(x => x[1]), unset = chs.filter(c => !ST_KEY[c.status]).length;
+  return `<div class="st-wrap"><div class="st-strip${chs.length > 40 ? ' many' : ''}" role="group" aria-label="Chapters by status, sized by word count">${chs.map((c, i) => `<button class="st-blk" data-st="${ST_KEY[c.status] || 'none'}" style="flex-grow:${Math.max(ws[i], min).toFixed(0)}" data-act="open" data-open="${esc(c.id)}" title="${esc(`${labels.get(c.id) || 'Chapter'}: ${titleOf(c)} · ${c.status || 'No status'} · ${words(ws[i])}`)}" aria-label="${esc(`${labels.get(c.id) || 'Chapter'}: ${titleOf(c)}, ${c.status || 'no status'}, ${words(ws[i])}`)}"></button>`).join('')}</div>
+    <div class="st-legend">${counts.map(([st, n]) => `<span><i data-st="${ST_KEY[st]}"></i>${esc(st)} <b class="mono">${n}</b></span>`).join('')}${unset ? `<span><i data-st="none"></i>No status <b class="mono">${unset}</b></span>` : ''}</div></div>`;
+}
 function cardHTML(e, labels){
   const x = excerpt(e);
-  return `<button class="item" data-act="open" data-open="${esc(e.id)}"><span class="item-t">${esc(titleOf(e))}</span><span class="item-m">${esc(itemMeta(e, labels))}</span>${x ? `<span class="item-x">${esc(x)}</span>` : ''}</button>`;
+  return `<button class="item" data-act="open" data-open="${esc(e.id)}"${stAttr(e)}><span class="item-t">${esc(titleOf(e))}</span><span class="item-m">${esc(itemMeta(e, labels))}</span>${x ? `<span class="item-x">${esc(x)}</span>` : ''}</button>`;
 }
 function lpItemsHTML(){
   const k = S.kind, items = list(k), q = (S.lpq || '').trim(), labels = chapterLabels();
@@ -2038,12 +2162,13 @@ function lpItemsHTML(){
   const reo = !q && canReorder(k) && items.length > 1;
   return shown.map(e => reo ? reoWrap(e, cardHTML(e, labels)) : cardHTML(e, labels)).join('');
 }
-function lpRefresh(){ const b = $('#lp-list'); if (b) b.innerHTML = lpItemsHTML(); const c = $('#lp-count'); if (c) c.textContent = plural(list(S.kind).length, KINDS[S.kind].one); }
+function lpRefresh(){ const b = $('#lp-list'); if (b) b.innerHTML = lpItemsHTML(); { const st = $('#stStrip'); if (st) st.innerHTML = statusStripHTML(); } const c = $('#lp-count'); if (c) c.textContent = plural(list(S.kind).length, KINDS[S.kind].one); }
 function listPageHTML(p){
   const k = KINDS[S.kind];
   return `<article class="sheet" data-panel="list"><h2 class="vh">${esc(KINDS[S.kind] ? KINDS[S.kind].plural : 'List')}</h2>
     <div class="sheet-top"><span class="eyebrow">${esc(k.plural)}</span>${sortSwitch(S.kind)}<span class="wc mono" id="lp-count">${plural(list(S.kind).length, k.one)}</span></div>
     <div class="lp-tools"><span class="search-box"><svg class="search-ico" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.6" cy="8.6" r="5.6"/><path d="M12.8 12.8l4.4 4.4"/></svg><input type="search" id="lpq" data-lp value="${esc(S.lpq || '')}" placeholder="Filter ${esc(k.plural.toLowerCase())}" aria-label="Filter ${esc(k.plural.toLowerCase())}" autocomplete="off"></span><button class="btn primary new-btn" data-act="new"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>New ${esc(k.one)}</button></div>
+    ${S.kind === 'chapter' ? `<div id="stStrip">${statusStripHTML()}</div>` : ''}
     <div class="lp-list" id="lp-list">${lpItemsHTML()}</div>
     <footer class="sheet-foot entry-foot">${footRow('', '')}</footer>
   </article>`;
@@ -2097,7 +2222,7 @@ function itemMeta(e, labels){
   return `${m} · ${words(wordCount(e))}`;
 }
 function itemHTML(e, labels){
-  return `<button class="item" data-act="open" data-open="${esc(e.id)}" aria-current="${e.id === S.openId}"><span class="item-t">${esc(titleOf(e))}</span><span class="item-m">${esc(itemMeta(e, labels))}</span></button>`;
+  return `<button class="item" data-act="open" data-open="${esc(e.id)}" aria-current="${e.id === S.openId}"${stAttr(e)}><span class="item-t">${esc(titleOf(e))}</span><span class="item-m">${esc(itemMeta(e, labels))}</span></button>`;
 }
 function renderList(){
   const el = $('#list'), q = S.q.trim(), labels = chapterLabels();
@@ -2118,7 +2243,7 @@ function renderList(){
   const items = list(S.kind);
   const addHead = KINDS[S.kind] ? `<div class="list-head"><span>${plural(items.length, KINDS[S.kind].one)}</span><button class="btn primary new-btn" data-act="new"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>New ${esc(KINDS[S.kind].one)}</button></div>` : '';
   const reo = canReorder(S.kind) && items.length > 1, sw = sortSwitch(S.kind);
-  el.innerHTML = addHead + (sw ? `<div class="list-sort"><span>Order</span>${sw}</div>` : '') + (items.length ? items.map(e => reo ? reoWrap(e, itemHTML(e, labels)) : itemHTML(e, labels)).join('') : `<p class="list-empty">${esc(KINDS[S.kind].empty)}</p>`);
+  el.innerHTML = addHead + (S.kind === 'chapter' ? statusStripHTML() : '') + (sw ? `<div class="list-sort"><span>Order</span>${sw}</div>` : '') + (items.length ? items.map(e => reo ? reoWrap(e, itemHTML(e, labels)) : itemHTML(e, labels)).join('') : `<p class="list-empty">${esc(KINDS[S.kind].empty)}</p>`);
 }
 
 function renderDesk(){
@@ -2270,6 +2395,7 @@ function rerenderLook(e){
 async function setPortrait(e, f){
   const what = e.kind === 'place' ? 'image' : 'portrait';
   if (!f || !/^image\/(png|jpeg|gif|webp)$/.test(f.type)) { toast(`Use a PNG, JPEG, GIF or WebP image for the ${what}.`); return; }
+  if (!(await imgReadable(f))) { toast(`That file isn’t an image Quire can read. It may be damaged.`); return; }
   if (S.mode === 'db') {
     const assets = await getCap('assets');
     if (!assets) { toast('Images can only be added by the page’s owner or editors.'); return; }
@@ -2307,13 +2433,14 @@ function refsHTML(e, d){
     opts = (present.length ? `<optgroup label="In this chapter">${present.map(opt).join('')}</optgroup>` : '') + (others.length ? `<optgroup label="${present.length ? 'Everyone else' : 'Characters'}">${others.map(opt).join('')}</optgroup>` : '');
   }
   const sel = free.length ? `<select id="ref-${d.k}" data-refadd="${d.k}" aria-label="Add to ${esc(d.label)}"><option value="">+ add ${d.pov ? 'a viewpoint character' : esc(KINDS[d.of].one)}</option>${opts}</select>` : (pool.length ? '' : `<span class="hint">No ${esc(KINDS[d.of].plural.toLowerCase())} in this story yet.</span>`);
-  return `<span class="lab">${esc(d.label)}${d.pov && ids.length > 1 ? ` <span class="muted">· ${ids.length} viewpoints</span>` : ''}</span>${d.hint ? `<span class="hint">${esc(d.hint)}</span>` : ''}<div class="chips">${chips}${sel}</div>`;
+  return `<span class="lab">${esc(d.label)}${d.pov && ids.length > 1 ? ` <span class="muted">· ${ids.length} viewpoints</span>` : ''}</span>${d.hint ? `<span class="hint">${esc(d.hint)}</span>` : ''}<div class="chips">${chips}${sel}</div>${d.pov && povList(e).length > 1 ? `<p class="sv-split" id="svSplit">${esc(sceneSplitText(e))}</p><p class="hint sv-how">Set whose scene it is with the eye labels beside the text: one at the top, one on every scene break.</p>` : ''}`;
 }
 
 function tagsHTML(e){
   const tags = Array.isArray(e.tags) ? e.tags : [];
   const rel = tags.filter(isRelTag), free = tags.filter(t => !isRelTag(t));
-  return `<span class="lab">Tags</span><div class="tagbox">${[...rel, ...free].map(t => `<span class="tag${isRelTag(t) ? ' rel' : ''}"><button class="tag-t" data-act="tag-find" data-tag="${esc(t)}" title="Find everything tagged ${esc(t)}">${esc(t)}</button><button class="tag-x" data-act="tag-del" data-tag="${esc(t)}" aria-label="Remove tag ${esc(t)}">×</button></span>`).join('')}<input id="tag-input" class="tag-input" list="tagList" data-taginput placeholder="${tags.length ? 'Add another…' : 'Add tags, separated by commas'}" autocomplete="off" aria-label="Add a tag"></div>`;
+  const refs = tagRefsOf(e);
+  return `<span class="lab" id="tagLab">Tags</span><div class="tagbox">${refs.map(o => `<span class="tag ref-tag"><button class="tag-t" data-act="open" data-open="${esc(o.id)}" title="Open ${esc(titleOf(o))}"><span class="chip-kind">${esc(refLabel(o))}</span>${esc(titleOf(o))}</button><button class="tag-x" data-act="tagref-del" data-ref="${esc(o.id)}" aria-label="Remove link to ${esc(titleOf(o))}">×</button></span>`).join('')}${[...rel, ...free].map(t => `<span class="tag${isRelTag(t) ? ' rel' : ''}"><button class="tag-t" data-act="tag-find" data-tag="${esc(t)}" title="Find everything tagged ${esc(t)}">${esc(t)}</button><button class="tag-x" data-act="tag-del" data-tag="${esc(t)}" aria-label="Remove tag ${esc(t)}">×</button></span>`).join('')}<input id="tag-input" class="tag-input" data-taginput placeholder="${tags.length || refs.length ? 'Add another…' : 'Add tags, or link an entry'}" autocomplete="off" aria-label="Add a tag, or link an entry" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="tagSug"></div><ul class="tag-sug" id="tagSug" role="listbox" aria-labelledby="tagLab" hidden></ul>`;
 }
 
 function relsHTML(e){
@@ -2428,7 +2555,7 @@ function linksHTML(e){
     return `<button class="chip missing" data-act="create" data-title="${esc(n)}" title="Create a note with this title">+ ${esc(n)}</button>`;
   }).join('');
   const title = (e.title || '').trim().toLowerCase();
-  const back = [];
+  const back = [], tagged = [];
   for (const o of S.entries.values()) {
     if (o.id === e.id || o.project !== S.projectId || o.kind === 'project') continue;
     let hit = !!title && linksOut(o).some(n => n.toLowerCase() === title);
@@ -2440,11 +2567,13 @@ function linksHTML(e){
     if (!hit && e.kind === 'place' && o.kind === 'chapter') hit = (o.places || []).includes(e.id);
     if (!hit && e.kind === 'arc' && o.kind === 'chapter') hit = (o.beats || []).some(r => r.startsWith(e.id + ':'));
     if (hit) back.push(o);
+    if ((o.tagRefs || []).includes(e.id)) tagged.push(o);
   }
-  if (!out && !back.length) return `<p class="hint links-empty">Link to another entry by writing its title in double brackets, like [[The Old Mill]]. Links and mentions of this ${esc(e.kind === 'project' ? 'story' : KINDS[e.kind].one)} show up here.</p>`;
+  const tagRow = tagged.length ? `<div class="links-row"><span class="lab">Tagged in</span><div class="chips">${tagged.map(o => `<button class="chip" data-act="open" data-open="${esc(o.id)}"><span class="chip-kind">${esc(refLabel(o))}</span>${esc(titleOf(o))}</button>`).join('')}</div></div>` : '';
+  if (!out && !back.length && !tagRow) return `<p class="hint links-empty">Link to another entry by writing its title in double brackets, like [[The Old Mill]]. Links and mentions of this ${esc(e.kind === 'project' ? 'story' : KINDS[e.kind].one)} show up here.</p>`;
   const labels = chapterLabels();
   back.sort((a,b) => ORDER.indexOf(a.kind) - ORDER.indexOf(b.kind) || (a.kind === 'chapter' ? (a.order ?? 0) - (b.order ?? 0) : 0));
-  return (out ? `<div class="links-row"><span class="lab">Links to</span><div class="chips">${out}</div></div>` : '')
+  return tagRow + (out ? `<div class="links-row"><span class="lab">Links to</span><div class="chips">${out}</div></div>` : '')
     + (back.length ? `<div class="links-row"><span class="lab">Mentioned in</span><div class="chips">${back.map(o => o.kind === 'chapter' ? `<button class="chip" data-act="open" data-open="${esc(o.id)}"><span class="chip-kind">${esc(labels.get(o.id) || 'chapter')}</span>${esc(titleOf(o))}</button>` : chip(o)).join('')}</div></div>` : '');
 }
 
@@ -2879,13 +3008,13 @@ function statsHTML(p){
 
   const chars = list('character');
   const povW = new Map();
-  chs.forEach((c, i) => { const ps = (c.povs || []).filter(id => S.entries.has(id)); if (!ps.length) { const k = c.narration === 'Omniscient' ? ':omni' : ''; povW.set(k, (povW.get(k) || 0) + ws[i]); } else for (const id of ps) povW.set(id, (povW.get(id) || 0) + ws[i] / ps.length); });
+  chs.forEach((c, i) => { const ps = (c.povs || []).filter(id => S.entries.has(id)); const sp = ps.length > 1 ? sceneSplit(c) : null; if (sp) { const tot = [...sp.values()].reduce((a, b) => a + b, 0) || 1; for (const [id, w] of sp) povW.set(id, (povW.get(id) || 0) + ws[i] * w / tot); return; } if (!ps.length) { const k = c.narration === 'Omniscient' ? ':omni' : ''; povW.set(k, (povW.get(k) || 0) + ws[i]); } else for (const id of ps) povW.set(id, (povW.get(id) || 0) + ws[i] / ps.length); });
   const povRows = [...povW.entries()].sort((a, b) => b[1] - a[1]).map(([id, v]) => ({label: id === ':omni' ? 'Omniscient narrator' : id ? titleOf(S.entries.get(id)) : 'No point of view set', v, open: id && id !== ':omni' && S.entries.get(id) ? id : '', val: total ? `${Math.round(v / total * 100)}%` : fmt(v), tip:`${fmt(v)} words`}));
   const narr = NARRATION.filter(Boolean).map(m => [m, chs.filter(c => c.narration === m).length]).filter(x => x[1]);
   const narrNote = narr.length ? `<p class="stat-note">Narration: ${narr.map(([m, n]) => `${esc(m)} ${n}`).join(' · ')}${chs.some(c => !c.narration) ? ` · not set ${chs.filter(c => !c.narration).length}` : ''} (chapters).</p>` : '';
   const cast = chars.map(c => ({c, n: chs.filter(x => (x.povs || []).includes(c.id) || (x.chars || []).includes(c.id)).length})).sort((a, b) => b.n - a.n);
   const absent = cast.filter(x => !x.n);
-  h += `<div class="two"><div><h3 class="group">Point of view</h3><p class="stat-note">Share of words. Shared chapters split evenly; omniscient ones go to the narrator.</p>${barsHTML(povRows, Math.max(...povRows.map(r => r.v)))}${narrNote}</div>
+  h += `<div class="two"><div><h3 class="group">Point of view</h3><p class="stat-note">Share of words. Chapters with several viewpoints are split scene by scene; omniscient ones go to the narrator.</p>${barsHTML(povRows, Math.max(...povRows.map(r => r.v)))}${narrNote}</div>
     <div><h3 class="group">Cast presence</h3><p class="stat-note">Chapters each character appears in.</p>${cast.filter(x => x.n).length ? barsHTML(cast.filter(x => x.n).map(x => ({label:titleOf(x.c), v:x.n, open:x.c.id, val:plural(x.n, 'ch.', 'ch.')})), chs.length) : '<p class="stat-note">No characters are linked to chapters yet.</p>'}
     ${absent.length ? `<p class="stat-note">Not in any chapter yet: ${esc(absent.map(x => titleOf(x.c)).join(', '))}.</p>` : ''}</div></div>`;
 
@@ -3084,7 +3213,7 @@ function storyMarkdown(p){
     L.push(`## ${KINDS[k].plural}`, '');
     for (const e of items) {
       L.push(`### ${k === 'chapter' ? labels.get(e.id) + ': ' : ''}${titleOf(e)}`, '');
-      if ((e.tags || []).length) L.push(`*Tags: ${e.tags.join(', ')}*`, '');
+      { const tl = [...(e.tags || []), ...tagRefsOf(e).map(titleOf)]; if (tl.length) L.push(`*Tags: ${tl.join(', ')}*`, ''); }
       const defs = flatFields(F[k]);
       if (k === 'chapter') defs.unshift(CH_TARGET);
       if (k === 'character') defs.splice(defs.findIndex(d => d.k === 'body'), 0, ...AXES.map(a => ({k:a.k, label:a.label, type:'select'})), {k:'arcStart', label:'At the start'}, {k:'arcEnd', label:'At the end'}, {k:'arcNote', label:'The arc in your own words'});
@@ -3161,6 +3290,8 @@ function duplicateStory(p){
     for (const k of ['ao3w', 'ao3c', 'ao3t', 'ao3s', 'ao3d']) delete c[k];
     if (c.pov) c.pov = R(c.pov);
     if (Array.isArray(c.povs)) c.povs = c.povs.map(R);
+    if (Array.isArray(c.tagRefs)) c.tagRefs = c.tagRefs.map(R);
+    if (c.povStart) c.povStart = R(c.povStart);
     if (Array.isArray(c.chars)) c.chars = c.chars.map(R);
     if (Array.isArray(c.places)) c.places = c.places.map(R);
     if (Array.isArray(c.rels)) c.rels = c.rels.map(r => ({...r, to: R(r.to)}));
@@ -3198,6 +3329,8 @@ async function manuscriptHTML(p, opt = {}){
       if (src.startsWith('/_blob/')) { try { const r = await fetch(src); if (r.ok) img.setAttribute('src', await blobToDataURL(await r.blob())); } catch {} }
       img.removeAttribute('data-asset'); img.removeAttribute('data-tags'); img.removeAttribute('data-shape');
     }
+    for (const hr of [...t.content.querySelectorAll('hr[data-pov]')]) { hr.removeAttribute('data-pov');
+    }
     const div = document.createElement('div'); div.appendChild(t.content);
     parts.push(`<section class="chapter"><p class="label">${esc(labels.get(c.id) || '')}</p><h2>${esc(c.title || '')}</h2>${div.innerHTML}</section>`);
   }
@@ -3215,7 +3348,7 @@ async function manuscriptHTML(p, opt = {}){
   fontHead += used.length ? `<style>${used.map(k => `[data-font="${k}"]{font-family:${FONT[k].stack}}`).join('')}</style>` : '';
   if (S.indent) fontHead += '<style>.chapter p{margin:0;text-indent:1.5em}.chapter p.label,.chapter h2 + p,.chapter :is(h3,hr,blockquote,ul,ol,iframe,img) + p,.chapter p:is([data-align="center"],[data-align="right"]){text-indent:0}.chapter p + :is(blockquote,ul,ol,iframe){margin-top:.9em}</style>';
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(p.title || 'Manuscript')}</title>${fontHead}
-<style>body{font-family:${bodyFont};max-width:40rem;margin:4rem auto;padding:0 1.25rem;line-height:1.75;font-size:19px;color:#1c2129;background:#fbfbf8}h1{font-weight:normal;font-style:italic;font-size:2.4em;line-height:1.15;margin:0 0 .4em}.logline{font-style:italic;color:#555;margin:0 0 3em}.chapter{margin-top:5rem;break-before:page}.label{font:600 12px/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#a4313d;margin:0}.chapter h2{font-weight:normal;font-size:1.7em;margin:.3em 0 1.2em}p{margin:0 0 .9em}hr{border:0;text-align:center;margin:1.6em 0}hr::after{content:"⁂";color:#777}hr.line{border-top:1px solid #aaa}hr.line::after{content:none}[data-align=center]{text-align:center}[data-align=right]{text-align:right}[data-align=justify]{text-align:justify}[data-align=center] img{display:block;margin-inline:auto}img{max-width:100%;height:auto;border-radius:6px}iframe{display:block;width:100%;border:0;border-radius:10px;margin:0 0 1em}blockquote{margin:0 0 1em;padding-left:1.2em;border-left:2px solid #ccc;font-style:italic}a{color:#a4313d}@media (prefers-color-scheme:dark){body{background:#16181c;color:#e6e4de}.logline{color:#aaa}}</style></head>
+<style>body{font-family:${bodyFont};max-width:40rem;margin:4rem auto;padding:0 1.25rem;line-height:1.75;font-size:19px;color:#1c2129;background:#fbfbf8;overflow-wrap:break-word}h1{font-weight:normal;font-style:italic;font-size:2.4em;line-height:1.15;margin:0 0 .4em}.logline{font-style:italic;color:#555;margin:0 0 3em}.chapter{margin-top:5rem;break-before:page}.label{font:600 12px/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#a4313d;margin:0}.chapter h2{font-weight:normal;font-size:1.7em;margin:.3em 0 1.2em}p{margin:0 0 .9em}hr{border:0;text-align:center;margin:1.6em 0}hr::after{content:"⁂";color:#777}hr.line{border-top:1px solid #aaa}hr.line::after{content:none}[data-align=center]{text-align:center}[data-align=right]{text-align:right}[data-align=justify]{text-align:justify}[data-align=center] img{display:block;margin-inline:auto}img{max-width:100%;height:auto;border-radius:6px}iframe{display:block;width:100%;border:0;border-radius:10px;margin:0 0 1em}blockquote{margin:0 0 1em;padding-left:1.2em;border-left:2px solid #ccc;font-style:italic}a{color:#a4313d}@media (prefers-color-scheme:dark){body{background:#16181c;color:#e6e4de}.logline{color:#aaa}}</style></head>
 <body><h1>${esc(p.title || 'Untitled story')}</h1>${p.logline ? `<p class="logline">${esc(p.logline)}</p>` : ''}${parts.join('\n')}</body></html>`;
 }
 async function backupJSON(pid){
@@ -3243,6 +3376,10 @@ async function adoptInlineImages(html){
 async function restore(file){
   let data;
   try { data = JSON.parse(await file.text()); } catch { toast('That file isn’t a Quire backup: it isn’t valid JSON.'); return; }
+  if (data && data.format === QE_FORMAT) {
+    const text = await openEncryptedBackup(data); if (text == null) return;
+    try { data = JSON.parse(text); } catch { data = null; }
+  }
   if (!data || data.format !== 'story-bible' || !Array.isArray(data.entries)) { toast('That file isn’t a Quire backup.'); return; }
   let n = 0, skipped = 0, tooBig = 0, kept = 0;
   const valid = data.entries.filter(raw => raw && typeof raw === 'object' && (raw.kind === 'project' || KINDS[raw.kind]));
@@ -3342,6 +3479,7 @@ function panelInsert(rte, act){
   const bodyEl = rte.querySelector('.rte-body');
   if (act === 'rte-link') {
     let url = ($('#rte-url', rte) || {}).value || ''; url = url.trim();
+    if (/^\s*(javascript|data|vbscript|file|blob|about):/i.test(url)) { toast('Only web addresses and email links (mailto:) can be added.'); return; }
     if (url && !/^(https?:|mailto:)/i.test(url)) url = 'https://' + url;
     if (!url) return closePanel(rte);
     restoreRange(bodyEl, S.rteRange);
@@ -3453,11 +3591,17 @@ function assetErr(err){
     default: return 'Couldn’t upload that image. Try again in a moment.';
   }
 }
+async function imgReadable(f){
+  if (window.createImageBitmap) { try { const bm = await createImageBitmap(f); if (bm.close) bm.close(); return true; } catch { return false; } }
+  if (!(window.URL && URL.createObjectURL)) return true;
+  return new Promise(res => { const u = URL.createObjectURL(f), i = new Image(); i.onload = () => { URL.revokeObjectURL(u); res(true); }; i.onerror = () => { URL.revokeObjectURL(u); res(false); }; i.src = u; });
+}
 async function insertImages(files, rte, range){
   const bodyEl = rte.querySelector('.rte-body');
   let first = true, added = 0;
   for (const f of files) {
     if (!/^image\/(png|jpeg|gif|webp)$/.test(f.type)) { toast('Only PNG, JPEG, GIF and WebP images can be added.'); continue; }
+    if (!(await imgReadable(f))) { toast(`“${f.name || 'That file'}” isn’t an image Quire can read. It may be damaged.`); continue; }
     let html = '';
     if (S.mode === 'db') {
       const assets = await getCap('assets');
@@ -4398,7 +4542,7 @@ desk.addEventListener('click', ev => {
 });
 
 /* ---------- help and info ---------- */
-const QUIRE_VERSION = '1.0', QUIRE_DATE = '2026-10-24';
+const QUIRE_VERSION = '1.1', QUIRE_DATE = '2026-10-26';
 function helpFacts(){
   const all = [...S.entries.values()], count = k => all.filter(e => e.kind === k).length;
   const where = S.mode === 'db' ? 'Your private storage in Claude, saved automatically as you type'
@@ -4428,6 +4572,7 @@ function helpSupport(){
   return `<table><thead><tr><th>Feature</th><th>In this browser</th></tr></thead><tbody>
     <tr><td>Browser storage</td><td>${yn(has.store, 'IndexedDB is available.', 'Quire falls back to local storage, or keeps work only in the open tab.')}</td></tr>
     <tr><td>“Save as” file dialog</td><td>${yn(has.picker, 'Save file can write straight back into the same file.', 'Save file downloads an updated copy instead. Replace the old file with it.')}</td></tr>
+    <tr><td>Encryption</td><td>${yn(qeOK(), 'Backups and the saved file can be encrypted.', 'This browser can’t encrypt here. Encryption needs a current browser and a file opened from your computer or an https:// address.')}</td></tr>
     <tr><td>Compression</td><td>${yn(has.gzip, 'Chapter history is stored compressed.', 'History is stored uncompressed, so it takes more space.')}</td></tr>
     <tr><td>Clipboard</td><td>${yn(has.clip, 'Copy buttons work directly.', 'Copy selects the text for you to copy with Ctrl+C.')}</td></tr>
     <tr><td>Sound</td><td>${yn(has.audio, 'The sprint chime can play.', 'Sprints end silently.')}</td></tr>
@@ -4436,7 +4581,8 @@ function helpSupport(){
 }
 function helpHTML(){
   const S_ = [['now', 'This notebook'], ['privacy', 'Privacy and online access'], ['nav', 'Getting around'], ['saving', 'Saving and backups'], ['moving', 'Moving and hosting'], ['browsers', 'Browsers'], ['tools', 'Writing tools'], ['keys', 'Shortcuts'], ['built', 'How it’s built'], ['limits', 'Limits']];
-  return `<div class="help-top"><h2 id="helpTitle">Help and info</h2><span class="mono">Quire ${QUIRE_VERSION} · ${QUIRE_DATE}</span><button class="btn" data-act="help-close">Close</button></div>
+  return `<div class="help-top"><h2 id="helpTitle">Help and info</h2><span class="mono">Quire ${QUIRE_VERSION} · ${QUIRE_DATE}</span><button class="btn" data-act="help-close">Close</button>
+    <div class="help-search" role="search"><span class="hs-field"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/></svg><input type="search" id="helpQ" placeholder="Search help" aria-label="Search help" aria-describedby="helpHits" autocomplete="off" spellcheck="false" enterkeyhint="search"><button type="button" class="help-q-x" data-act="help-q-clear" aria-label="Clear the search" hidden>×</button></span><span class="help-hits" id="helpHits" aria-live="polite"></span><span class="hs-nav" hidden><button type="button" class="btn small" data-act="help-q-prev" aria-label="Previous match" title="Previous match (Shift+Enter)">↑</button><button type="button" class="btn small" data-act="help-q-next" aria-label="Next match" title="Next match (Enter)">↓</button></span></div></div>
   <nav class="help-nav" aria-label="Sections">${S_.map(([id, t]) => `<a href="#help-${id}" data-help-jump="${id}">${t}</a>`).join('')}</nav>
   <div class="help-body">
     <h3 id="help-now">This notebook</h3>
@@ -4452,6 +4598,7 @@ function helpHTML(){
       <li><b>Fonts in exports.</b> With Google Fonts on, the manuscript web page carries its typefaces inside (fetched when you export, 150–350 KB). Print and PDF use the fonts on screen; Markdown and text have none.</li>
       <li><b>Spelling and grammar</b> come from your browser; its spell check works offline. Grammar extensions such as Grammarly or LanguageTool usually send text online. Quire’s own Prose checker runs entirely in this file.</li>
       <li><b>Videos and music</b> show as link cards and only open when clicked. In the manuscript web page they become players that load from their websites.</li>
+      <li><b>Encryption</b> (Options → Backup, off by default) locks backups${S.mode === 'file' ? ' and this saved file' : ' and saved files'} with a password, so someone who gets hold of the file can’t read it. See <a href="#help-saving" data-help-jump="saving">Saving and backups</a>.</li>
       <li><b>Comments</b> are left out of every export and print.</li>
       <li><b>AO3 sharing</b> (Options → Export, off by default) never connects to AO3. Quire only copies a chapter to your clipboard and opens an AO3 page in a new tab; your browser visits AO3 as usual, and nothing is posted until you paste and post it yourself.</li>
     </ul>
@@ -4487,6 +4634,10 @@ function helpHTML(){
     </tbody></table>
     <ul>
       <li><b>Restoring</b> a backup asks before touching entries that already exist, and by default keeps whichever version is newer.</li>
+      <li><b>Encrypted backups</b> (Options → Backup → Encrypt backups): each backup asks for a password and is saved as <code>…-encrypted.json</code>. Restoring asks for the same password.</li>
+      <li><b>Encrypting the file</b> (Options → Backup → Encrypt this file, in a downloaded Quire): from the next Save file on, the notebook inside the HTML file is encrypted. Opening the file shows a lock screen first. Change the file’s password… sets a new one; copies saved before keep the old one.</li>
+      <li><b>Choosing a password:</b> a meter rates it as you type and estimates how long guessing it would take. Several unrelated words make a strong, memorable password; names from your story, years and common passwords make a weak one. Very weak passwords aren’t accepted.</li>
+      <li><b>What encryption covers:</b> the saved file and the backups. While you write, the working copy in this browser’s storage is not encrypted, and neither are exports, so lock your computer and keep the browser profile private. <b>If you forget the password, nobody can recover the writing</b>, not even with Quire, so keep it somewhere safe.</li>
       <li><b>Chapter history</b> is stored as compressed word-level changes, so hundreds of versions take about the space of one copy. Options → Chapter history can thin out old versions, or keep history out of the saved file.</li>
       <li><b>File size:</b> a whole novel is a few hundred KB. Images make up most of a file’s size, so shrink large photos first.</li>
     </ul>
@@ -4528,6 +4679,9 @@ function helpHTML(){
       <li><b>Options → Text:</b> Google Fonts, Prose checker, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, coloured chips, themes and widths.</li>
       <li><b>Tags</b> has its own page with the tag cloud, image tags, tags used together, rare and missing tags, and renaming a tag everywhere.</li>
       <li><b>Passage tags:</b> select a sentence or a passage, even across paragraphs, and press the tag button in the toolbar. A thin bar in the margin marks the passage; click the bar to change or remove its tags. Options → Text can show an underline instead, or hide the marks while you write. The list under the text shows a chapter’s tagged passages, search finds them with #tag, and on the Tags page a passage tag lists all its passages in story order, so you can follow a thread, a clue or a continuity detail through the book. Passages in drafts count once merged. Exports leave the tags out.</li>
+      <li><b>Tags that link:</b> typing in a tag box suggests existing tags and, below them, chapters, characters, places and notes. Pick one with the arrow keys and Enter, or tap it. An entry you pick becomes a linked chip that opens it, and the entry lists “Tagged in” under Links. Searching for #title (the entry’s title as a tag) finds the entries that link to it.</li>
+      <li><b>Scene viewpoints:</b> give a chapter two or more viewpoint characters and a small label appears at the start of the text and at each scene break. Click it to choose whose scene follows; a scene keeps the viewpoint of the one before until you change it. The Point of view field shows how the chapter’s words divide between them, and Stats uses the same split for the whole story.</li>
+      <li><b>Status colours</b> (Options → Display → Colour chapters by status): chapter lists show each chapter’s status as a colour, and the chapter list starts with a strip of the whole manuscript, each block as wide as its chapter. Click a block to open the chapter.</li>
       <li><b>Image tags:</b> click an image in a chapter or note to tag it; portraits and place images have a tag box underneath. Quire adds each image’s shape (Portrait, Landscape or Square) by itself. Search for #tag or #landscape finds the entries holding those images. Exports leave image tags out.</li>
       <li><b>Word counts</b> skip stand-alone punctuation such as « or a spaced dash.</li>
     </ul>
@@ -4538,7 +4692,9 @@ function helpHTML(){
       <tr><td><kbd>Ctrl</kbd>+<kbd>B</kbd> / <kbd>I</kbd> / <kbd>U</kbd></td><td>Bold, italic, underline</td></tr>
       <tr><td><kbd>Ctrl</kbd>+<kbd>Enter</kbd></td><td>Save a comment</td></tr>
       <tr><td><kbd>Enter</kbd> or <kbd>,</kbd></td><td>Add a tag; <kbd>Backspace</kbd> in an empty tag field removes the last one</td></tr>
+      <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>Enter</kbd></td><td>In a tag field: choose a suggested tag or entry</td></tr>
       <tr><td><kbd>Esc</kbd></td><td>Close menus, panels and this window, cancel a split or drag, leave focus mode</td></tr>
+      <tr><td><kbd>/</kbd></td><td>In this window: search Help. <kbd>Enter</kbd> jumps to the next match, <kbd>Esc</kbd> clears the search</td></tr>
       <tr><td><kbd>↑</kbd> <kbd>↓</kbd></td><td>On a ⋮⋮ handle: move the entry</td></tr>
       <tr><td>Arrow keys</td><td>On a beat in an arc’s curve: move it (Shift for five steps)</td></tr>
       <tr><td><code>--</code> and <code>...</code></td><td>Become — and … as you type</td></tr>
@@ -4551,9 +4707,10 @@ function helpHTML(){
     <h3 id="help-built">How it’s built</h3>
     <ul>
       <li><b>Made with the help of Claude</b>, Anthropic’s AI assistant.</li>
-      <li><b>One file</b> of about 500 KB: page, styles and program, with no frameworks, libraries or build step.</li>
+      <li><b>One file</b> of about 650 KB: page, styles and program, with no frameworks, libraries or build step.</li>
       <li><b>Data</b> are plain JSON entries in a <code>&lt;script type="application/json"&gt;</code> block inside the file (format version 2; older notebooks upgrade on opening). Browser storage uses IndexedDB, then local storage, then memory.</li>
       <li><b>The editor</b> is the browser’s own rich-text editing. Everything pasted or loaded passes a strict filter that keeps only basic formatting, links, images and media links.</li>
+      <li><b>Encryption</b> uses the browser’s own Web Crypto: AES-256-GCM with a key derived from the password by PBKDF2-SHA-256 with 600,000 rounds and a random salt, and a fresh random IV for every save. The settings are authenticated with the data, so a changed or damaged file is refused rather than misread.</li>
       <li><b>Chapter history</b> stores word-level differences, gzip-compressed by the browser. The sprint chime is synthesised, so there are no sound files.</li>
       ${S.mode === 'db' ? '<li><b>This hosted copy</b> uses a private per-user database instead of browser storage, and uploads images privately instead of storing them in the file.</li>' : ''}
     </ul>
@@ -4572,8 +4729,8 @@ function helpHTML(){
 function helpOpen(section){
   const wrap = $('#helpWrap'), box = $('#help');
   S.helpReturn = document.activeElement;
-  box.innerHTML = helpHTML(); wrap.hidden = false; box.scrollTop = 0; box.focus({preventScroll:true});
-  if (section) { const t = document.getElementById('help-' + section); if (t) box.scrollTop = Math.max(0, t.offsetTop - 70); }
+  box.innerHTML = helpHTML(); wrap.hidden = false; box.scrollTop = 0; box.focus({preventScroll:true}); helpHeadSize(); S.helpHit = -1;
+  if (section) { const t = document.getElementById('help-' + section); if (t) box.scrollTop = Math.max(0, t.offsetTop - ($('.help-top', box).offsetHeight + 10)); }
   document.body.style.overflow = 'hidden';
   histAllRecords().then(rs => {
     const el = $('#helpHist'); if (!el) return;
@@ -4581,6 +4738,78 @@ function helpOpen(section){
     el.textContent = rs.length ? `${plural(vers, 'version')} of ${plural(chs, 'chapter')}, ${fmtBytes(bytes)} stored` : 'No versions saved yet';
   }).catch(() => { const el = $('#helpHist'); if (el) el.textContent = 'Not available'; });
 }
+/* Search in Help: every word must appear in a passage (or its section's heading). Passages without a match are hidden,
+   matches are marked, and Enter steps through them. Accents and case are ignored. */
+const hsFold = s => { let o = ''; for (const ch of s) { const f = ch.charCodeAt(0) > 127 ? ch.normalize('NFD').replace(/\p{M}/gu, '') : ch; o += (f.length === ch.length ? f : ch).toLowerCase(); } return o; };
+let hsT = 0;
+function helpSearchClear(box){
+  for (const m of $$('mark.hs', box)) { const p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize(); }
+  for (const x of $$('.hs-off', box)) x.classList.remove('hs-off');
+}
+function helpUnits(body){
+  const secs = []; let cur = null;
+  for (const el of body.children) {
+    if (el.tagName === 'H3') { cur = {h: el, units: [], blocks: []}; secs.push(cur); continue; }
+    if (!cur) continue;
+    const units = /^(UL|OL)$/.test(el.tagName) ? [...el.children] : el.tagName === 'TABLE' ? [...el.querySelectorAll('tbody > tr')] : [el];
+    cur.blocks.push({el, units}); cur.units.push(...units);
+  }
+  return secs;
+}
+function helpMark(el, terms){
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = []; let n;
+  while ((n = tw.nextNode())) if (n.data.trim()) nodes.push(n);
+  let count = 0;
+  for (const node of nodes) {
+    const f = hsFold(node.data), ranges = [];
+    for (const term of terms) { let i = f.indexOf(term); while (i >= 0) { ranges.push([i, i + term.length]); i = f.indexOf(term, i + term.length); } }
+    if (!ranges.length) continue;
+    ranges.sort((a, b) => a[0] - b[0]);
+    const merged = []; for (const r of ranges) { const last = merged[merged.length - 1]; if (last && r[0] <= last[1]) last[1] = Math.max(last[1], r[1]); else merged.push([...r]); }
+    let rest = node;
+    for (let k = merged.length - 1; k >= 0; k--) {
+      const [a, b] = merged[k]; const mid = rest.splitText(a); mid.splitText(b - a);
+      const m = document.createElement('mark'); m.className = 'hs'; mid.parentNode.replaceChild(m, mid); m.appendChild(mid); count++;
+    }
+  }
+  return count;
+}
+function helpSearch(q){
+  const box = $('#help'), body = box && $('.help-body', box); if (!body) return;
+  helpSearchClear(box); S.helpHit = -1;
+  const hits = $('#helpHits'), x = $('[data-act="help-q-clear"]', box);
+  if (x) x.hidden = !q;
+  const terms = [...new Set(hsFold(q).split(/\s+/).filter(Boolean))];
+  box.classList.toggle('hs-on', !!terms.length);
+  const nav = $('.hs-nav', box); if (nav) nav.hidden = true;
+  if (!terms.length) { if (hits) hits.textContent = ''; return; }
+  let total = 0, secN = 0;
+  for (const s of helpUnits(body)) {
+    const head = hsFold(s.h.textContent); let any = false;
+    for (const u of s.units) {
+      const txt = head + ' ' + hsFold(u.textContent);
+      if (terms.every(term => txt.includes(term))) { any = true; total += helpMark(u, terms); }
+      else u.classList.add('hs-off');
+    }
+    for (const b of s.blocks) if (b.units.every(u => u.classList.contains('hs-off'))) b.el.classList.add('hs-off');
+    if (any) { secN++; total += helpMark(s.h, terms); }
+    else s.h.classList.add('hs-off');
+    const chip = $(`.help-nav [data-help-jump="${s.h.id.replace(/^help-/, '')}"]`, box); if (chip) chip.classList.toggle('hs-off', !any);
+  }
+  if (hits) hits.textContent = total ? `${plural(total, 'match', 'matches')} in ${plural(secN, 'section')}` : 'No matches. Try fewer or other words.';
+  if (nav) nav.hidden = !total;
+  box.scrollTop = 0;
+}
+function helpStep(dir){
+  const box = $('#help'), ms = $$('mark.hs', box).filter(m => m.offsetParent !== null); if (!ms.length) return;
+  const old = ms[S.helpHit]; if (old) old.classList.remove('cur');
+  S.helpHit = ((S.helpHit ?? -1) + dir + ms.length) % ms.length;
+  const m = ms[S.helpHit]; m.classList.add('cur'); m.scrollIntoView({block: 'center', behavior: reduced ? 'auto' : 'smooth'});
+  const hits = $('#helpHits'); if (hits) hits.textContent = `${S.helpHit + 1} of ${ms.length}`;
+}
+function helpHeadSize(){ const box = $('#help'), top = box && $('.help-top', box); if (top) box.style.setProperty('--hh', (top.offsetHeight + 10) + 'px'); }
+window.addEventListener('resize', () => { if (!$('#helpWrap').hidden) helpHeadSize(); });
+$('#helpWrap').addEventListener('input', ev => { if (ev.target.id !== 'helpQ') return; clearTimeout(hsT); const v = ev.target.value; hsT = setTimeout(() => helpSearch(v), 140); });
 function helpClose(){
   const wrap = $('#helpWrap'); if (wrap.hidden) return;
   wrap.hidden = true; $('#help').innerHTML = ''; document.body.style.overflow = '';
@@ -4588,13 +4817,19 @@ function helpClose(){
 }
 $('#helpWrap').addEventListener('click', ev => {
   if (ev.target === ev.currentTarget || ev.target.closest('[data-act="help-close"]')) { ev.stopPropagation(); helpClose(); return; }
+  const stp = ev.target.closest('[data-act="help-q-next"], [data-act="help-q-prev"]'); if (stp) { ev.stopPropagation(); helpStep(stp.dataset.act === 'help-q-next' ? 1 : -1); return; }
+  if (ev.target.closest('[data-act="help-q-clear"]')) { ev.stopPropagation(); const q = $('#helpQ'); q.value = ''; clearTimeout(hsT); helpSearch(''); q.focus(); return; }
   if (ev.target.closest('[data-act="help-top"]')) { ev.stopPropagation(); const h = $('#help'); h.scrollTo({top:0, behavior: reduced ? 'auto' : 'smooth'}); const c = h.querySelector('[data-act="help-close"]'); if (c) c.focus({preventScroll:true}); return; }
   const j = ev.target.closest('[data-help-jump]'); if (j) { ev.preventDefault(); const t = document.getElementById('help-' + j.dataset.helpJump); if (t) t.scrollIntoView({block:'start', behavior: reduced ? 'auto' : 'smooth'}); }
 });
 $('#helpWrap').addEventListener('keydown', ev => {
+  if (ev.target.id === 'helpQ') {
+    if (ev.key === 'Escape' && ev.target.value) { ev.preventDefault(); ev.stopPropagation(); ev.target.value = ''; clearTimeout(hsT); helpSearch(''); return; }
+    if (ev.key === 'Enter') { ev.preventDefault(); clearTimeout(hsT); if (!$('mark.hs', $('#help')) || S.helpQ !== ev.target.value) { S.helpQ = ev.target.value; helpSearch(ev.target.value); } helpStep(ev.shiftKey ? -1 : 1); return; }
+  } else if (ev.key === '/' && !ev.ctrlKey && !ev.metaKey && !ev.altKey) { const q = $('#helpQ'); if (q) { ev.preventDefault(); q.focus(); q.select(); return; } }
   if (ev.key === 'Escape') { ev.stopPropagation(); helpClose(); return; }
   if (ev.key === 'Tab') {
-    const f = $$('a[href],button,[tabindex="-1"]', $('#help')).filter(x => !x.disabled && x.offsetParent !== null || x.id === 'help');
+    const f = $$('a[href],button,input,[tabindex="-1"]', $('#help')).filter(x => !x.disabled && x.offsetParent !== null || x.id === 'help');
     const first = f.find(x => x.id !== 'help'), last = f[f.length - 1];
     if (ev.shiftKey && (document.activeElement === first || document.activeElement === $('#help'))) { ev.preventDefault(); last.focus(); }
     else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
@@ -6067,7 +6302,7 @@ function ptagInfo(e){
   return v;
 }
 /* Everything an entry can be found by besides its own tags */
-const extraTags = e => { const out = imgSearchTags(e); for (const k of ptagInfo(e).tags.keys()) if (!out.includes(k)) out.push(k); return out; };
+const extraTags = e => { const out = imgSearchTags(e); for (const o of tagRefsOf(e)) { const k = titleOf(o).toLowerCase(); if (!out.includes(k)) out.push(k); } for (const k of ptagInfo(e).tags.keys()) if (!out.includes(k)) out.push(k); return out; };
 function ptagTagIndex(){
   const m = new Map(); let n = 0;
   for (const e of storyEntries()) { const i = ptagInfo(e); n += i.passages.size; for (const [k, x] of i.tags) { const y = m.get(k) || {t: x.t, n: 0}; y.n += x.n; m.set(k, y); } }
@@ -6261,7 +6496,7 @@ document.addEventListener('fullscreenchange', fsSync);
 /* Passage tags as thin bars in the left margin: one bar per passage, from its first line to its last.
    Bars live in a layer beside the text (never inside it), and are redrawn when the text or the layout changes. */
 let ptBarRaf = 0;
-function ptagBarsAll(){ if (!ptBarRaf) ptBarRaf = requestAnimationFrame(() => { ptBarRaf = 0; $$('.rte', desk).forEach(ptagBars); }); }
+function ptagBarsAll(){ if (!ptBarRaf) ptBarRaf = requestAnimationFrame(() => { ptBarRaf = 0; $$('.rte', desk).forEach(r => { ptagBars(r); svLayout(r); }); }); }
 function ptagBars(rte){
   let layer = rte.querySelector(':scope > .pt-gutter');
   const body = rte.querySelector('.rte-body');
@@ -6296,6 +6531,164 @@ desk.addEventListener('mouseout', ev => { const b = ev.target.closest && ev.targ
 window.addEventListener('resize', ptagBarsAll);
 if (window.ResizeObserver) { const ro = new ResizeObserver(ptagBarsAll); new MutationObserver(() => { for (const el of desk.querySelectorAll('.rte-body, .rte-bar')) if (!el.dataset.ro) { el.dataset.ro = '1'; ro.observe(el); } }).observe(desk, {childList: true, subtree: true}); }
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(ptagBarsAll);
+
+/* ---------- tag suggestions: tags, and links to entries ---------- */
+/* Typing in an entry's tag box opens a list of matching tags and, below them, matching entries.
+   Picking an entry adds a linked chip (stored by id in tagRefs), which opens that entry and survives renames. */
+const tagRefsOf = e => (Array.isArray(e.tagRefs) ? e.tagRefs : []).map(id => S.entries.get(id)).filter(o => o && o.project === e.project && o.kind !== 'project');
+const refLabel = o => o.kind === 'chapter' ? (chapterLabels().get(o.id) || 'Chapter') : cap(KINDS[o.kind].one);
+function tagSugOptions(e, q){
+  const lq = q.toLowerCase(), have = new Set((e.tags || []).map(t => t.toLowerCase())), linked = new Set(e.tagRefs || []);
+  const rank = s => { const l = s.toLowerCase(); return l === lq ? 0 : l.startsWith(lq) ? 1 : l.split(/[\s/&-]+/).some(w => w.startsWith(lq)) ? 2 : l.includes(lq) ? 3 : 9; };
+  const all = new Map(tagIndex(true)); for (const [k, x] of imgTagIndex().tags) if (!all.has(k)) all.set(k, x); for (const [k, x] of ptagTagIndex().tags) if (!all.has(k)) all.set(k, x);
+  const tags = [...all.values()].filter(x => !have.has(x.t.toLowerCase()) && rank(x.t) < 9).sort((a, b) => rank(a.t) - rank(b.t) || b.n - a.n).slice(0, 6).map(x => ({type: 'tag', v: x.t, n: x.n}));
+  const ents = ORDER.flatMap(k => list(k)).filter(o => o.id !== e.id && !linked.has(o.id) && rank(titleOf(o)) < 9)
+    .sort((a, b) => rank(titleOf(a)) - rank(titleOf(b)) || ORDER.indexOf(a.kind) - ORDER.indexOf(b.kind)).slice(0, 8).map(o => ({type: 'ref', o}));
+  return [...tags, ...ents];
+}
+function tagSugRender(input){
+  const box = $('#tagSug'), e = current(); if (!box || !e) return;
+  const q = input.value.split(',').pop().trim();
+  const opts = q ? tagSugOptions(e, q) : [];
+  S.tagSug = {opts, i: -1};
+  input.setAttribute('aria-expanded', opts.length ? 'true' : 'false'); input.removeAttribute('aria-activedescendant');
+  if (!opts.length) { box.hidden = true; box.innerHTML = ''; return; }
+  const tagO = opts.filter(x => x.type === 'tag'), refO = opts.filter(x => x.type === 'ref');
+  let i = 0; const li = x => `<li class="ts-opt" role="option" id="tsopt-${i}" data-i="${i++}" aria-selected="false">${x.type === 'tag' ? `<span class="ts-t">${esc(x.v)}</span><span class="ts-n mono">${x.n}</span>` : `<span class="chip-kind">${esc(refLabel(x.o))}</span><span class="ts-t">${esc(titleOf(x.o))}</span>`}</li>`;
+  box.innerHTML = (tagO.length ? `<li class="ts-h" role="presentation">Tags</li>${tagO.map(li).join('')}` : '') + (refO.length ? `<li class="ts-h" role="presentation">Link to an entry</li>${refO.map(li).join('')}` : '');
+  box.hidden = false;
+}
+function tagSugMove(input, d){
+  const st = S.tagSug; if (!st || !st.opts.length) return false;
+  let n = st.i + d; if (n >= st.opts.length) n = -1; else if (n < -1) n = st.opts.length - 1; st.i = n;
+  $$('#tagSug .ts-opt').forEach(o => o.setAttribute('aria-selected', +o.dataset.i === st.i));
+  const on = $(`#tsopt-${st.i}`);
+  if (on) { input.setAttribute('aria-activedescendant', on.id); on.scrollIntoView({block: 'nearest'}); } else input.removeAttribute('aria-activedescendant');
+  return true;
+}
+function tagSugClose(){ const box = $('#tagSug'); if (box) { box.hidden = true; box.innerHTML = ''; } S.tagSug = null; const i = $('#tag-input'); if (i) { i.setAttribute('aria-expanded', 'false'); i.removeAttribute('aria-activedescendant'); } }
+function tagSugPick(i){
+  const st = S.tagSug, e = current(), input = $('#tag-input'); if (!st || !e || !input) return;
+  const x = st.opts[i]; if (!x) return;
+  const before = input.value.split(','); before.pop();
+  const rest = before.join(',').trim();
+  if (x.type === 'tag') { addTags(e, [rest, x.v].filter(Boolean).join(',')); }
+  else { if (rest) addTags(e, rest); e.tagRefs = [...new Set([...(e.tagRefs || []), x.o.id])]; touch(e); }
+  tagSugClose(); rerenderTags(e, true); const lk = $('#links'); if (lk) lk.innerHTML = linksHTML(e);
+}
+desk.addEventListener('input', ev => { if (ev.target.id === 'tag-input') tagSugRender(ev.target); });
+desk.addEventListener('keydown', ev => {
+  if (ev.target.id !== 'tag-input') return;
+  const st = S.tagSug, open = st && st.opts.length && !$('#tagSug').hidden;
+  if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') { if (open) { ev.preventDefault(); tagSugMove(ev.target, ev.key === 'ArrowDown' ? 1 : -1); } else if (ev.key === 'ArrowDown' && ev.target.value.trim()) { tagSugRender(ev.target); } return; }
+  if (ev.key === 'Enter' && open && st.i >= 0) { ev.preventDefault(); ev.stopImmediatePropagation(); tagSugPick(st.i); return; }
+  if (ev.key === 'Escape' && open) { ev.preventDefault(); ev.stopImmediatePropagation(); tagSugClose(); return; }
+  if (ev.key === 'Tab') tagSugClose();
+}, true);
+desk.addEventListener('mousedown', ev => { const o = ev.target.closest && ev.target.closest('#tagSug .ts-opt'); if (o) { ev.preventDefault(); tagSugPick(+o.dataset.i); } });
+desk.addEventListener('focusout', ev => { if (ev.target.id === 'tag-input') setTimeout(() => { if (document.activeElement && document.activeElement.id === 'tag-input') return; tagSugClose(); }, 120); });
+
+/* ---------- scene viewpoints ---------- */
+/* In chapters with two or more viewpoint characters, every scene says whose it is: the opening scene through
+   the chapter's povStart, every later one through data-pov on the scene break before it. A break without
+   data-pov keeps the viewpoint of the scene before it. */
+const EYE = '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></svg>';
+const isChar = id => { const o = id && S.entries.get(id); return !!(o && o.kind === 'character'); };
+const povList = c => (c.povs || []).filter(isChar);
+const povStartOf = c => { const ps = povList(c); return isChar(c.povStart) && ps.includes(c.povStart) ? c.povStart : ps[0]; };
+const svMemo = new Map();
+/* Words per viewpoint in a chapter's main text, scene by scene; null for chapters with fewer than two viewpoints */
+function sceneSplit(c){
+  const ps = povList(c); if (ps.length < 2) return null;
+  const key = `${c.updated}|${S.ver[c.id] || 0}|${ps.join(',')}|${c.povStart || ''}`, m = svMemo.get(c.id);
+  if (m && m.key === key) return m.v;
+  const t = document.createElement('template'); t.innerHTML = sanitize(c.body || '');
+  const v = new Map(ps.map(id => [id, 0])); let cur = povStartOf(c);
+  for (const n of t.content.childNodes) {
+    if (n.nodeType === 1 && n.tagName === 'HR') { const p = n.getAttribute('data-pov'); if (isChar(p)) { cur = p; if (!v.has(p)) v.set(p, 0); } continue; }
+    const w = countWords(htmlText(n.nodeType === 1 ? n.outerHTML : esc(n.nodeValue || '')));
+    v.set(cur, (v.get(cur) || 0) + w);
+  }
+  svMemo.set(c.id, {key, v});
+  return v;
+}
+function sceneSplitText(c){
+  const v = sceneSplit(c); if (!v) return '';
+  const tot = [...v.values()].reduce((a, b) => a + b, 0);
+  if (!tot) return 'Scene viewpoints: no text yet.';
+  return 'In this chapter: ' + [...v].filter(([, w]) => w).sort((a, b) => b[1] - a[1]).map(([id, w]) => `${titleOf(S.entries.get(id))} ${Math.round(w / tot * 100)}%`).join(' · ');
+}
+/* Labels beside the text: one at the top, one on every scene break */
+function svLayout(rte){
+  let layer = rte.querySelector(':scope > .sv-layer');
+  const body = rte.querySelector('.rte-body[data-rich="body"]'), host = rte.closest('.sheet[data-id]'), c = host && S.entries.get(host.dataset.id);
+  const on = !!(body && c && c.kind === 'chapter' && povList(c).length > 1);
+  if (body) body.classList.toggle('sv-on', on);
+  if (!on) { if (layer) layer.remove(); return; }
+  if (!layer) { layer = document.createElement('div'); layer.className = 'sv-layer'; rte.appendChild(layer); }
+  const rr = rte.getBoundingClientRect(), br = body.getBoundingClientRect(), pad = parseFloat(getComputedStyle(body).paddingLeft) || 16;
+  const x = br.left - rr.left + pad, name = id => titleOf(S.entries.get(id)), mw = Math.round(Math.max(72, Math.min(224, (br.width - 2 * pad) / 2 - 14))); /* keeps clear of the centred ⁂ */
+  let cur = povStartOf(c);
+  const pills = [`<button type="button" class="sv-pill" data-sv="start" style="top:${(br.top - rr.top + 8).toFixed(1)}px;left:${x.toFixed(1)}px;max-width:${mw}px" aria-haspopup="true" aria-label="Opening scene viewpoint: ${esc(name(cur))}. Change" title="Opening scene: ${esc(name(cur))}. Click to change.">${EYE}<span class="sv-n">${esc(name(cur))}</span><span class="sv-c" aria-hidden="true">▾</span></button>`];
+  [...body.children].forEach((n, i) => {
+    if (n.tagName !== 'HR') return;
+    const p = n.getAttribute('data-pov'), own = isChar(p); if (own) cur = p;
+    const r = n.getBoundingClientRect();
+    pills.push(`<button type="button" class="sv-pill${own ? '' : ' inh'}" data-sv="${i}" style="top:${(r.top + r.height / 2 - rr.top - 12).toFixed(1)}px;left:${x.toFixed(1)}px;max-width:${mw}px" aria-haspopup="true" aria-label="Scene viewpoint: ${esc(name(cur))}${own ? '' : ', same as before'}. Change" title="${esc(name(cur))}: ${own ? 'viewpoint of the scene after this break' : 'same viewpoint as the scene before'}. Click to change.">${EYE}<span class="sv-n">${esc(name(cur))}</span><span class="sv-c" aria-hidden="true">▾</span></button>`);
+  });
+  const html = pills.join('');
+  if (layer.dataset.h !== html) { layer.dataset.h = html; layer.innerHTML = html; }
+}
+function svMenuClose(refocus){ const p = $('#svPop'); if (!p) return; const pill = S.svPill; p.remove(); S.svPill = null; if (refocus && pill && pill.isConnected) pill.focus({preventScroll: true}); }
+function svMenu(pill){
+  const rte = pill.closest('.rte'), host = rte.closest('.sheet[data-id]'), c = host && S.entries.get(host.dataset.id); if (!c) return;
+  if ($('#svPop')) { const same = S.svPill === pill; svMenuClose(false); if (same) return; }
+  const body = rte.querySelector('.rte-body[data-rich="body"]'), which = pill.dataset.sv;
+  const hr = which === 'start' ? null : body.children[+which];
+  const curId = which === 'start' ? povStartOf(c) : (hr && isChar(hr.getAttribute('data-pov')) ? hr.getAttribute('data-pov') : '');
+  const ps = povList(c), others = list('character').filter(x => !ps.includes(x.id));
+  const it = (id, label, on) => `<button type="button" class="sv-mi" data-pov="${esc(id)}" aria-pressed="${on}">${on ? '✓ ' : ''}${esc(label)}</button>`;
+  const pop = document.createElement('div'); pop.id = 'svPop'; pop.className = 'rte-pop sv-pop'; pop.setAttribute('role', 'group'); pop.setAttribute('aria-label', 'Viewpoint of this scene');
+  pop.innerHTML = `<p class="sv-ph">${which === 'start' ? 'Opening scene' : 'Scene after this break'}</p>`
+    + (which === 'start' ? '' : it('', 'Same as the scene before', !curId))
+    + ps.map(id => it(id, titleOf(S.entries.get(id)), id === curId)).join('')
+    + (others.length ? `<p class="sv-ph">Other characters</p>${others.map(o => it(o.id, titleOf(o), false)).join('')}` : '');
+  rte.appendChild(pop); S.svPill = pill; S.svFor = {c: c.id, which};
+  const rr = rte.getBoundingClientRect(), pr = pill.getBoundingClientRect();
+  pop.style.top = (pr.bottom - rr.top + 4).toFixed(1) + 'px'; pop.style.left = Math.max(4, Math.min(pr.left - rr.left, rr.width - pop.offsetWidth - 4)).toFixed(1) + 'px';
+  (pop.querySelector('[aria-pressed="true"]') || pop.querySelector('.sv-mi')).focus({preventScroll: true});
+}
+function svChoose(id){
+  const f = S.svFor, c = f && S.entries.get(f.c), pill = S.svPill; if (!c || !pill) return svMenuClose(false);
+  const rte = pill.closest('.rte'), body = rte.querySelector('.rte-body[data-rich="body"]');
+  if (id && !(c.povs || []).includes(id)) {
+    c.povs = [...(c.povs || []), id]; if (!(c.chars || []).includes(id)) c.chars = [...(c.chars || []), id];
+    const pf = $('#field-povs'); if (pf) pf.innerHTML = refsHTML(c, flatFields(F.chapter).find(x => x.k === 'povs'));
+    const cf = $('#field-chars'); if (cf) cf.innerHTML = refsHTML(c, flatFields(F.chapter).find(x => x.k === 'chars'));
+  }
+  if (f.which === 'start') { if (id) c.povStart = id; touch(c); }
+  else { const hr = body.children[+f.which]; if (hr && hr.tagName === 'HR') { if (id) hr.setAttribute('data-pov', id); else hr.removeAttribute('data-pov'); body.dispatchEvent(new Event('input', {bubbles: true})); } }
+  svMenuClose(false); svRefreshSplit(c); ptagBarsAll();
+  const again = rte.querySelector(`.sv-pill[data-sv="${f.which}"]`); if (again) requestAnimationFrame(() => { const p = rte.querySelector(`.sv-pill[data-sv="${f.which}"]`); if (p) p.focus({preventScroll: true}); });
+}
+function svRefreshSplit(c){ const el = $('#svSplit'); if (el) el.textContent = sceneSplitText(c); }
+desk.addEventListener('click', ev => {
+  const pill = ev.target.closest && ev.target.closest('.sv-pill'); if (pill) { svMenu(pill); return; }
+  const mi = ev.target.closest && ev.target.closest('.sv-mi'); if (mi) { svChoose(mi.dataset.pov); return; }
+});
+document.addEventListener('mousedown', ev => { const p = $('#svPop'); if (p && !p.contains(ev.target) && !(ev.target.closest && ev.target.closest('.sv-pill'))) svMenuClose(false); }, true);
+document.addEventListener('keydown', ev => {
+  const p = $('#svPop'); if (!p) return;
+  if (p.contains(ev.target)) {
+    const items = [...p.querySelectorAll('.sv-mi')], i = items.indexOf(ev.target);
+    if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); svMenuClose(true); }
+    else if (ev.key === 'ArrowDown') { ev.preventDefault(); items[(i + 1) % items.length].focus(); }
+    else if (ev.key === 'ArrowUp') { ev.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    else if (ev.key === 'Tab') svMenuClose(false);
+  } else if (ev.key === 'Escape') { ev.stopPropagation(); svMenuClose(false); }
+}, true);
+let svT = 0;
+desk.addEventListener('input', ev => { if (!(ev.target.closest && ev.target.closest('.rte-body[data-rich="body"]'))) return; clearTimeout(svT); svT = setTimeout(() => { const c = current(); if (c && c.kind === 'chapter') svRefreshSplit(c); }, 600); });
 
 /* ---------- AO3 sharing (optional) ---------- */
 /* Quire never talks to AO3. It turns the text into the HTML AO3 accepts, puts it on the clipboard and opens the matching AO3 page, where the writer pastes and posts. */
@@ -6536,7 +6929,7 @@ desk.addEventListener('change', ev => {
       e[k] = [...(e[k] || []), t.value];
       if (k === 'povs' && !(e.chars || []).includes(t.value)) { e.chars = [...(e.chars || []), t.value]; const cf = $('#field-chars'); if (cf) cf.innerHTML = refsHTML(e, flatFields(F.chapter).find(x => x.k === 'chars')); }
       if (k === 'chars') { const pf = $('#field-povs'); if (pf) pf.innerHTML = refsHTML(e, flatFields(F.chapter).find(x => x.k === 'povs')); }
-      touch(e); $('#field-' + k).innerHTML = refsHTML(e, d); const s = $('#ref-' + k); if (s) s.focus(); $('#links').innerHTML = linksHTML(e); }
+      touch(e); $('#field-' + k).innerHTML = refsHTML(e, d); const s = $('#ref-' + k); if (s) s.focus(); $('#links').innerHTML = linksHTML(e); if (k === 'povs') ptagBarsAll(); }
   } else if (t.dataset.bf === 'pos') {
     const b = (e.beats || []).find(x => x.id === t.dataset.beat);
     if (b && t.value === '') { b.pos = 0; touch(e); }
@@ -6668,7 +7061,7 @@ document.addEventListener('click', ev => {
     case 'ptag-open': { S.ptagJump = a.dataset.pid; if (S.openId === a.dataset.id && desk.querySelector(`.sheet[data-id="${CSS.escape(a.dataset.id)}"]`)) ptagJumpDo(); else open(a.dataset.id); return; }
     case 'imgbar-close': { const img = S.imgSel; imgBarClose(); const ed = imgEditorOf(img); if (ed) ed.focus({preventScroll:true}); return; }
     case 'tag-del': if (cur) { cur.tags = (cur.tags || []).filter(t => t !== a.dataset.tag); touch(cur); rerenderTags(cur, false); } return;
-    case 'ref-del': if (cur) { const k = a.dataset.key; cur[k] = (cur[k] || []).filter(x => x !== a.dataset.ref); touch(cur); $('#field-' + k).innerHTML = refsHTML(cur, flatFields(F[cur.kind]).find(x => x.k === k)); if (k === 'chars') { const pf = $('#field-povs'); if (pf) pf.innerHTML = refsHTML(cur, flatFields(F.chapter).find(x => x.k === 'povs')); } $('#links').innerHTML = linksHTML(cur); } return;
+    case 'ref-del': if (cur) { requestAnimationFrame(ptagBarsAll); const k = a.dataset.key; cur[k] = (cur[k] || []).filter(x => x !== a.dataset.ref); touch(cur); $('#field-' + k).innerHTML = refsHTML(cur, flatFields(F[cur.kind]).find(x => x.k === k)); if (k === 'chars') { const pf = $('#field-povs'); if (pf) pf.innerHTML = refsHTML(cur, flatFields(F.chapter).find(x => x.k === 'povs')); } $('#links').innerHTML = linksHTML(cur); } return;
     case 'ch-beat-del': if (cur) { cur.beats = (cur.beats || []).filter(r => r !== a.dataset.ref); touch(cur); $('#field-chbeats').innerHTML = chapterBeatsHTML(cur); $('#links').innerHTML = linksHTML(cur); } return;
     case 'ch-move': if (cur) moveChapter(cur, +a.dataset.dir); return;
     case 'hist-open': if (cur && cur.kind === 'chapter') { if (S.hp) histClosePanel(); else histOpen(cur); } return;
@@ -6734,6 +7127,7 @@ document.addEventListener('click', ev => {
     case 'del': S.confirm = 'del:' + (cur && cur.id); return cur && ($('#foot').innerHTML = footHTML(cur));
     case 'del-no': S.confirm = null; return cur && ($('#foot').innerHTML = footHTML(cur));
     case 'del-yes': return cur && deleteEntry(cur);
+    case 'tagref-del': if (cur) { cur.tagRefs = (cur.tagRefs || []).filter(x => x !== a.dataset.ref); touch(cur); rerenderTags(cur, false); const lk = $('#links'); if (lk) lk.innerHTML = linksHTML(cur); } return;
     case 'story-del': S.confirm = 'story:' + S.projectId; { const p = project(); if (p) $('#foot').innerHTML = storyFootHTML(p); } return;
     case 'story-del-no': S.confirm = null; { const p = project(); if (p) $('#foot').innerHTML = storyFootHTML(p); } return;
     case 'story-del-yes': {
@@ -6779,6 +7173,7 @@ function deleteEntry(cur){
       if (o.kind === 'chapter' && (o.chars || []).includes(cur.id)) { o.chars = o.chars.filter(x => x !== cur.id); changed = true; }
       if (o.kind === 'chapter' && (o.povs || []).includes(cur.id)) { o.povs = o.povs.filter(x => x !== cur.id); changed = true; }
     }
+    if ((o.tagRefs || []).includes(cur.id)) { o.tagRefs = o.tagRefs.filter(x => x !== cur.id); changed = true; }
     if (kind === 'place' && o.kind === 'chapter' && (o.places || []).includes(cur.id)) { o.places = o.places.filter(x => x !== cur.id); changed = true; }
     if (kind === 'arc' && o.kind === 'chapter' && (o.beats || []).some(r => r.startsWith(cur.id + ':'))) { o.beats = o.beats.filter(r => !r.startsWith(cur.id + ':')); changed = true; }
     if (changed) touch(o);
@@ -6796,7 +7191,7 @@ document.addEventListener('keydown', ev => {
   const t = ev.target;
   if (t.dataset && t.dataset.taginput !== undefined) {
     if (ev.key === 'Enter' || ev.key === ',') { ev.preventDefault(); const e = current(); if (e && addTags(e, t.value)) rerenderTags(e, true); return; }
-    if (ev.key === 'Backspace' && !t.value) { const e = current(); if (e && (e.tags || []).length) { e.tags = e.tags.slice(0, -1); touch(e); rerenderTags(e, true); } return; }
+    if (ev.key === 'Backspace' && !t.value) { const e = current(); if (e && (e.tags || []).length) { e.tags = e.tags.slice(0, -1); touch(e); rerenderTags(e, true); } else if (e && (e.tagRefs || []).length) { e.tagRefs = e.tagRefs.slice(0, -1); touch(e); rerenderTags(e, true); } return; }
   }
   if (ev.key === 'Enter' && t.dataset && t.dataset.jump !== undefined) { ev.preventDefault(); jumpTo(t.value); return; }
   if (ev.key === 'Enter' && t.dataset && t.dataset.lp !== undefined) { const f = $('#lp-list .item'); if (f) { ev.preventDefault(); f.click(); } return; }
@@ -6844,7 +7239,16 @@ async function menuAction(m){
     toast('Preparing the offline file…');
     return offer('quire.html', await buildOfflineHTML());
   }
-  if (m === 'backup') { flushAll(); return offer(`quire-backup-${today()}.json`, await backupJSON()); }
+  if (m === 'backup') { flushAll(); return offerBackup(`quire-backup-${today()}.json`, await backupJSON()); }
+  if (m === 'encbackup') { S.encBackups = !S.encBackups; savePrefs(); applyDisplay(); if (S.encBackups && !qeOK()) toast('This browser can’t encrypt, so backups can’t be made while this is on.'); return; }
+  if (m === 'encfile') { if (S.mode === 'file' && S.loaded) await (S.fileCrypt ? encFileOff() : encFileOn()); encSync(); return; }
+  if (m === 'enc-pw') {
+    if (S.mode !== 'file' || !S.fileCrypt) return;
+    const pw = await askPassword({title: 'New password for this file', intro: 'The next Save file locks the file with the new password. Copies saved before keep the old one.', isNew: true});
+    if (!pw) return;
+    S.fileCrypt = await qeNewKey(pw); S.fileDirty = true; if (!S.dirtySince) S.dirtySince = Date.now(); status(); encSync();
+    toast('Password changed. Use Save file to lock the file with it.'); return;
+  }
   if (m === 'help') { helpOpen(); return; }
   if (m === 'chiphi') { S.chipHi = !S.chipHi; savePrefs(); applyDisplay(); return; }
   if (m === 'splitask') { S.splitAsk = !S.splitAsk; savePrefs(); applyDisplay(); return; }
@@ -6852,6 +7256,7 @@ async function menuAction(m){
   if (m === 'smartq') { S.smartQ = !S.smartQ; savePrefs(); applyDisplay(); return; }
   if (m === 'example') { loadExample(); toast('Example story added: “The Red-Headed League”. Delete it from the Story menu when you’re done.'); return; }
   if (m === 'indent') { S.indent = !S.indent; savePrefs(); applyDisplay(); return; }
+  if (m === 'stcolors') { S.stColors = !S.stColors; savePrefs(); applyDisplay(); if (S.loaded) { renderIndex(); if (!S.openId && S.panel === 'list') lpRefresh(); } return; }
   if (m === 'progbar') { S.progBar = !S.progBar; savePrefs(); applyDisplay(); $$('.rte').forEach(footRender); return; }
   if (m === 'ao3') { S.ao3 = !S.ao3; savePrefs(); applyDisplay(); if (S.loaded) { renderIndex(); const c = current(); if (c && c.kind === 'chapter') { const y = desk.scrollTop, se = document.scrollingElement.scrollTop; renderDesk(); desk.scrollTop = y; document.scrollingElement.scrollTop = se; } } return; }
   if (m === 'dash') { S.smartDash = !S.smartDash; savePrefs(); applyDisplay(); return; }
@@ -6867,7 +7272,7 @@ async function menuAction(m){
   const p = project(); if (!p) { toast('Start or choose a story first.'); return; }
   if (m === 'dup-story') return duplicateStory(p);
   if (m === 'del-story') { showPanel('overview'); S.confirm = 'story:' + p.id; const f = $('#foot'); if (f) { f.innerHTML = storyFootHTML(p); f.scrollIntoView({block:'center', behavior: reduced ? 'auto' : 'smooth'}); const y = f.querySelector('[data-act="story-del-no"]'); if (y) y.focus({preventScroll:true}); } return; }
-  if (m === 'backup-story') { flushAll(); return offer(`${slug(p.title)}-backup-${today()}.json`, await backupJSON(p.id)); }
+  if (m === 'backup-story') { flushAll(); return offerBackup(`${slug(p.title)}-backup-${today()}.json`, await backupJSON(p.id)); }
   if (m === 'export-ms-md' || m === 'export-txt') {
     if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
     return m === 'export-txt' ? offer(`${slug(p.title)}-manuscript.txt`, manuscriptTxt(p)) : offer(`${slug(p.title)}-manuscript.md`, manuscriptMd(p));
@@ -6885,9 +7290,226 @@ async function menuAction(m){
 }
 
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { for (const pid of Object.keys(histT)) { clearTimeout(histT[pid]); recordHistory(pid); delete histT[pid]; } flushAll(); } });
-window.addEventListener('pagehide', () => { histFlushAll(); flushAll(); });
+window.addEventListener('pagehide', () => { histFlushAll(); flushAll(); rescueWrite(); });
+/* Browser storage writes finish after the page is gone only sometimes. A synchronous copy of entries still being written
+   is kept in local storage as the page closes, and picked up the next time this file opens. */
+const RESCUE_KEY = () => 'quire.rescue:' + location.pathname;
+function rescueWrite(){
+  if (S.mode !== 'file' || !S.loaded) return;
+  try {
+    const ids = [...S.dirty]; if (!ids.length) { localStorage.removeItem(RESCUE_KEY()); return; }
+    localStorage.setItem(RESCUE_KEY(), JSON.stringify({t: Date.now(), e: ids.map(id => { const e = S.entries.get(id); return e ? [id, body(e)] : null; }).filter(Boolean)}));
+  } catch {}
+}
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') histFlushAll(); });
 window.addEventListener('beforeunload', ev => { if (S.mode === 'file' && S.fileDirty) { flushAll(); ev.preventDefault(); ev.returnValue = ''; } });
+
+/* ---------- encryption: backups and the saved file ---------- */
+/* AES-256-GCM with a key from PBKDF2-SHA-256 (600,000 rounds, a random 16-byte salt), all from the browser's
+   own Web Crypto. Every encryption gets a fresh random 12-byte IV. The envelope's settings are bound to the
+   ciphertext as additional data, so changing any of them makes decryption fail instead of misbehaving. */
+const QE_FORMAT = 'quire-encrypted', QE_ITER = 600000;
+const b64e = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); };
+const b64d = s => { const bin = atob(String(s)); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; };
+const qeOK = () => !!(window.crypto && crypto.subtle && window.TextEncoder);
+async function qeKey(pw, salt, iter){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(String(pw).normalize('NFC')), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name: 'PBKDF2', hash: 'SHA-256', salt, iterations: iter}, base, {name: 'AES-GCM', length: 256}, false, ['encrypt', 'decrypt']);
+}
+async function qeZip(u8, back){
+  const S_ = back ? window.DecompressionStream : window.CompressionStream; if (!S_) return null;
+  const s = new Blob([u8]).stream().pipeThrough(new S_('gzip'));
+  return new Uint8Array(await new Response(s).arrayBuffer());
+}
+const qeAAD = h => new TextEncoder().encode(JSON.stringify([h.format, h.v, h.what, h.kdf, h.iter, h.z, h.salt, h.iv]));
+/* key: {key, salt, iter} from qeNewKey or a successful open; makes an envelope around text */
+async function qeSeal(text, key, what){
+  let body = new TextEncoder().encode(text), z = false;
+  const zipped = await qeZip(body, false); if (zipped) { body = zipped; z = true; }
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const h = {format: QE_FORMAT, v: 1, what, kdf: 'PBKDF2-SHA-256', iter: key.iter, z, salt: b64e(key.salt), iv: b64e(iv)};
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name: 'AES-GCM', iv, additionalData: qeAAD(h)}, key.key, body));
+  return {...h, data: b64e(ct), note: 'Encrypted with Quire. Open it with Quire and its password.'};
+}
+async function qeNewKey(pw){ const salt = crypto.getRandomValues(new Uint8Array(16)); return {key: await qeKey(pw, salt, QE_ITER), salt, iter: QE_ITER}; }
+function qeCheck(h){
+  const ok = h && h.format === QE_FORMAT && h.v === 1 && h.kdf === 'PBKDF2-SHA-256' && Number.isInteger(h.iter) && h.iter >= 100000 && h.iter <= 10000000
+    && typeof h.salt === 'string' && typeof h.iv === 'string' && typeof h.data === 'string' && typeof h.z === 'boolean';
+  if (!ok) throw {code: 'format'};
+  const salt = b64d(h.salt), iv = b64d(h.iv); if (salt.length !== 16 || iv.length !== 12) throw {code: 'format'};
+  return {salt, iv};
+}
+/* Opens an envelope with a password; returns {text, key} so the same key can seal again later */
+async function qeOpen(h, pw){
+  const {salt, iv} = qeCheck(h);
+  const key = await qeKey(pw, salt, h.iter);
+  let body;
+  try { body = new Uint8Array(await crypto.subtle.decrypt({name: 'AES-GCM', iv, additionalData: qeAAD(h)}, key, b64d(h.data))); }
+  catch { throw {code: 'password'}; }
+  if (h.z) { const un = await qeZip(body, true); if (!un) throw {code: 'browser'}; body = un; }
+  return {text: new TextDecoder().decode(body), key: {key, salt, iter: h.iter}};
+}
+/* ---- password strength: a pattern-aware estimate in bits, explained in words ---- */
+const PW_COMMON = new Set(('password passwort motdepasse contrasena wachtwoord letmein welcome admin iloveyou monkey dragon sunshine princess football baseball soccer master shadow superman batman trustno1 starwars hello hallo freedom whatever qwerty qwertz azerty asdf zxcv qazwsx abc abcd abcdef login secret geheim access summer sommer winter spring autumn fall love liebe amour lovely flower charlie michael jessica daniel thomas jordan hunter ranger buster soccer harley pepper ginger maggie cookie cheese chocolate computer internet google apple samsung quire story stories writer writing novel book books chapter author poem poetry fanfic fiction test testing guest user default changeme').split(' '));
+const pwUnleet = s => s.replace(/0/g, 'o').replace(/[1!|]/g, 'i').replace(/3/g, 'e').replace(/[4@]/g, 'a').replace(/[5$]/g, 's').replace(/7/g, 't').replace(/8/g, 'b').replace(/9/g, 'g');
+const PW_ROWS = ['abcdefghijklmnopqrstuvwxyz', 'qwertyuiopasdfghjklzxcvbnm', 'qwertzuiopasdfghjklyxcvbnm', 'azertyuiopqsdfghjklmwxcvbn', '01234567890', '9876543210'];
+const pwSeq = s => s.length >= 3 && PW_ROWS.some(r => r.includes(s) || r.includes([...s].reverse().join('')));
+function pwRunBits(run, kind, seen){
+  if (kind === 'w') return 1;
+  if (kind === 's') return run.length === 1 ? 4 : run.length * 5;
+  const low = run.toLowerCase();
+  if (seen.has(low)) return 1; seen.add(low);
+  if (/^(.)\1+$/u.test(low)) return 4;
+  { const m = low.match(/^(.{2,}?)\1+$/u); if (m) return pwRunBits(m[1], kind, new Set()) + 2; }
+  if (pwSeq(low)) return 3 + run.length * 0.5;
+  if (kind === 'd') return /^(19|20)\d\d$/.test(run) ? 4 : run.length * 3.32;
+  /* letters, possibly with look-alike digits inside (p4ssw0rd) */
+  const rest = run.slice(1), mixedInside = rest !== rest.toLowerCase() && rest !== rest.toUpperCase();
+  const cap = run.length > 1 && run[0] !== low[0] && rest === rest.toLowerCase();
+  const leet = (run.match(/\d|[@$!|]/g) || []).length, word = pwUnleet(low);
+  if (PW_COMMON.has(word) || (S.pwWords && S.pwWords.has(word))) return 6 + (cap ? 1 : 0) + leet;
+  const letters = word.replace(/[^\p{L}]/gu, ''), vowels = (letters.match(/[aeiouyäöüéèêàâáíóúåæø]/g) || []).length / (letters.length || 1);
+  const wordy = letters.length >= 4 && letters.length <= 14 && !mixedInside && vowels >= 0.2 && vowels <= 0.7;
+  return run.length * (mixedInside ? 5.7 : 4.7) * (wordy ? 0.5 : 1) + (cap ? 1 : 0) + leet;
+}
+function pwStrength(pw){
+  const s = String(pw || '').normalize('NFC'); if (!s) return {bits: 0, level: -1};
+  const flat = pwUnleet(s.toLowerCase()).replace(/[^\p{L}\p{N}]/gu, ''), core = pwUnleet(s.toLowerCase().replace(/[^\p{L}]+$/u, '')).replace(/[^\p{L}\p{N}]/gu, '');
+  if (PW_COMMON.has(flat) || PW_COMMON.has(core) || /^(.)\1*$/u.test(s) || /^\d+$/.test(s) && s.length < 10 || pwSeq(s.toLowerCase())) return {bits: Math.min(10, s.length * 1.5), level: 0, why: 'common'};
+  /* runs of letters (with look-alike digits inside), digits, spaces and symbols */
+  const runs = s.match(/\p{L}(?:[\p{L}]|[013457@$!|](?=\p{L}))*|\p{N}+|\s+|[^\p{L}\p{N}\s]+/gu) || [];
+  let bits = 0, kinds = 0, prev = '';
+  const seen = new Set();
+  for (const r of runs.flatMap(r => /^\p{L}/u.test(r) ? r.split(/(?<=\p{Ll})(?=\p{Lu})/u) : [r])) {
+    const k = /^\p{L}/u.test(r) ? 'l' : /^\p{N}/u.test(r) ? 'd' : /^\s/.test(r) ? 'w' : 's';
+    bits += pwRunBits(r, k, seen);
+    if (prev && (k !== prev || k === 'l')) kinds++; prev = k;
+  }
+  bits += Math.min(kinds, 10);
+  let level = bits < 28 ? 0 : bits < 40 ? 1 : bits < 56 ? 2 : bits < 72 ? 3 : 4;
+  if (s.length < 8) level = 0;
+  const words = s.toLowerCase().match(/\p{L}+/gu) || [];
+  return {bits, level, years: /(19|20)\d\d/.test(s), names: words.some(w => S.pwWords && S.pwWords.has(pwUnleet(w)))};
+}
+const PW_LEVEL = ['Very weak', 'Weak', 'Fair', 'Strong', 'Very strong'];
+function pwCrackTime(bits){
+  /* On average half the possibilities have to be tried. Against 600,000 key rounds one fast graphics card manages roughly 10,000 guesses a second. */
+  const sec = Math.pow(2, Math.max(0, bits - 1)) / 1e4;
+  if (sec < 2) return 'a moment';
+  const u = [[90, 'seconds', 1], [5400, 'minutes', 60], [86400 * 2, 'hours', 3600], [86400 * 365, 'days', 86400], [86400 * 365 * 1000, 'years', 86400 * 365]];
+  for (const [lim, name, div] of u) if (sec < lim) { const n = Math.max(1, Math.round(sec / div)); return `about ${fmt(n)} ${n === 1 ? name.slice(0, -1) : name}`; }
+  return sec < 86400 * 365 * 1e6 ? 'thousands of years' : 'millions of years';
+}
+function pwMeterHTML(pw){
+  const r = pwStrength(pw);
+  if (r.level < 0) return `<div class="pw-meter" data-l="-1"><span class="pw-bars"><i></i><i></i><i></i><i></i><i></i></span><span class="pw-l">Longer is stronger: four or five unrelated words make a good password.</span></div>`;
+  const tips = [];
+  if (r.why === 'common') tips.push('This is one of the most common passwords.');
+  if (r.names) tips.push('Avoid names and words from your own story.');
+  if (r.years) tips.push('Years are easy to guess.');
+  if (r.level < 3 && r.why !== 'common') tips.push('Add another unrelated word or two.');
+  return `<div class="pw-meter" data-l="${r.level}"><span class="pw-bars">${[0, 1, 2, 3, 4].map(i => `<i${i <= r.level ? ' class="on"' : ''}></i>`).join('')}</span><span class="pw-l"><b>${PW_LEVEL[r.level]}.</b> A determined attacker would need ${esc(pwCrackTime(r.bits))} to guess it.${tips.length ? ' ' + esc(tips.join(' ')) : ''}</span></div>`;
+}
+function pwWordsFromStory(){ const w = new Set(); for (const e of S.entries.values()) for (const m of String(e.title || '').toLowerCase().match(/\p{L}{4,}/gu) || []) w.add(m); S.pwWords = w; }
+/* Asks for a new password (twice, with the meter) or an existing one. Resolves to the password, or null. */
+async function askPassword({title, intro, isNew, err}){
+  if (isNew) pwWordsFromStory();
+  for (let tries = 0; ; tries++) {
+    const html = `${intro ? `<p class="dlg-note">${intro}</p>` : ''}<div class="pw-form">
+      <label class="dlg-f"><span>${isNew ? 'New password' : 'Password'}</span><input type="password" id="pw1" autocomplete="${isNew ? 'new-password' : 'current-password'}" spellcheck="false" autocapitalize="off" autocorrect="off"></label>
+      ${isNew ? `<div id="pwMeter" aria-live="polite">${pwMeterHTML('')}</div><label class="dlg-f"><span>The same password again</span><input type="password" id="pw2" autocomplete="new-password" spellcheck="false" autocapitalize="off" autocorrect="off"></label>` : ''}
+      <label class="check"><input type="checkbox" id="pwShow"> Show password</label>
+      ${err ? `<p class="pw-err" role="alert">${esc(err)}</p>` : ''}
+      ${isNew ? '<p class="pw-warn"><b>Keep the password somewhere safe.</b> Without it, nobody can open what you encrypt: there is no way to reset it.</p>' : ''}</div>`;
+    const pending = askChoice({title, html, choices: [{label: isNew ? 'Encrypt' : 'Open', value: 'ok', primary: true}, {label: 'Cancel', value: null}], read: box => ({a: box.querySelector('#pw1').value, b: isNew ? box.querySelector('#pw2').value : null})});
+    const form = $('#dlg .pw-form');
+    form.addEventListener('input', ev => { if (ev.target.id === 'pw1' && isNew) $('#pwMeter', form).innerHTML = pwMeterHTML(ev.target.value); });
+    form.addEventListener('change', ev => { if (ev.target.id === 'pwShow') for (const i of form.querySelectorAll('#pw1,#pw2')) i.type = ev.target.checked ? 'text' : 'password'; });
+    const r = await pending; if (!r) return null;
+    const {a, b} = r.form;
+    if (!a) { err = 'Type a password.'; continue; }
+    if (!isNew) return a;
+    const st = pwStrength(a);
+    if (a.length < 8 || st.level === 0) { err = 'That password is too easy to guess. Use at least 8 characters, ideally a few unrelated words.'; continue; }
+    if (a !== b) { err = 'The two passwords don’t match. Type them again.'; continue; }
+    return a;
+  }
+}
+/* ---- encrypted backups ---- */
+async function offerBackup(filename, json){
+  if (!S.encBackups) return offer(filename, json);
+  if (!qeOK()) { toast('This browser can’t encrypt. The backup wasn’t made.'); return; }
+  const pw = await askPassword({title: 'Encrypt this backup', intro: 'Choose a password for this backup. Restoring it will ask for the same password.', isNew: true});
+  if (!pw) return;
+  toast('Encrypting the backup…');
+  const key = await qeNewKey(pw);
+  const env = await qeSeal(json, key, 'backup');
+  return offer(filename.replace(/\.json$/, '-encrypted.json'), JSON.stringify(env));
+}
+/* Turns an encrypted backup back into its JSON text, asking for the password until it fits or the person gives up */
+async function openEncryptedBackup(h){
+  try { qeCheck(h); } catch { toast('That encrypted backup is damaged, or it was made by a newer version of Quire.'); return null; }
+  if (!qeOK()) { toast('This browser can’t decrypt.'); return null; }
+  let err = '';
+  for (;;) {
+    const pw = await askPassword({title: 'Open encrypted backup', intro: 'This backup is encrypted. Type the password it was made with.', err});
+    if (!pw) return null;
+    try { return (await qeOpen(h, pw)).text; }
+    catch (e) { err = e && e.code === 'browser' ? 'This browser can’t unpack the backup. Try a current Firefox, Chrome, Edge or Safari.' : 'That password doesn’t open this backup, or the file was changed since it was made. Check the password and try again.'; }
+  }
+}
+/* ---- the encrypted saved file ---- */
+async function encFileOn(){
+  if (!qeOK()) { toast('This browser can’t encrypt.'); return false; }
+  const pw = await askPassword({title: 'Encrypt this file', intro: 'From the next Save file on, the notebook inside this file is encrypted. Opening the file will ask for this password.', isNew: true});
+  if (!pw) return false;
+  S.fileCrypt = await qeNewKey(pw);
+  S.fileDirty = true; if (!S.dirtySince) S.dirtySince = Date.now(); status();
+  toast('Encryption is on. Use Save file to lock the file with it.');
+  return true;
+}
+async function encFileOff(){
+  const ok = await askChoice({title: 'Stop encrypting this file?', html: '<p>The next Save file stores the notebook unencrypted again, readable by anyone who opens the file.</p>', choices: [{label: 'Stop encrypting', value: true, primary: true}, {label: 'Keep encryption', value: null}]});
+  if (!ok) return false;
+  S.fileCrypt = null; S.fileDirty = true; if (!S.dirtySince) S.dirtySince = Date.now(); status();
+  toast('Encryption is off. Save the file to store it unencrypted.');
+  return true;
+}
+function encSync(){
+  const b = $('#encBackupItem'); if (b) b.checked = !!S.encBackups;
+  const f = $('#encFileItem'); if (f) f.checked = !!S.fileCrypt;
+  const c = $('#encPwItem'); if (c) c.hidden = !S.fileCrypt;
+}
+/* The lock screen, shown before anything from an encrypted file is loaded */
+function unlockFile(env){
+  return new Promise(resolve => {
+    const lock = $('#lock'); lock.hidden = false; app.setAttribute('aria-hidden', 'true'); app.inert = true;
+    lock.innerHTML = `<form class="lock-box" id="lockForm" autocomplete="off"><svg class="mark-icon" viewBox="0 0 40 40" aria-hidden="true" focusable="false">${$('.mark-icon').innerHTML}</svg>
+      <h1 class="lock-h">This notebook is locked</h1>
+      <p class="lock-p">Type its password to open it.</p>
+      <label class="dlg-f"><span>Password</span><input type="password" id="lockPw" autocomplete="current-password" spellcheck="false" autocapitalize="off" autocorrect="off"></label>
+      <label class="check"><input type="checkbox" id="lockShow"> Show password</label>
+      <p class="pw-err" id="lockErr" role="alert" hidden></p>
+      <button class="btn primary" type="submit" id="lockGo">Open notebook</button>
+      <p class="lock-note">Quire encrypted this file with AES-256. Without the password, nobody can read it.</p></form>`;
+    const pw = $('#lockPw'), errEl = $('#lockErr'), go = $('#lockGo');
+    $('#lockShow').addEventListener('change', ev => { pw.type = ev.target.checked ? 'text' : 'password'; });
+    $('#lockForm').addEventListener('submit', async ev => {
+      ev.preventDefault(); if (!pw.value) { pw.focus(); return; }
+      go.disabled = true; go.textContent = 'Opening…'; errEl.hidden = true;
+      try {
+        const r = await qeOpen(env, pw.value);
+        const j = JSON.parse(r.text);
+        lock.hidden = true; lock.innerHTML = ''; app.removeAttribute('aria-hidden'); app.inert = false;
+        resolve({data: j, key: r.key});
+      } catch (e) {
+        errEl.textContent = e && e.code === 'browser' ? 'This browser can’t unpack the notebook. Try a current Firefox, Chrome, Edge or Safari.' : e && e.code === 'format' ? 'This file’s encrypted notebook is damaged, or it was made by a newer version of Quire.' : 'That password doesn’t open this notebook. Check it and try again.';
+        errEl.hidden = false; go.disabled = false; go.textContent = 'Open notebook'; pw.select();
+      }
+    });
+    pw.focus();
+  });
+}
 
 /* ---------- startup ---------- */
 function goLocal(msg){
@@ -6897,6 +7519,11 @@ function goLocal(msg){
   S.loaded = true; computeBases(); pickProject(); renderAll();
 }
 async function goFile(){
+  if (ENC_EMBED) {
+    if (!qeOK()) { const n = $('#notice'); n.innerHTML = '<b>This file is encrypted, and this browser can’t decrypt it.</b> Open it in a current Firefox, Chrome, Edge or Safari.'; n.hidden = false; return; }
+    const r = await unlockFile(ENC_EMBED);
+    EMBED = r.data && Array.isArray(r.data.entries) ? r.data : null; S.fileCrypt = r.key; ENC_EMBED = null;
+  }
   await store.open('storybible:' + location.pathname);
   S.mode = 'file';
   if (store.kind === 'mem') { const n = $('#notice'); n.innerHTML = '<b>This browser won’t let the file keep notes between visits.</b> Your work is safe while the tab is open. Use Save file (Ctrl+S) before closing it.'; n.hidden = false; }
@@ -6904,6 +7531,15 @@ async function goFile(){
   let rows = [], meta = new Map();
   try { rows = await store.all('entries'); meta = new Map(await store.all('meta')); } catch {}
   const merged = new Map(rows), stored = new Set(merged.keys()), inFile = new Set();
+  try {
+    const rs = JSON.parse(localStorage.getItem(RESCUE_KEY()) || 'null');
+    if (rs && Array.isArray(rs.e)) for (const x of rs.e) {
+      if (!Array.isArray(x) || typeof x[0] !== 'string' || !ID_RE.test(x[0]) || !x[1] || typeof x[1] !== 'object') continue;
+      const [id, b] = x, cur = merged.get(id);
+      if (!cur || (+b.updated || 0) > (+cur.updated || 0)) { delete b.id; merged.set(id, b); stored.add(id); store.put('entries', id, b).catch(() => {}); }
+    }
+    localStorage.removeItem(RESCUE_KEY());
+  } catch {}
   let dirty = false;
   for (const raw of (EMBED ? EMBED.entries : [])) {
     if (!raw || typeof raw !== 'object' || typeof raw.id !== 'string' || !(raw.kind === 'project' || KINDS[raw.kind])) continue;
@@ -6920,7 +7556,7 @@ async function goFile(){
     for (const r of EMBED.history) { if (!histValidRec(r)) continue; const cur = have.get(r.key); if (!cur || (r.t1 || 0) > (cur.t1 || 0)) store.put('history', r.key, r).catch(() => {}); }
   }
   for (const [id, b] of merged) { const d = migrate(JSON.parse(JSON.stringify(b))); d.id = id; S.entries.set(id, d); }
-  S.fileDirty = dirty; if (dirty) S.dirtySince = Date.now(); S.loaded = true; app.dataset.mode = 'file';
+  S.fileDirty = dirty; if (dirty) S.dirtySince = Date.now(); S.loaded = true; app.dataset.mode = 'file'; encSync();
   computeBases(); pickProject(); renderAll();
 }
 function onSnap(snap){

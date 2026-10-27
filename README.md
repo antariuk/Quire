@@ -4,13 +4,15 @@
 
 **A writing notebook for stories, in one HTML file.** Open it in a browser and start writing. No account, no install, and it works offline.
 
-**[Try it online](https://antariuk.github.io/quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/quire/releases/latest/download/quire.html)** · [What's new](CHANGELOG.md)
+**[Try it online](https://antariuk.github.io/Quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/Quire/releases/latest/download/quire.html)** · [What's new](CHANGELOG.md)
 
 ![Writing a chapter in Quire, with passage tags in the margin](docs/writing.png)
 
 ## Private by design
 
 Your writing stays in the file and in your browser. Quire sends nothing anywhere, has no tracking or analytics, and only goes online if you switch on Google Fonts. The whole program is plain JavaScript inside the file, with no outside code, so you can read every line of it.
+
+If you like, Quire encrypts your backups and the saved file with a password (AES-256), so a lost laptop or a shared cloud folder doesn't give your writing away.
 
 ## Getting started
 
@@ -24,6 +26,7 @@ How saving works, in short:
 - **While you write**, Quire keeps your work in this browser's storage, so nothing is lost if the tab closes.
 - **Save file** stores everything inside `quire.html`. In Chrome and Edge you choose the file once and later saves overwrite it. In Firefox and Safari each save downloads an updated copy, which replaces the old file. A reminder nudges you when work has gone unsaved for a while.
 - **Backups** (Options → Backup) save one story or all of them as a `.json` file, which any copy of Quire can restore.
+- **Encryption** (Options → Backup, optional) locks backups and the saved file with a password. A meter rates the password as you choose it. Forget the password and the writing can't be recovered, so keep it safe.
 - **The online version** keeps your work in that browser only. To keep your writing safe, download the file and use Save file.
 
 ## Features
@@ -46,6 +49,9 @@ How saving works, in short:
 - Story arcs on a tension curve, built from classic structures and checked against your chapters
 - Links between entries with `[[Title]]`, with backlinks shown automatically
 - Tags on three levels: entries, images (sorted as portrait, landscape or square by themselves) and individual passages. A passage tag lists its passages in story order, so you can follow a subplot or a clue through the book.
+- Tag suggestions as you type, including chapters, characters, places and notes, which become links
+- Scene viewpoints: label whose point of view each scene follows, and see how a chapter's words, and the whole story's, divide between them
+- Status colours: every chapter coloured by its status, with a strip of the whole manuscript at a glance
 
 **Revising**
 - Prose checker: Hemingway-style readability (hard sentences, adverbs, passive voice, wordy phrases), plus word echoes and dialogue
@@ -55,9 +61,10 @@ How saving works, in short:
 **Saving and sharing**
 - Export the manuscript as a Word file in standard manuscript format, a web page, Markdown or plain text, or print it or save it as PDF
 - Optional AO3 sharing: copy a chapter for AO3 in one click and open the right page there
-- Backups of one story or all of them, and importing chapters from text files
+- Backups of one story or all of them, optionally encrypted, and importing chapters from text files
+- An optional password on the saved file itself
 
-Built-in help explains every feature.
+Built-in help, with search, explains every feature.
 
 ## Screenshots
 
@@ -75,7 +82,7 @@ Quire needs JavaScript, which browsers allow by default. If you use a blocker su
 
 ## Questions
 
-**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 585 KB empty). Your stories, images and history are stored in the same file when you save.
+**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 645 KB empty). Your stories, images and history are stored in the same file when you save.
 
 **Can I use it on more than one computer?** Yes: save, take the file with you, and open it there. Use one copy at a time, so that two copies don't drift apart.
 
@@ -85,7 +92,7 @@ Quire needs JavaScript, which browsers allow by default. If you use a blocker su
 
 ## Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/antariuk/quire/issues/new/choose). For bugs, say which browser and system you use and whether you work in the downloaded file or the online version. Please don't paste private writing into issues.
+Found a bug or have an idea? [Open an issue](https://github.com/antariuk/Quire/issues/new/choose). For bugs, say which browser and system you use and whether you work in the downloaded file or the online version. Please don't paste private writing into issues.
 
 ## License
 
