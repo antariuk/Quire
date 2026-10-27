@@ -36,7 +36,7 @@ How saving works, in short:
 - Book-style paragraph indents, plus smart quotes (English, German or French style), em dashes and ellipses as you type
 - Focus mode in two stages: *Focus* hides the navigation; *Intense focus* leaves only the text, its toolbar and the buttons above it. On larger screens, full screen hides the browser's own bars too.
 - Picks up where you left off: Quire reopens the chapter you were writing, at the spot where you stopped
-- Typewriter scrolling, adjustable text size and page width, and six themes from light to a warm dark
+- Typewriter scrolling, adjustable text size and page width, six themes from light to a warm dark, and your own themes from four colours
 - Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints or towards a chapter's word target
 - Word targets per chapter and for the whole story, a word count for any selection, and find and replace
 
@@ -55,11 +55,13 @@ How saving works, in short:
 
 **Revising**
 - Prose checker: Hemingway-style readability (hard sentences, adverbs, passive voice, wordy phrases), plus word echoes and dialogue
+- Watch words: list habits to avoid or facts to keep straight, and a quiet note appears beside the line when you type one
 - Comments on any passage
 - Stats from basic to in-depth: daily progress, dialogue share, sentence rhythm, word variety, reading level, sentence openers, punctuation, repeated phrases and a narration check
+- Voices: compare how your viewpoint characters narrate, with their favourite words and phrases, rhythm, and how a voice changes from chapter to chapter; mark who says a line, and compare how your characters speak too
 
 **Saving and sharing**
-- Export the manuscript as a Word file in standard manuscript format, a web page, Markdown or plain text, or print it or save it as PDF
+- Export the manuscript as a Word manuscript in standard format for submissions, a regular Word document with real headings, a web page, Markdown or plain text, or print it or save it as PDF
 - Optional AO3 sharing: copy a chapter for AO3 in one click and open the right page there
 - Backups of one story or all of them, optionally encrypted, and importing chapters from text files
 - An optional password on the saved file itself
@@ -82,7 +84,7 @@ Quire needs JavaScript, which browsers allow by default. If you use a blocker su
 
 ## Questions
 
-**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 645 KB empty). Your stories, images and history are stored in the same file when you save.
+**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 730 KB empty). Your stories, images and history are stored in the same file when you save.
 
 **Can I use it on more than one computer?** Yes: save, take the file with you, and open it there. Use one copy at a time, so that two copies don't drift apart.
 

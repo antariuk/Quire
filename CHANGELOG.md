@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2 (2026-10-27)
+
+- **Your own themes:** pick four colours (paper, text, background and accent) or start from a preset; Quire works out the other shades, previews them live and checks the text stays readable. Save as many named themes as you like.
+- **Word document:** a second Word export that looks like your story, with your typeface, size and spacing, real Word headings, book-style or spaced paragraphs, scene breaks, images, an optional title page and page numbers. Word manuscript is unchanged.
+- **Watch words:** list words and phrases to notice, for every story or just one, with an optional note. Typing one shows a small note beside the line that fades by itself; the Prose checker marks them all.
+- **Voices** (Stats): how each viewpoint character narrates, compared side by side, with distinctive words, favourite phrases, sentence rhythm, senses and chapter-by-chapter drift.
+- **Who says this:** mark a line of dialogue with its speaker from the toolbar. Once a line is marked, Voices compares how your characters speak, from the lines you've marked only. Quire never guesses a speaker.
+- **Also known as** on character sheets, for other names a character goes by.
+
 ## 1.1 (2026-10-26)
 
 - **Encryption:** optional password protection for backups and for the saved file, with AES-256-GCM and a key derived by PBKDF2-SHA-256 (600,000 rounds), all done by the browser. Encrypted files open behind a lock screen.
