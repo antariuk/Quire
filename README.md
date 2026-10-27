@@ -4,7 +4,7 @@
 
 **A writing notebook for stories, in one HTML file.** Open it in a browser and start writing. No account, no install, and it works offline.
 
-**[Try it online](https://antariuk.github.io/Quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/Quire/releases/latest/download/quire.html)** · [What's new](CHANGELOG.md)
+**[Try it online](https://antariuk.github.io/quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/quire/releases/latest/download/quire.html)** · [What's new](CHANGELOG.md)
 
 ![Writing a chapter in Quire, with passage tags in the margin](docs/writing.png)
 
@@ -92,7 +92,7 @@ Quire needs JavaScript, which browsers allow by default. If you use a blocker su
 
 ## Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/antariuk/Quire/issues/new/choose). For bugs, say which browser and system you use and whether you work in the downloaded file or the online version. Please don't paste private writing into issues.
+Found a bug or have an idea? [Open an issue](https://github.com/antariuk/quire/issues/new/choose). For bugs, say which browser and system you use and whether you work in the downloaded file or the online version. Please don't paste private writing into issues.
 
 ## License
 
