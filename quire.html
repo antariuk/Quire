@@ -339,6 +339,7 @@ button.chip:hover{border-color:var(--pencil)}
 :root[data-chiphi] .chip.ref{font-weight:700;color:var(--hi);background:var(--hi-wash);border-color:var(--hi-line)}
 :root[data-chiphi] .chip.ref:hover{border-color:var(--hi)}
 :root[data-chiphi] .chip.ref .chip-t{color:inherit}
+:root[data-chiphi] .chip.ref .chip-kind{color:inherit;opacity:.8}
 :root[data-chiphi] .chip.ref .chip-x{background:color-mix(in oklab, var(--hi) 16%, var(--sheet));color:var(--hi)}
 :root[data-chiphi] .chip.ref .chip-x:hover{background:var(--hi);color:var(--sheet)}
 .chips select, .field .chips select{font-size:12.5px;padding:4px 8px;width:auto;min-width:min(11rem,100%);max-width:100%}
@@ -505,6 +506,56 @@ button.chip:hover{border-color:var(--pencil)}
 .ao3-copy textarea{width:100%;font-family:var(--f-mono);font-size:12px;resize:vertical}
 .ao3-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:12px 16px}
 .ao3-links input{width:100%;font-family:var(--f-mono);font-size:12.5px}
+.refpanel{display:flex;flex-direction:column;background:var(--sheet);border:1px solid var(--rule);border-radius:10px;overflow:hidden;z-index:30}
+.ref-top{display:flex;gap:6px;align-items:center;padding:10px;border-bottom:1px solid var(--rule)}
+.ref-sel{flex:1 1 auto;min-width:0;height:var(--h-m);padding-block:0}
+.ref-x{font-size:18px;padding:0 10px}
+.ref-in{overflow-y:auto;padding:14px 16px 18px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}
+.ref-head{display:flex;flex-direction:column;gap:2px}
+.ref-k{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--pencil)}
+.ref-t{margin:0;font-family:var(--f-display);font-style:italic;font-weight:500;font-size:22px;line-height:1.2;overflow-wrap:anywhere}
+.ref-pic{max-width:100%;max-height:220px;object-fit:contain;align-self:flex-start;border-radius:6px}
+.ref-fact{margin:0;font-size:13px;overflow-wrap:anywhere}
+.ref-fact b{font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-right:6px}
+.ref-f :is(textarea,input,select){width:100%}
+.ref-rich{font-family:var(--f-display);font-size:15px;line-height:1.6;overflow-wrap:anywhere;border-top:1px solid var(--rule);padding-top:10px}
+.ref-rich p{margin:0 0 .7em}
+.ref-rich img{max-width:100%;height:auto;border-radius:6px}
+.ref-more summary{cursor:pointer;font-size:12.5px;color:var(--ink-2);padding:4px 0}
+.ref-more[open]{display:flex;flex-direction:column;gap:12px}
+.ref-btn[aria-pressed="true"]{border-color:var(--pencil);color:var(--pencil)}
+@media (min-width:1100px){
+  .desk.has-ref > .sheet{margin-right:calc(min(380px, 30vw) + 24px)}
+  .refpanel{position:fixed;right:max(16px, env(safe-area-inset-right, 0px));top:var(--ref-top, 120px);bottom:16px;width:min(380px, 30vw)}
+}
+@media (max-width:1099.98px){
+  .refpanel{position:fixed;right:0;top:0;bottom:0;width:min(400px, 92vw);border-radius:10px 0 0 10px;box-shadow:-8px 0 30px rgba(0,0,0,.22);z-index:70}
+}
+@media print{.refpanel{display:none}}
+@media (max-width:430px){.app.focus-x :is(.ref-btn,.ww-btn){display:none}}
+@media (max-width:600px){.app.focus-x .ww-btn{display:none}}
+@media (max-width:1000px){.app.focus-x .text-tools :is(.ref-btn,.ww-btn) .tl-l{display:none}}
+.ww-btn[aria-pressed="true"]{border-color:var(--pencil);color:var(--pencil)}
+.th-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.th-r{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 8px 6px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--field)}
+.th-mv{display:inline-flex;gap:4px;flex:none}
+.th-r:first-child [data-th-mv="-1"],.th-r:last-child [data-th-mv="1"]{opacity:.35;pointer-events:none}
+.cast-miss{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
+.cast-miss:empty{display:none}
+.miss-l{font-size:12.5px;color:var(--ink-2);margin-right:2px}
+.qs-wrap{position:fixed;inset:0;z-index:90;background:rgba(20,22,26,.35);display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 16px}
+.qs{width:min(560px, 100%);background:var(--sheet);border:1px solid var(--rule);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.3);display:flex;flex-direction:column;max-height:70vh;overflow:hidden}
+#qsIn{border:0;border-bottom:1px solid var(--rule);border-radius:0;padding:14px 16px;font-size:17px;background:var(--sheet)}
+#qsList{list-style:none;margin:0;padding:6px;overflow-y:auto}
+.qs-opt{display:grid;grid-template-columns:7.5rem minmax(0,1fr);column-gap:10px;padding:8px 10px;border-radius:6px;cursor:pointer}
+.qs-opt[aria-selected="true"]{background:var(--wash);box-shadow:inset 3px 0 0 var(--pencil)}
+.qs-k{font-family:var(--f-mono);font-size:11px;color:var(--ink-2);align-self:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qs-t{font-family:var(--f-display);font-size:15.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qs-m{grid-column:2;font-size:12px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qs-none{padding:12px;color:var(--ink-2);font-size:13.5px}
+.qs-foot{margin:0;padding:8px 14px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-2)}
+.qs-foot kbd{font-family:var(--f-mono);font-size:11px;border:1px solid var(--rule);border-radius:4px;padding:0 4px;margin-right:2px}
+@media (max-width:520px){.qs-wrap{padding-top:16px}.qs-opt{grid-template-columns:5.5rem minmax(0,1fr)}}
 .bin-list{display:flex;flex-direction:column;gap:8px}
 .bin-g{margin:16px 0 6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);overflow-wrap:anywhere}
 .bin-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--field)}
@@ -1315,6 +1366,8 @@ mark.spk.on{background:var(--hi-wash)}
       <details class="menu story-menu" id="storyMenu">
         <summary class="btn" title="Story actions">Story<svg class="chev" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="menu-pop">
+          <button data-menu="goto">Go to… <span class="muted">Ctrl+K</span></button>
+          <hr class="menu-sep">
           <button data-menu="new-story">New story</button>
           <button data-menu="example">Open the example story</button>
           <button data-menu="dup-story" data-needs-story>Duplicate this story</button>
@@ -1369,7 +1422,8 @@ mark.spk.on{background:var(--hi-wash)}
         <label class="menu-check"><input type="checkbox" id="tsWordsItem" data-toggle="tswords"><span>Word count above the text <span class="muted">Counts as you type, in focus mode too.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="progBarItem" data-toggle="progbar"><span>Progress bar under the text <span class="muted">During a sprint, or when a chapter has a word target, a slim bar stays at the bottom of the screen.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="stColorsItem" data-toggle="stcolors"><span>Colour chapters by status <span class="muted">Chapter lists show each chapter’s status as a colour, with a strip of the whole manuscript on top.</span></span></label>
-        <label class="menu-check"><input type="checkbox" id="chipHiItem" data-toggle="chiphi"><span>Highlight characters and places <span class="muted">Bold, coloured name chips on chapters and story arcs, easier to spot.</span></span></label>
+        <label class="menu-check"><input type="checkbox" id="chipHiItem" data-toggle="chiphi"><span>Highlight characters, places and beats <span class="muted">Bold, coloured name chips on chapters and story arcs, easier to spot.</span></span></label>
+        <button data-menu="th-arrange">Buttons above the text…</button>
         <hr class="menu-sep menu-sep-soft">
         <div class="menu-row stack theme-row"><span>Theme</span><div class="seg-toggle" role="group" aria-label="Cool themes"><button data-set="theme" data-v="light">Light</button><button data-set="theme" data-v="twilight">Twilight</button><button data-set="theme" data-v="dark">Dark</button></div><div class="seg-toggle" role="group" aria-label="Warm themes, easier on the eyes"><button data-set="theme" data-v="sepia">Sepia</button><button data-set="theme" data-v="lamplight">Lamplight</button><button data-set="theme" data-v="ember">Ember</button></div><div class="ct-row" id="ctRow" role="group" aria-label="Your own themes"></div></div>
         <hr class="menu-sep menu-sep-soft">
@@ -1391,7 +1445,7 @@ mark.spk.on{background:var(--hi-wash)}
         <label class="menu-check"><input type="checkbox" id="indentItem" data-toggle="indent"><span>Indent paragraphs <span class="muted">Book style: each paragraph starts with an indent instead of a gap. Printing and the web page export follow it.</span></span></label>
         <hr class="menu-sep menu-sep-soft">
         <label class="menu-check"><input type="checkbox" id="smartQItem" data-toggle="smartq"><span>Smart quotes <span class="muted">Turn " and ' into typographic quotes as you type. Ctrl+Z right after gives the straight one back.</span></span></label>
-        <div class="menu-row stack"><span>Quote style</span><div class="seg-toggle" role="group" aria-label="Quote style"><button data-set="qs" data-v="en">“English”</button><button data-set="qs" data-v="de">„German“</button><button data-set="qs" data-v="fr">« French »</button></div></div>
+        <div class="menu-row stack"><span>Quote style</span><div class="seg-toggle" role="group" aria-label="Quote style"><button data-set="qs" data-v="en">“English”</button><button data-set="qs" data-v="de">„German“</button><button data-set="qs" data-v="fr">« French »</button></div></div>
         <hr class="menu-sep menu-sep-soft">
         <label class="menu-check"><input type="checkbox" id="dashItem" data-toggle="dash"><span>Em dashes <span class="muted">Turn -- into —</span></span></label>
         <label class="menu-check"><input type="checkbox" id="ellItem" data-toggle="ell"><span>Ellipses <span class="muted">Turn ... into …</span></span></label>
@@ -1577,7 +1631,7 @@ const F = {
     {k:'body', type:'rich', big:true, label:'Note', ph:'Write here. Drop images in, paste a video or music link, or link an entry with [[its title]].'}
   ],
   character: [
-    {k:'aka', label:'Also known as', type:'line', hint:'Other names and forms of address, separated by commas: Sherlock, Mr. Holmes. Search finds the character by any of them.'},
+    {k:'aka', label:'Also known as', type:'line', hint:'Other names and forms of address, separated by commas: Sherlock, Mr. Holmes. Search and the cast check find the character by any of them.'},
     {divider:true},
     {pair:[{k:'role', label:'Role', type:'select', opts:ROLES}, {k:'age', label:'Age', type:'line'}]},
     {divider:true},
@@ -1612,6 +1666,7 @@ const F = {
       {k:'look', label:'What it looks like', type:'text'},
       {k:'senses', label:'Sounds, smells, textures', type:'text'},
       {k:'significance', label:'Why it matters to the story', type:'text'}]},
+    {k:'aka', label:'Also known as', type:'line', hint:'Other names for it, separated by commas: Baker Street, the rooms. Search and the cast check find the place by any of them.'},
     {divider:true},
     {g:'Notes', focus:true},
     {k:'body', type:'rich', big:true, label:'Place notes', ph:'History, who lives here, reference images.'}
@@ -1749,9 +1804,9 @@ $('#themeEd').addEventListener('keydown', ev => {
   if (ev.key === 'Enter' && ev.target.id === 'teName') { ev.preventDefault(); const s = $('#themeEd [data-te-act="save"]'); if (s && !s.disabled) s.click(); }
 });
 
-function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({cx:S.cardsFull, p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, ct:S.themes || [], wwo:!!S.watchOn, ww:S.watch || [], pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
+function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({tbo:S.thOrder, tbh:S.thHide, rf:S.refOn, rr:S.ref, cx:S.cardsFull, p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, ct:S.themes || [], wwo:!!S.watchOn, ww:S.watch || [], pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
 { const pr = loadPrefs(); S.tagView = pr.tv === 'list' ? 'list' : 'cloud'; S.tagSort = pr.ts === 'az' ? 'az' : 'count'; S.wordAll = !!pr.wa; S.wordsOpen = !!pr.wo; S.chFold = !!pr.cf; S.hints = ['full','subtle','off'].includes(pr.hn) ? pr.hn : 'subtle'; S.chipHi = !!pr.hc; S.splitAsk = pr.sa !== false; S.smartQ = pr.sq !== false; S.qStyle = ['en','de','fr'].includes(pr.qs) ? pr.qs : 'en'; S.smartDash = pr.sd !== false; S.smartEll = pr.se !== false; S.remindOn = pr.ro !== false; S.remindMin = remindOK(pr.rm) ? String(Math.round(+pr.rm)) : '30'; S.sprintMin = +pr.sm >= 1 && +pr.sm <= 480 ? String(Math.round(+pr.sm)) : '30'; S.sprintSound = pr.ss !== false; S.sprintGoal = +pr.sg > 0 ? +pr.sg : '';
-  S.cardsFull = pr.cx === true; S.themes = themesClean(pr.ct); S.watchOn = pr.wwo === true; S.watch = wwClean(pr.ww); S.wwStamp = (S.wwStamp || 0) + 1;
+  S.cardsFull = pr.cx === true; S.thOrder = Array.isArray(pr.tbo) ? pr.tbo.filter(k => typeof k === 'string') : null; S.thHide = Array.isArray(pr.tbh) ? pr.tbh.filter(k => typeof k === 'string') : null; S.refOn = pr.rf === true; S.ref = typeof pr.rr === 'string' ? pr.rr : null; S.themes = themesClean(pr.ct); S.watchOn = pr.wwo === true; S.watch = wwClean(pr.ww); S.wwStamp = (S.wwStamp || 0) + 1;
   S.theme = ['light','twilight','dark','sepia','lamplight','ember'].includes(pr.th) || (typeof pr.th === 'string' && pr.th.startsWith('c:') && S.themes.some(x => 'c:' + x.id === pr.th)) ? pr.th : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); S.size = ['s','l'].includes(pr.sz) ? pr.sz : 'm';
   S.pw = ['narrow','medium','wide','full'].includes(pr.pw) ? pr.pw : 'medium'; S.tw = ['narrow','medium','wide','full'].includes(pr.tw) ? pr.tw : 'medium'; S.focus = !!pr.fo;
   S.histPause = ['off','30','60','120','300','600'].includes(pr.hp) ? pr.hp : '120'; S.histThin = !!pr.ht; S.histFile = pr.hf !== false; S.webFonts = pr.wf === true; S.focusX = !!pr.fx; S.typewriter = !!pr.ty; S.rdLevel = ['off', 'hem', 'full'].includes(pr.rl) ? pr.rl : pr.rb === false ? 'off' : 'full'; S.rdBtn = S.rdLevel !== 'off'; S.statsLevel = ['basic', 'standard', 'deep'].includes(pr.sl) ? pr.sl : 'standard'; S.tsSprint = pr.tsp !== false; S.tsWords = pr.tsw === true; S.rdOn = !!pr.rd; S.indent = pr.ind === true; S.ao3 = pr.ao3 === true; S.ptagStyle = ['bar', 'line', 'off'].includes(pr.ptst) ? pr.ptst : pr.pts === false ? 'off' : 'bar'; S.progBar = pr.pb === true; S.stColors = pr.stc === true; S.encBackups = pr.eb === true; S.rdOff = S.rdOff || new Set(); S.rdOff.clear(); for (const c of Array.isArray(pr.rx) ? pr.rx : ['echo', 'dlg']) if (typeof c === 'string') S.rdOff.add(c); S.nav = pr.nv === 'sidebar' ? 'sidebar' : 'tabs'; }
@@ -1791,6 +1846,7 @@ function applyDisplay(){
   const ti = $('#histThinItem'), fi = $('#histFileItem'); if (ti) ti.checked = !!S.histThin; if (fi) fi.checked = !!S.histFile;
   for (const b of $$('[data-set]')) b.setAttribute('aria-pressed', cur[b.dataset.set] === b.dataset.v);
   if (typeof queueAlign === 'function') queueAlign();
+  if (typeof refPlace === 'function') requestAnimationFrame(refPlace);
 }
 new MutationObserver(() => {
   const cur = root.getAttribute('data-theme');
@@ -2500,6 +2556,7 @@ function renderDesk(){
   if (e && e.project === S.projectId) { desk.innerHTML = editorHTML(e); if (e.kind === 'chapter') { histPrime(e, activeDraft(e)); if (S.mg && S.mg.ch === e.id) mgRender(); else if (S.dp && S.dp.ch === e.id) draftPanelOpen(e); else { S.mg = null; S.dp = null; } } else { S.mg = null; S.dp = null; } }
   else { S.openId = null; const p = project(); desk.innerHTML = !p ? '' : S.panel === 'stats' ? statsHTML(p) : S.panel === 'replace' ? replaceHTML(p) : S.panel === 'tags' ? tagsPageHTML(p) : S.panel === 'import' ? importHTML(p) : S.nav === 'tabs' && S.panel === 'list' && KINDS[S.kind] ? listPageHTML(p) : S.nav === 'tabs' && S.panel === 'search' ? searchPageHTML(p) : overviewHTML(p); }
   afterRender(desk);
+  refRender();
   focusGuard();
   if (S.ptagJump) ptagJumpDo();
   else if (e && e.project === S.projectId && S.posFor !== e.id) { S.posFor = e.id; posRestore(!!S.resume); }
@@ -2567,7 +2624,7 @@ function emptyHTML(){
 const ftLabel = () => S.focus ? 'Leave focus' : 'Focus<span class="tl-x"> mode</span>';
 const focusTip = () => S.focusX ? 'Show only the text and its toolbar (Esc to leave)' : S.nav === 'tabs' ? 'Hide the tabs and title bar for writing (Esc to leave)' : 'Hide the sidebar and widen the page for writing (Esc to leave)';
 function fieldHTML(e, d){
-  if (d.g && (d.hist || d.focus)) return `<div class="text-head${d.hist ? ' ch' : ''}"><h3 class="group">${esc(d.g)}</h3><div class="text-tools">${e.kind === 'chapter' ? `<span class="focus-label">${esc(chapterLabels().get(e.id) || 'Chapter')}</span>` : ''}<span class="text-stat" id="textStat">${textStatInner(e)}</span><button class="btn hist-btn focus-btn" data-act="focus-toggle" aria-pressed="${!!S.focus}" title="${focusTip()}"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5v-4h4M16.5 7.5v-4h-4M3.5 12.5v4h4M16.5 12.5v4h-4"/></svg><span class="ft-label">${ftLabel()}</span></button>${fsOK() ? `<button class="btn hist-btn fs-btn" data-act="fs-toggle" aria-pressed="${!!document.fullscreenElement}" aria-label="${document.fullscreenElement ? 'Leave full screen' : 'Full screen'}" title="${document.fullscreenElement ? 'Leave full screen' : 'Full screen: hide the browser’s own bars too'}"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3.5h-4v4M12.5 3.5h4v4M7.5 16.5h-4v-4M12.5 16.5h4v-4M3.8 3.8l4 4M16.2 3.8l-4 4M3.8 16.2l4-4M16.2 16.2l-4-4"/></svg></button>` : ''}${d.hist ? draftBtnHTML(e) : ''}${d.hist ? `<button class="btn hist-btn" data-act="hist-open" aria-expanded="false" title="See how this chapter was written and edited, version by version"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 10a6.8 6.8 0 1 0 2-4.8"/><path d="M2.8 2.8v3.4h3.4"/><path d="M10 6.2V10l2.6 1.6"/></svg><span class="tl-l">Version history</span><span class="tl-s">History</span><span class="hist-count" id="hist-count" hidden></span></button>` : ''}</div></div>${d.hist ? `<div id="histpanel" hidden></div><div id="draftpanel" hidden></div>${draftRowHTML(e)}` : ''}`;
+  if (d.g && (d.hist || d.focus)) return `<div class="text-head${d.hist ? ' ch' : ''}"><h3 class="group">${esc(d.g)}</h3><div class="text-tools">${e.kind === 'chapter' ? `<span class="focus-label">${esc(chapterLabels().get(e.id) || 'Chapter')}</span>` : ''}<span class="text-stat" id="textStat">${textStatInner(e)}</span>${thButtons(e, d)}</div></div>${d.hist ? `<div id="histpanel" hidden></div><div id="draftpanel" hidden></div>${draftRowHTML(e)}` : ''}`;
   if (d.g) return `<h3 class="group">${esc(d.g)}</h3>`;
   if (d.pair) return `<div class="pair">${d.pair.map(x => fieldHTML(e, x)).join('')}</div>`;
   if (d.rels) return `<div class="rels" id="rels">${relsHTML(e)}</div>`;
@@ -2695,8 +2752,26 @@ function refsHTML(e, d){
     opts = (present.length ? `<optgroup label="In this chapter">${present.map(opt).join('')}</optgroup>` : '') + (others.length ? `<optgroup label="${present.length ? 'Everyone else' : 'Characters'}">${others.map(opt).join('')}</optgroup>` : '');
   }
   const sel = free.length ? `<select id="ref-${d.k}" data-refadd="${d.k}" aria-label="Add to ${esc(d.label)}"><option value="">+ add ${d.pov ? 'a viewpoint character' : esc(KINDS[d.of].one)}</option>${opts}</select>` : (pool.length ? '' : `<span class="hint">No ${esc(KINDS[d.of].plural.toLowerCase())} in this story yet.</span>`);
-  return `<span class="lab">${esc(d.label)}${d.pov && ids.length > 1 ? ` <span class="muted">· ${ids.length} viewpoints</span>` : ''}</span>${d.hint ? `<span class="hint">${esc(d.hint)}</span>` : ''}<div class="chips">${chips}${sel}</div>${d.pov && povList(e).length > 1 ? `<p class="sv-split" id="svSplit">${esc(sceneSplitText(e))}</p><p class="hint sv-how">Set whose scene it is with the eye labels beside the text: one at the top, one on every scene break.</p>` : ''}`;
+  return `<span class="lab">${esc(d.label)}${d.pov && ids.length > 1 ? ` <span class="muted">· ${ids.length} viewpoints</span>` : ''}</span>${d.hint ? `<span class="hint">${esc(d.hint)}</span>` : ''}${e.kind === 'chapter' && (d.k === 'chars' || d.k === 'places') ? `<div class="refs-wrap"><div class="chips">${chips}${sel}</div><div class="cast-miss" id="miss-${d.k}">${castMissHTML(e, d.k)}</div></div>` : `<div class="chips">${chips}${sel}</div>`}${d.pov && povList(e).length > 1 ? `<p class="sv-split" id="svSplit">${esc(sceneSplitText(e))}</p><p class="hint sv-how">Set whose scene it is with the eye labels beside the text: one at the top, one on every scene break.</p>` : ''}`;
 }
+/* ---------- cast check: characters and places named in a chapter's text, by name or other name, that its lists leave out ---------- */
+function castMiss(c, k){
+  const dr = activeDraft(c), text = htmlText(dr ? dr.body : c.body || ''); if (!text.trim()) return [];
+  const have = new Set([...(c[k] || []), ...(k === 'chars' ? c.povs || [] : [])]), out = [];
+  for (const x of list(k === 'chars' ? 'character' : 'place')) {
+    if (have.has(x.id)) continue;
+    const names = [x.title, ...String(x.aka || '').split(',')].map(s => String(s || '').trim()).filter(s => s.length > 1);
+    if (!names.length) continue;
+    const n = (text.match(new RegExp(`(?<![\\p{L}\\p{N}])(?:${names.sort((a, b) => b.length - a.length).map(n => /^the\s+\S/i.test(n) ? '[Tt]he\\s+' + wwPat(n.replace(/^the\s+/i, '')) : wwPat(n)).join('|')})(?![\\p{L}\\p{N}])`, 'gu')) || []).length;
+    if (n) out.push([x, n]);
+  }
+  return out.sort((a, b) => b[1] - a[1]);
+}
+function castMissHTML(c, k){
+  const m = castMiss(c, k); if (!m.length) return '';
+  return `<span class="miss-l">Named in the text, not listed:</span>${m.map(([x, n]) => `<button class="chip missing" data-act="cast-add" data-key="${k}" data-add="${esc(x.id)}" title="Add ${esc(titleOf(x))} to this chapter’s ${k === 'chars' ? 'characters' : 'places'}">+ ${esc(titleOf(x))} <span class="mono">${n}×</span></button>`).join('')}`;
+}
+function castRefresh(c){ for (const k of ['chars', 'places']) { const m = $('#miss-' + k); if (!m || !m.parentElement.offsetParent) continue; const h = castMissHTML(c, k); if (m && m.innerHTML !== h && !m.contains(document.activeElement)) m.innerHTML = h; } }
 
 function tagsHTML(e){
   const tags = Array.isArray(e.tags) ? e.tags : [];
@@ -2792,9 +2867,9 @@ const TOOL = Object.fromEntries(TOOLS.map(t => [t.c, t]));
 const TOOL_GROUPS = [
   ['Text style', ['bold', 'italic', 'underline', 'strikeThrough', 'clear']],
   ['Headings', ['h2', 'h3']],
+  ['Alignment and indent', ['align', 'indent']],
   ['Quotation', ['blockquote', 'smartq', 'fixq']],
   ['Lists and breaks', ['ul', 'ol', 'hr', 'line']],
-  ['Alignment and indent', ['align', 'indent']],
   ['Links and media', ['link', 'entry', 'image', 'embed']],
   ['Tools', ['find', 'readab', 'comment', 'ptag', 'speaker', 'split']],
 ];
@@ -2807,6 +2882,36 @@ function richHTML(e, d){
     <div class="rte-foot" hidden></div>
     <div class="cmt-list" hidden></div>
   </div>${dr ? `<div class="print-main" aria-hidden="true">${sanitize(e[d.k] || '')}</div>` : ''}`;
+}
+
+/* The buttons above a text, in the order the writer chose (Options → Display → Buttons above the text) */
+const TH_ITEMS = {focus: 'Focus mode and full screen', ref: 'Reference panel', watch: 'Watch words', drafts: 'Drafts', hist: 'Version history'};
+const thOrder = () => { const o = (Array.isArray(S.thOrder) ? S.thOrder : []).filter((k, i, a) => TH_ITEMS[k] && a.indexOf(k) === i); return [...o, ...Object.keys(TH_ITEMS).filter(k => !o.includes(k))]; };
+const thHidden = k => Array.isArray(S.thHide) && S.thHide.includes(k);
+function wwBtnHTML(){
+  const n = wwList().length;
+  return `<button class="btn hist-btn ww-btn" data-act="ww-here" aria-pressed="${!!n}" aria-label="Watch words${n ? `, ${n} on` : ''}" title="Watch words: words and phrases to notice while you write, here, in this story or everywhere"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1.8 10s3-5.4 8.2-5.4 8.2 5.4 8.2 5.4-3 5.4-8.2 5.4S1.8 10 1.8 10z"/><circle cx="10" cy="10" r="2.4"/></svg><span class="tl-l">Watch words</span>${n ? `<span class="hist-count">${n}</span>` : ''}</button>`;
+}
+function thButtons(e, d){
+  const b = {focus: `<button class="btn hist-btn focus-btn" data-act="focus-toggle" aria-pressed="${!!S.focus}" title="${focusTip()}"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5v-4h4M16.5 7.5v-4h-4M3.5 12.5v4h4M16.5 12.5v4h-4"/></svg><span class="ft-label">${ftLabel()}</span></button>${fsOK() ? `<button class="btn hist-btn fs-btn" data-act="fs-toggle" aria-pressed="${!!document.fullscreenElement}" aria-label="${document.fullscreenElement ? 'Leave full screen' : 'Full screen'}" title="${document.fullscreenElement ? 'Leave full screen' : 'Full screen: hide the browser’s own bars too'}"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3.5h-4v4M12.5 3.5h4v4M7.5 16.5h-4v-4M12.5 16.5h4v-4M3.8 3.8l4 4M16.2 3.8l-4 4M3.8 16.2l4-4M16.2 16.2l-4-4"/></svg></button>` : ''}`, ref: `<button class="btn hist-btn ref-btn" data-act="ref-toggle" aria-pressed="${refOn()}" aria-label="Reference panel" title="Show a character, place, note or another chapter beside the text"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="2.8" y="3.8" width="14.4" height="12.4" rx="1.6"/><path d="M11.8 3.8v12.4M13.8 7h1.6M13.8 9.6h1.6"/></svg><span class="tl-l">Reference</span></button>`, watch: wwBtnHTML(), drafts: d.hist ? draftBtnHTML(e) : '', hist: d.hist ? `<button class="btn hist-btn" data-act="hist-open" aria-expanded="false" title="See how this chapter was written and edited, version by version"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 10a6.8 6.8 0 1 0 2-4.8"/><path d="M2.8 2.8v3.4h3.4"/><path d="M10 6.2V10l2.6 1.6"/></svg><span class="tl-l">Version history</span><span class="tl-s">History</span><span class="hist-count" id="hist-count" hidden></span></button>` : ''};
+  return thOrder().filter(k => !thHidden(k)).map(k => b[k]).join('');
+}
+async function thArrange(){
+  const row = k => `<li class="th-r" data-k="${k}"><label class="check"><input type="checkbox"${thHidden(k) ? '' : ' checked'}> ${esc(TH_ITEMS[k])}</label><span class="th-mv"><button type="button" class="btn small" data-th-mv="-1" aria-label="Move ${esc(TH_ITEMS[k])} up">↑</button><button type="button" class="btn small" data-th-mv="1" aria-label="Move ${esc(TH_ITEMS[k])} down">↓</button></span></li>`;
+  const pending = askChoice({title: 'Buttons above the text', html: `<p class="dlg-note">Choose which buttons show above a text, and their order from left to right. Drafts and Version history only appear on chapters.</p><ol class="th-list">${thOrder().map(row).join('')}</ol>`,
+    choices: [{label: 'Save', value: 'ok', primary: true}, {label: 'Reset', value: 'reset'}, {label: 'Cancel', value: null}],
+    read: box => [...box.querySelectorAll('.th-r')].map(r => [r.dataset.k, r.querySelector('input').checked])});
+  $('#dlg .th-list').addEventListener('click', ev => {
+    const m = ev.target.closest('[data-th-mv]'); if (!m) return;
+    const r = m.closest('.th-r'), dir = +m.dataset.thMv, to = dir < 0 ? r.previousElementSibling : r.nextElementSibling; if (!to) return;
+    if (dir < 0) to.before(r); else to.after(r);
+    m.focus();
+  });
+  const res = await pending; if (!res) return;
+  if (res.v === 'reset') { S.thOrder = null; S.thHide = null; }
+  else { S.thOrder = res.form.map(x => x[0]); S.thHide = res.form.filter(x => !x[1]).map(x => x[0]); }
+  savePrefs(); if (S.openId) renderDesk();
+  toast(res.v === 'reset' ? 'The buttons are back in their usual order.' : 'Buttons rearranged.');
 }
 
 /* links section */
@@ -2839,6 +2944,62 @@ function linksHTML(e){
   return tagRow + (out ? `<div class="links-row"><span class="lab">Links to</span><div class="chips">${out}</div></div>` : '')
     + (back.length ? `<div class="links-row"><span class="lab">Mentioned in</span><div class="chips">${back.map(o => o.kind === 'chapter' ? `<button class="chip" data-act="open" data-open="${esc(o.id)}"><span class="chip-kind">${esc(labels.get(o.id) || 'chapter')}</span>${esc(titleOf(o))}</button>` : chip(o)).join('')}</div></div>` : '');
 }
+
+/* ---------- reference panel: a character, place, note, arc or chapter beside the text you're writing ---------- */
+const REF_KINDS = ['character', 'place', 'note', 'arc', 'chapter'];
+/* On wide screens the panel stays open beside the text; on smaller ones it covers the text, so it only shows when just asked for */
+const refWide = () => innerWidth >= 1100;
+const refOn = () => S.refOn && !!S.openId && S.view === 'editor' && (refWide() || !!S.refNow);
+function refPick(cur){
+  const here = cur.kind === 'chapter' ? [...new Set([...(cur.povs || []), ...(cur.chars || []), ...(cur.places || [])])].map(id => S.entries.get(id)).filter(Boolean) : [];
+  const opt = x => `<option value="${esc(x.id)}"${x.id === S.ref ? ' selected' : ''}>${esc(titleOf(x))}</option>`;
+  const grp = (label, l) => l.length ? `<optgroup label="${esc(label)}">${l.map(opt).join('')}</optgroup>` : '';
+  return `<select class="ref-sel" data-ref-pick aria-label="What to show beside the text"><option value="">Choose what to show…</option>${grp(cur.kind === 'chapter' ? 'In this chapter' : '', here)}${REF_KINDS.map(k => grp(KINDS[k].plural, list(k).filter(x => x.id !== cur.id && !here.includes(x)))).join('')}</select>`;
+}
+function refBody(e){
+  const fld = d => {
+    const v = e[d.k] ?? '', lab = `<span class="lab">${esc(d.label)}</span>`;
+    const ctl = d.type === 'line' ? `<input data-f="${d.k}" value="${esc(v)}" autocomplete="off">`
+      : d.type === 'select' ? `<select data-f="${d.k}">${d.opts.map(o => `<option value="${esc(o)}"${o === v ? ' selected' : ''}>${o ? esc(o) : '—'}</option>`).join('')}${v && !d.opts.includes(v) ? `<option selected value="${esc(v)}">${esc(v)}</option>` : ''}</select>`
+      : `<textarea class="grow" rows="2" data-f="${d.k}">${esc(v)}</textarea>`;
+    return `<label class="field ref-f">${lab}${ctl}</label>`;
+  };
+  const defs = (e.kind === 'chapter' ? [{k:'synopsis', label:'Synopsis', type:'text'}, {k:'when', label:'When it happens', type:'line'}, {k:'revNotes', label:'Revision notes', type:'text'}] : F[e.kind] || [])
+    .flatMap(d => d.pair || d.placeTop || [d]).filter(d => ['line', 'text', 'select', 'appearance'].includes(d.type)).map(d => d.type === 'appearance' ? {...d, type:'text'} : d);
+  const filled = defs.filter(d => String(e[d.k] ?? '').trim()), empty = defs.filter(d => !String(e[d.k] ?? '').trim());
+  const names = ids => (ids || []).map(id => S.entries.get(id)).filter(Boolean).map(titleOf).join(', ');
+  const facts = [];
+  if (e.kind === 'chapter') { const lab = chapterLabels().get(e.id); facts.push([lab || 'Chapter', [e.status, words(bodyWords(e))].filter(Boolean).join(' · ')], ['Viewpoint', names(e.povs)], ['Characters', names(e.chars)], ['Places', names(e.places)]); }
+  if (e.kind === 'character') for (const r of e.rels || []) { const o = S.entries.get(r.to); if (o) facts.push([titleOf(o), r.how || '']); }
+  if (e.kind === 'arc') facts.push(['Focus character', names([e.pov])], ['Beats', (e.beats || []).map(b => b.name).filter(Boolean).join(' · ')]);
+  const src = (e.kind === 'character' || e.kind === 'place') && e.portraitOn ? portraitSrc(e) : '';
+  const rich = (RICH[e.kind] || []).includes('body') && htmlText(e.body || '').trim() || /<img\b/.test(e.body || '') ? (() => { const t = document.createElement('template'); t.innerHTML = sanitize(e.body || ''); for (const m of [...t.content.querySelectorAll('mark')]) m.replaceWith(...m.childNodes); for (const x of t.content.querySelectorAll('img')) x.removeAttribute('data-tags'); const d = document.createElement('div'); d.append(t.content); return d.innerHTML; })() : '';
+  return `<div class="ref-head"><span class="ref-k">${esc(cap(KINDS[e.kind].one))}</span><h3 class="ref-t">${esc(titleOf(e))}</h3></div>
+    ${src ? `<img class="ref-pic" src="${esc(src)}" alt="${esc(titleOf(e))}">` : ''}
+    ${facts.filter(f => f[1]).map(([k, v]) => `<p class="ref-fact"><b>${esc(k)}</b> ${esc(v)}</p>`).join('')}
+    ${filled.map(fld).join('')}
+    ${rich ? `<div class="ref-rich">${rich}</div>` : ''}
+    ${empty.length ? `<details class="ref-more"><summary>${plural(empty.length, 'empty field')}</summary>${empty.map(fld).join('')}</details>` : ''}
+    ${!filled.length && !rich && !facts.some(f => f[1]) ? `<p class="hint">Nothing written here yet.</p>` : ''}`;
+}
+function refHTML(cur){
+  const e = S.ref && S.entries.get(S.ref), ok = !!e && e.project === S.projectId && e.id !== cur.id && REF_KINDS.includes(e.kind);
+  return `<aside class="refpanel" aria-label="Reference panel"${ok ? ` data-id="${esc(e.id)}"` : ''}>
+    <div class="ref-top">${refPick(cur)}${ok ? `<button class="btn small ghost" data-act="open" data-open="${esc(e.id)}" title="Open it in full, to edit its text or tags">Open</button>` : ''}<button class="btn small ghost ref-x" data-act="ref-close" aria-label="Close the reference panel" title="Close">×</button></div>
+    <div class="ref-in">${ok ? refBody(e) : `<p class="hint">Keep a character, place, note, story arc or another chapter in view while you write. Short fields can be edited here; open it in full for its text and tags.</p>`}</div>
+  </aside>`;
+}
+/* Put the panel in, take it out or refresh it, without touching the text being written */
+function refRender(){
+  const cur = S.openId && S.entries.get(S.openId), old = desk.querySelector('.refpanel'), on = refOn() && !!cur && !!desk.querySelector('.sheet[data-id]');
+  desk.classList.toggle('has-ref', on);
+  $$('[data-act="ref-toggle"]', desk).forEach(b => b.setAttribute('aria-pressed', on));
+  if (!on) { if (old) old.remove(); return; }
+  const n = nodeFrom(refHTML(cur)); if (old) old.replaceWith(n); else desk.appendChild(n);
+  $$('textarea.grow', n).forEach(autoGrow); refPlace();
+}
+function refPlace(){ const r = desk.querySelector('.refpanel'); if (r) r.style.setProperty('--ref-top', Math.max(8, Math.round(desk.getBoundingClientRect().top)) + 'px'); }
+window.addEventListener('resize', () => { if (S.refWas !== refWide()) { S.refWas = refWide(); refRender(); } else refPlace(); });
 
 /* editor */
 function editorHTML(e){
@@ -2894,7 +3055,7 @@ function chapterBeatsHTML(c){
   const chips = refs.map(r => {
     const [aid, bid] = r.split(':'); const a = S.entries.get(aid); const b = a && (a.beats || []).find(x => x.id === bid);
     if (!b) return '';
-    return `<span class="chip edit"><button class="chip-t" data-act="open" data-open="${esc(aid)}"><span class="chip-kind">${esc(titleOf(a))}</span>${esc(b.name || 'Untitled beat')}</button><button class="chip-x" data-act="ch-beat-del" data-ref="${esc(r)}" aria-label="Unlink ${esc(b.name || 'this beat')}">×</button></span>`;
+    return `<span class="chip edit ref"><button class="chip-t" data-act="open" data-open="${esc(aid)}"><span class="chip-kind">${esc(titleOf(a))}</span>${esc(b.name || 'Untitled beat')}</button><button class="chip-x" data-act="ch-beat-del" data-ref="${esc(r)}" aria-label="Unlink ${esc(b.name || 'this beat')}">×</button></span>`;
   }).join('');
   const arcs = list('arc').filter(a => a.structure && (a.beats || []).length);
   const sel = arcs.length
@@ -3306,7 +3467,7 @@ function open(id){
   histFlushAll(); histClosePanel();
   const e = S.entries.get(id); if (!e) return;
   if (e.kind === 'project') { S.projectId = id; return showPanel('overview'); }
-  S.kind = e.kind; S.openId = id; S.view = 'editor'; S.confirm = null;
+  S.kind = e.kind; S.openId = id; S.view = 'editor'; S.confirm = null; S.refNow = false; S.recent = [id, ...(S.recent || []).filter(x => x !== id)].slice(0, 8);
   savePrefs(); renderBar(); renderIndex(); renderDesk(); desk.scrollTop = 0; { const se = document.scrollingElement; if (se && se.scrollTop > desk.offsetTop) se.scrollTop = 0; }
 }
 function showPanel(panel){ histFlushAll(); histClosePanel(); S.panel = panel; S.openId = null; S.view = 'editor'; S.confirm = null; renderBar(); renderIndex(); renderDesk(); desk.scrollTop = 0; { const se = document.scrollingElement; if (se && se.scrollTop > desk.offsetTop) se.scrollTop = 0; } }
@@ -5221,7 +5382,8 @@ function wwClean(list){
 function wwList(){
   if (!S.watchOn) return [];
   const p = project();
-  return [...(S.watch || []).map(x => ({...x, scope: 'all'})), ...(p && Array.isArray(p.watch) ? p.watch : []).map(x => ({...x, scope: 'story'}))];
+  const e = S.openId && S.entries.get(S.openId);
+  return [...(S.watch || []).map(x => ({...x, scope: 'all'})), ...(p && Array.isArray(p.watch) ? p.watch : []).map(x => ({...x, scope: 'story'})), ...(e && e.project === S.projectId && Array.isArray(e.watch) ? e.watch : []).map(x => ({...x, scope: 'entry'}))];
 }
 const wwPat = w => w.trim().split(/\s+/).map(tok => tok.split('*').map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['’]/g, "['’]")).join('\\p{L}*')).join('\\s+');
 function wwCompiled(){
@@ -5304,15 +5466,17 @@ desk.addEventListener('click', ev => {
   S.rdOn = true; rdOff.delete('watch'); savePrefs(); rdRun();
   const bar = ev.target.closest('.rte').querySelector('.rd-bar'); if (bar) bar.scrollIntoView({block: 'nearest', behavior: reduced ? 'auto' : 'smooth'});
 });
-async function wwEdit(){
-  const p = project();
+async function wwEdit(first){
+  const p = project(), e = S.openId && S.entries.get(S.openId), en = e && e.project === S.projectId && e.kind !== 'project' ? e : null, what = en ? (en.kind === 'chapter' ? 'chapter' : KINDS[en.kind].one) : '';
   const row = (x = {w: '', note: ''}) => `<div class="ww-r"><input class="ww-w" value="${esc(x.w)}" placeholder="Word or phrase" aria-label="Word or phrase" maxlength="80" spellcheck="false" autocomplete="off"><input class="ww-n" value="${esc(x.note)}" placeholder="Note (optional)" aria-label="Note for this word" maxlength="200" autocomplete="off"><button type="button" class="btn small ww-x" data-ww-del aria-label="Remove this word" title="Remove">×</button></div>`;
   const sec = (k, title, sub, list) => `<section class="ww-sec" data-ww-sec="${k}"><h3>${title}</h3><p class="dlg-note">${sub}</p><div class="ww-rows">${(list.length ? list : [{w: '', note: ''}]).map(row).join('')}</div><button type="button" class="btn small ww-add" data-ww-add>+ Add a word</button></section>`;
-  const html = `<div class="ww-wrap"><p class="dlg-note">Capitals don’t matter. A star stands for any ending: <b>realiz*</b> finds realize, realized and realizing. Phrases work too.</p>`
-    + sec('all', 'In every story', 'Kept in this browser, like your other options.', S.watch || [])
-    + (p ? sec('story', `In “${esc(p.title || 'Untitled story')}”`, 'Saved with the story, so it travels with the file and its backups.', Array.isArray(p.watch) ? p.watch : []) : '') + '</div>';
+  const secs = [['entry', en && sec('entry', `In this ${what} only`, `For something that matters just here, like a name to avoid in “${esc(titleOf(en))}”. Saved with the ${what}.`, Array.isArray(en.watch) ? en.watch : [])],
+    ['story', p && sec('story', `In “${esc(p.title || 'Untitled story')}”`, 'Saved with the story, so it travels with the file and its backups.', Array.isArray(p.watch) ? p.watch : [])],
+    ['all', sec('all', 'In every story', 'Kept in this browser, like your other options.', S.watch || [])]];
+  if (first !== 'entry') secs.reverse();
+  const html = `<div class="ww-wrap"><p class="dlg-note">Capitals don’t matter. A star stands for any ending: <b>realiz*</b> finds realize, realized and realizing. Phrases work too.</p>${secs.map(x => x[1] || '').join('')}</div>`;
   const pending = askChoice({title: 'Watch words', html, choices: [{label: 'Save', value: 'ok', primary: true}, {label: 'Cancel', value: null}],
-    read: box => { const get = k => [...box.querySelectorAll(`[data-ww-sec="${k}"] .ww-r`)].map(r => ({w: r.querySelector('.ww-w').value, note: r.querySelector('.ww-n').value})); return {all: get('all'), story: get('story')}; }});
+    read: box => { const get = k => [...box.querySelectorAll(`[data-ww-sec="${k}"] .ww-r`)].map(r => ({w: r.querySelector('.ww-w').value, note: r.querySelector('.ww-n').value})); return {all: get('all'), story: get('story'), entry: get('entry')}; }});
   const wrap = $('#dlg .ww-wrap');
   wrap.addEventListener('click', ev => {
     const add = ev.target.closest('[data-ww-add]');
@@ -5322,14 +5486,14 @@ async function wwEdit(){
   });
   const res = await pending; if (!res) return;
   S.watch = wwClean(res.form.all);
-  if (p) { const nw = wwClean(res.form.story); if (JSON.stringify(nw) !== JSON.stringify(Array.isArray(p.watch) ? p.watch : [])) { if (nw.length) p.watch = nw; else delete p.watch; touch(p); } }
-  const any = S.watch.length || (p && p.watch && p.watch.length);
+  for (const [x, k] of [[p, 'story'], [en, 'entry']]) { if (!x) continue; const nw = wwClean(res.form[k]); if (JSON.stringify(nw) !== JSON.stringify(Array.isArray(x.watch) ? x.watch : [])) { if (nw.length) x.watch = nw; else delete x.watch; touch(x); } }
+  const any = S.watch.length || (p && p.watch && p.watch.length) || (en && en.watch && en.watch.length);
   if (any && !S.watchOn) { S.watchOn = true; toast('Watch words are on. A note appears beside the line when you type one.'); }
-  savePrefs(); wwChanged();
+  savePrefs(); wwChanged(); $$('[data-act="ww-here"]', desk).forEach(b => b.outerHTML = wwBtnHTML());
 }
 
 /* ---------- help and info ---------- */
-const QUIRE_VERSION = '1.3', QUIRE_DATE = '2026-10-28';
+const QUIRE_VERSION = '1.4.1', QUIRE_DATE = '2026-10-28';
 function helpFacts(){
   const all = [...S.entries.values()], count = k => all.filter(e => e.kind === k).length;
   const where = S.mode === 'db' ? 'Your private storage in Claude, saved automatically as you type'
@@ -5400,7 +5564,7 @@ function helpHTML(){
       <tr><td><b>Suits</b></td><td>Wide screens and many entries.</td><td>Phones, narrow windows, more room for the page.</td></tr>
     </tbody></table>
     <ul>
-      <li><b>The title bar</b> holds the story picker (at the top of the sidebar on wide screens), the Story menu (new, duplicate, delete, the bin, find and replace, import chapters), Overview, Stats, Sprint, Save file and Options.</li>
+      <li><b>The title bar</b> holds the story picker (at the top of the sidebar on wide screens), the Story menu (go to, new, duplicate, delete, the bin, find and replace, import chapters), Overview, Stats, Sprint, Save file and Options.</li>
       <li><b>Tags</b> on an entry are links that search the story for that tag.</li>
       <li><b>Order:</b> each list has an order switch (chapters 1–9, characters and places A–Z, notes Recent). Choose Custom, then drag the ⋮⋮ handles, or click one and use ↑ ↓. Undo appears after each move.</li>
       <li><b>Dropping files:</b> a Word (.docx), .txt or .md manuscript imports its chapters, a backup (.json) restores it, and images go into any text or onto a portrait.</li>
@@ -5469,13 +5633,17 @@ function helpHTML(){
       <li><b>Importing from Word</b> (Story ▾ → Import chapters): a new chapter starts at each heading (Heading 1, or whichever level the chapters use, in any language of Word) or at lines like “Chapter 3” and “Prologue”. Parts above chapters become part openers. Italics, bold, underlining, centred lines, lists, links, images and scene breaks come along; Word comments become Quire comments; tracked changes are taken as accepted; footnotes go at the end of their chapter. Older .doc files need saving as .docx first.</li>
       <li><b>Deadline:</b> on the story overview, add a date beside the target length. Quire works out how many words a day finish the story in time, counting today, shows today’s progress toward that share, and says where your pace over the last week would land. Stats repeats it under Writing pace.</li>
       <li><b>Chapter cards</b> (the Chapters page) show each chapter’s viewpoint, places and story arc beats under its synopsis. Full synopses shows the whole synopsis instead of the first lines.</li>
+      <li><b>Buttons above a text:</b> Focus mode and full screen, Reference, Watch words, and on chapters Drafts and Version history. Options → Display → Buttons above the text… changes their order and which ones show.</li>
+      <li><b>Reference panel</b> (the Reference button above a text): keep a character, place, note, story arc or another chapter in view while you write. In a chapter, its own cast and places are listed first. Short fields can be edited right there; Open shows the whole entry, for its text and tags. On wide screens the panel sits beside the text and stays open as you move between chapters. On smaller screens it slides over the text, so it closes when you go to another entry; on the smallest it isn’t offered in intense focus.</li>
+      <li><b>Go to</b> (<kbd>Ctrl</kbd>+<kbd>K</kbd>, or Story ▾ → Go to…): type a few letters to jump to any chapter, character, place, note, story arc, tag or story, or to run a command such as New chapter, Stats, an export or a theme. With nothing typed, it lists what you opened last. <kbd>Shift</kbd>+<kbd>Enter</kbd> puts the chosen entry in the reference panel instead.</li>
+      <li><b>Cast check:</b> under a chapter’s characters and places, Quire lists those named in its text that aren’t on the lists yet, with how often they appear, such as “+ Duncan Ross 2×”. Click one to add it. It looks for each name exactly as written (a leading “The” also matches “the”), and for the other names under Also known as, so add “Holmes” there if the text calls Sherlock Holmes that. Nothing is added unless you click.</li>
       <li><b>The toolbar</b> groups style, headings, quotation (smart and fixed quotes), lists, alignment (one button with a menu) and paragraph indent, links and media, then search, Prose checker, comment, tag passage, who says this (in chapters) and split. <b>Splitting</b> a chapter asks first; Merge with next undoes it.</li>
       <li><b>Options → Text:</b> Google Fonts, Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, coloured chips, themes (including your own) and widths.</li>
       <li><b>Tags</b> has its own page with the tag cloud, image tags, tags used together, rare and missing tags, and renaming a tag everywhere.</li>
       <li><b>Passage tags:</b> select a sentence or a passage, even across paragraphs, and press the tag button in the toolbar. A thin bar in the margin marks the passage; click the bar to change or remove its tags. Options → Text can show an underline instead, or hide the marks while you write. The list under the text shows a chapter’s tagged passages, search finds them with #tag, and on the Tags page a passage tag lists all its passages in story order, so you can follow a thread, a clue or a continuity detail through the book. Passages in drafts count once merged. Exports leave the tags out.</li>
       <li><b>Tags that link:</b> typing in a tag box suggests existing tags and, below them, chapters, characters, places and notes. Pick one with the arrow keys and Enter, or tap it. An entry you pick becomes a linked chip that opens it, and the entry lists “Tagged in” under Links. Searching for #title (the entry’s title as a tag) finds the entries that link to it.</li>
       <li><b>Your own themes</b> (Options → Display → + New theme…): pick four colours, for the paper, the text, the background and the accent, or start from one of the six themes. Quire works out the other shades, shows the change at once and checks that the text stays readable. Save as many named themes as you like; they’re kept in this browser.</li>
-      <li><b>Watch words</b> (Options → Text): list words and phrases you want to notice, such as a habit to avoid or a fact to keep straight, each with an optional note. When you type one, a small note appears beside the line for a few seconds; it never takes the cursor. Capitals don’t matter, a star stands for any ending (<b>realiz*</b>), and phrases work too. Words “in every story” stay in this browser; words for one story are saved with it. Pasted text doesn’t set off notes. The count at the bottom of the text, and the Prose checker’s Watch words row, mark every one.</li>
+      <li><b>Watch words</b> (the Watch words button above a text, or Options → Text): list words and phrases you want to notice, such as a habit to avoid or a fact to keep straight, each with an optional note. When you type one, a small note appears beside the line for a few seconds; it never takes the cursor. Capitals don’t matter, a star stands for any ending (<b>realiz*</b>), and phrases work too. Words “in every story” stay in this browser; words for one story are saved with it, and words for one chapter (or note or sheet) with that, for something that only matters there for a while. Pasted text doesn’t set off notes. The count at the bottom of the text, and the Prose checker’s Watch words row, mark every one.</li>
       <li><b>Voices</b> (Stats, Standard or In depth): compares how your viewpoint characters narrate, from the text outside quotation marks in their scenes: sentence length and rhythm, questions, contractions, adverbs, filter and thinking words, senses, the words and phrases they use most, and how a narrator’s rhythm changes from chapter to chapter.</li>
       <li><b>Who says this</b> (the speaker button in a chapter’s toolbar): put the cursor in a line of dialogue, or select it, and choose who says it. Once you’ve marked a line, Voices adds a <b>Dialogue</b> view comparing how your characters speak. Only the lines you mark count; Quire never guesses a speaker. Marks are invisible apart from a faint dotted underline, and are left out of every export. Put the cursor in a marked line and press the button again to change the speaker or remove the mark.</li>
       <li><b>Scene viewpoints:</b> give a chapter two or more viewpoint characters and a small label appears at the start of the text and at each scene break. Click it to choose whose scene follows; a scene keeps the viewpoint of the one before until you change it. The Point of view field shows how the chapter’s words divide between them, and Stats uses the same split for the whole story.</li>
@@ -5486,7 +5654,7 @@ function helpHTML(){
 
     <h3 id="help-keys">Shortcuts</h3>
     <table><tbody>
-      <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Save everything into this HTML file</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Save everything into this HTML file</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>K</kbd></td><td>Go to any entry, tag or story, or run a command. <kbd>Shift</kbd>+<kbd>Enter</kbd> shows the entry beside the text</td></tr>
       <tr><td><kbd>Ctrl</kbd>+<kbd>B</kbd> / <kbd>I</kbd> / <kbd>U</kbd></td><td>Bold, italic, underline</td></tr>
       <tr><td><kbd>Ctrl</kbd>+<kbd>Enter</kbd></td><td>Save a comment</td></tr>
       <tr><td><kbd>Enter</kbd> or <kbd>,</kbd></td><td>Add a tag; <kbd>Backspace</kbd> in an empty tag field removes the last one</td></tr>
@@ -5505,7 +5673,7 @@ function helpHTML(){
     <h3 id="help-built">How it’s built</h3>
     <ul>
       <li><b>Made with the help of Claude</b>, Anthropic’s AI assistant.</li>
-      <li><b>One file</b> of about 770 KB: page, styles and program, with no frameworks, libraries or build step.</li>
+      <li><b>One file</b> of about 800 KB: page, styles and program, with no frameworks, libraries or build step.</li>
       <li><b>Data</b> are plain JSON entries in a <code>&lt;script type="application/json"&gt;</code> block inside the file (format version 2; older notebooks upgrade on opening). Browser storage uses IndexedDB, then local storage, then memory.</li>
       <li><b>The editor</b> is the browser’s own rich-text editing. Everything pasted or loaded passes a strict filter that keeps only basic formatting, links, images and media links.</li>
       <li><b>Encryption</b> uses the browser’s own Web Crypto: AES-256-GCM with a key derived from the password by PBKDF2-SHA-256 with 600,000 rounds and a random salt, and a fresh random IV for every save. The settings are authenticated with the data, so a changed or damaged file is refused rather than misread.</li>
@@ -7871,6 +8039,7 @@ desk.addEventListener('input', ev => {
   } else return;
   if (t.classList.contains('grow')) autoGrow(t);
   touch(e);
+  if (host.classList.contains('refpanel')) { queueIndex(); return; }
   if (e.kind === 'chapter' && t.dataset.rich === 'body') histNoteEdit(e, t.dataset.draft);
   if (t.dataset.f === 'target' || t.dataset.f === 'due') { updateTarget(e); if (e.kind === 'chapter') { const wc = $('#wc'); if (wc) wc.textContent = chapterWc(e); } }
   clearTimeout(wcT);
@@ -7879,7 +8048,7 @@ desk.addEventListener('input', ev => {
     wc.textContent = e.kind === 'chapter' ? chapterWc(e) : words(wordCount(e));
     textStatWords(e);
     $$('.rte', desk).forEach(footRender);
-    if (e.kind === 'chapter') updateTarget(e);
+    if (e.kind === 'chapter') { updateTarget(e); clearTimeout(S.castT); S.castT = setTimeout(() => { if (current() === e) castRefresh(e); }, 1200); }
     if (e.kind === 'chapter') { const pn = $('#pos-note'); if (pn) pn.textContent = posNote(e); }
   }, 300);
   queueIndex();
@@ -7888,7 +8057,9 @@ desk.addEventListener('input', ev => {
   linkT = setTimeout(() => { const l = $('#links'); const cur = S.entries.get(S.openId) || (!S.openId ? project() : null); if (l && cur) l.innerHTML = linksHTML(cur); }, 600);
 });
 desk.addEventListener('change', ev => {
-  const t = ev.target, host = t.closest('[data-id]'); if (!host) return;
+  const t = ev.target;
+  if (t.dataset && t.dataset.refPick !== undefined) { S.ref = t.value || null; savePrefs(); refRender(); const p = desk.querySelector('.ref-sel'); if (p) p.focus(); return; }
+  const host = t.closest('[data-id]'); if (!host) return;
   const e = S.entries.get(host.dataset.id); if (!e) return;
   if (t.dataset.draftSel !== undefined) { draftUse(e, t.value); return; }
   if (t.dataset.ao3 !== undefined) { ao3SetLink(e, t); return; }
@@ -7990,7 +8161,7 @@ $('#menu').addEventListener('input', ev => { if (ev.target.dataset.toggle) ev.st
 $('#menu').addEventListener('change', ev => { const tg = ev.target.dataset.toggle; if (!tg) return; ev.stopPropagation(); menuAction(tg); });
 document.addEventListener('toggle', ev => {
   if (ev.target.id === 'wordstats') { S.wordsOpen = ev.target.open; savePrefs(); }
-  if (ev.target.id === 'chFold') { S.chFold = !ev.target.open; savePrefs(); const c = current(), pk = $('#chPeek'); if (c && pk) pk.textContent = chPeek(c); }
+  if (ev.target.id === 'chFold') { S.chFold = !ev.target.open; savePrefs(); const c = current(), pk = $('#chPeek'); if (c && pk) pk.textContent = chPeek(c); if (c && ev.target.open) castRefresh(c); }
 }, true);
 document.addEventListener('click', ev => {
   const st = ev.target.closest('[data-set]');
@@ -8109,6 +8280,12 @@ document.addEventListener('click', ev => {
     case 'del': S.confirm = 'del:' + (cur && cur.id); return cur && ($('#foot').innerHTML = footHTML(cur));
     case 'del-no': S.confirm = null; return cur && ($('#foot').innerHTML = footHTML(cur));
     case 'del-yes': return cur && deleteEntry(cur);
+    case 'ww-here': if (S.loaded) wwEdit('entry'); return;
+    case 'ref-toggle': S.refOn = S.refNow = !refOn(); savePrefs(); refRender(); if (S.refOn) { const p = desk.querySelector('.ref-sel'); if (p && !S.ref) p.focus(); } return;
+    case 'ref-close': S.refOn = false; savePrefs(); refRender(); { const b = desk.querySelector('[data-act="ref-toggle"]'); if (b) b.focus({preventScroll:true}); } return;
+    case 'cast-add': if (cur && cur.kind === 'chapter') { const k = a.dataset.key, x = S.entries.get(a.dataset.add); if (!x) return; cur[k] = [...new Set([...(cur[k] || []), x.id])]; touch(cur);
+      $('#field-' + k).innerHTML = refsHTML(cur, flatFields(F.chapter).find(f => f.k === k)); $('#links').innerHTML = linksHTML(cur); { const n = $(`#miss-${k} [data-act="cast-add"]`) || $('#ref-' + k); if (n) n.focus({preventScroll:true}); }
+      { const pk = $('#chPeek'); if (pk) pk.textContent = chPeek(cur); } toast(`Added “${titleOf(x)}” to this chapter.`); } return;
     case 'cards-full': S.cardsFull = !S.cardsFull; savePrefs(); a.setAttribute('aria-pressed', S.cardsFull); return lpRefresh();
     case 'bin-open': return showPanel('bin');
     case 'bin-close': return showPanel('overview');
@@ -8304,6 +8481,7 @@ async function menuAction(m){
   if (m === 'theme-new') { themeEdOpen(null); return; }
   if (m === 'watch') { S.watchOn = !S.watchOn; savePrefs(); applyDisplay(); wwChanged(); if (S.watchOn && S.loaded && !wwList().length) wwEdit(); return; }
   if (m === 'watch-edit') { if (S.loaded) wwEdit(); return; }
+  if (m === 'th-arrange') return thArrange();
   if (m === 'theme-edit') { if (S.theme.startsWith('c:')) themeEdOpen(S.theme.slice(2)); return; }
   if (m === 'chiphi') { S.chipHi = !S.chipHi; savePrefs(); applyDisplay(); return; }
   if (m === 'splitask') { S.splitAsk = !S.splitAsk; savePrefs(); applyDisplay(); return; }
@@ -8325,6 +8503,7 @@ async function menuAction(m){
   if (m === 'tswords') { S.tsWords = !S.tsWords; savePrefs(); applyDisplay(); return; }
   if (m === 'focusx') { S.focusX = !S.focusX; savePrefs(); applyDisplay(); $$('[data-act="focus-toggle"]').forEach(b => b.title = focusTip()); return; }
   if (m === 'bin') return showPanel('bin');
+  if (m === 'goto') return qsOpen();
   const p = project(); if (!p) { toast('Start or choose a story first.'); return; }
   if (m === 'dup-story') return duplicateStory(p);
   if (m === 'del-story') { showPanel('overview'); S.confirm = 'story:' + p.id; const f = $('#foot'); if (f) { f.innerHTML = storyFootHTML(p); f.scrollIntoView({block:'center', behavior: reduced ? 'auto' : 'smooth'}); const y = f.querySelector('[data-act="story-del-no"]'); if (y) y.focus({preventScroll:true}); } return; }
@@ -8568,6 +8747,84 @@ function unlockFile(env){
     pw.focus();
   });
 }
+
+/* ---------- quick switcher (Ctrl+K): go to any entry, tag or story, or run a command, by typing a few letters ---------- */
+const QS = {items: [], hits: [], i: 0, back: null};
+function qsFire(attrs){ const b = document.createElement('button'); b.hidden = true; Object.assign(b.dataset, attrs); document.body.append(b); b.click(); b.remove(); }
+function qsItems(){
+  const out = [], labels = chapterLabels(), p = project();
+  if (p) {
+    out.push({k: 'Story', t: p.title || 'Untitled story', m: 'Overview', go: () => showPanel('overview')});
+    for (const k of ORDER) for (const e of list(k)) out.push({k: k === 'chapter' ? labels.get(e.id) || 'Chapter' : cap(KINDS[k].one), t: titleOf(e), m: [e.aka, k === 'chapter' ? e.status : ''].filter(Boolean).join(' · '), id: e.id, go: () => open(e.id)});
+    for (const {t} of tagIndex(false).values()) out.push({k: 'Tag', t: '#' + t, go: () => findTag(t)});
+  }
+  for (const s of projects()) if (!p || s.id !== p.id) out.push({k: 'Story', t: s.title || 'Untitled story', m: 'Switch to this story', go: () => { S.projectId = s.id; S.openId = null; S.q = ''; S.view = 'editor'; S.panel = 'overview'; savePrefs(); renderAll(); }});
+  const cmd = (t, go, m) => out.push({k: 'Command', t, m, go});
+  if (p) {
+    for (const k of ORDER) cmd(`New ${KINDS[k].one}`, () => newEntry(k));
+    for (const k of [...ORDER, 'tags']) cmd(`Show ${k === 'tags' ? 'tags' : KINDS[k].plural.toLowerCase()}`, () => qsFire({act: 'kind', kind: k}));
+    cmd('Stats', () => showPanel('stats'));
+    if (S.openId) cmd(S.refOn ? 'Close the reference panel' : 'Reference panel', () => qsFire({act: 'ref-toggle'}));
+    cmd(S.focus ? 'Leave focus mode' : 'Focus mode', () => menuAction('focus'));
+    cmd('Sprint', () => $('#spBtn').click(), 'A timer with an optional word goal');
+    for (const [m, t] of [['replace', 'Find and replace'], ['import', 'Import chapters'], ['dup-story', 'Duplicate this story'], ['export-docx', 'Export: Word manuscript'], ['export-doc', 'Export: Word document'], ['export-epub', 'Export: e-book (EPUB)'], ['export-html', 'Export: web page'], ['export-ms-md', 'Export: Markdown'], ['export-txt', 'Export: text'], ['export-md', 'Export: sheets and notes as Markdown'], ['print', 'Print or save as PDF'], ['backup-story', 'Back up this story']]) cmd(t, () => menuAction(m));
+  }
+  if (S.mode === 'file') cmd('Save file', () => menuAction('offline'), 'Ctrl+S');
+  for (const [m, t] of [['new-story', 'New story'], ['bin', 'Bin'], ['backup', 'Back up all stories'], ['restore', 'Restore from a backup'], ['help', 'Help']]) cmd(t, () => menuAction(m));
+  for (const [v, n] of [...Object.entries(THEME_PRESETS).map(([v, x]) => [v, x[0]]), ...(S.themes || []).map(x => ['c:' + x.id, x.name])]) cmd(`Theme: ${n}`, () => qsFire({set: 'theme', v}));
+  return out;
+}
+function qsFind(q){
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!words.length) { const recent = (S.recent || []).map(id => QS.items.find(x => x.id === id)).filter(Boolean); return recent.length ? recent : QS.items.filter(x => x.k !== 'Tag').slice(0, 12); }
+  const scored = [], starts = words.map(w => new RegExp(`(^|[^\\p{L}\\p{N}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'u'));
+  const pass = loose => QS.items.forEach((x, n) => {
+    const t = x.t.toLowerCase(), hay = `${t} ${x.k.toLowerCase()} ${(x.m || '').toLowerCase()}`;
+    if (!(loose ? words.every(w => hay.includes(w)) : starts.every(r => r.test(hay)))) return;
+    const w = words[0], rank = t.startsWith(w) || t.startsWith('#' + w) ? 0 : new RegExp(`(^|[^\\p{L}\\p{N}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'u').test(t) ? 1 : t.includes(w) ? 2 : 3;
+    scored.push([rank + (x.k === 'Command' ? 0.5 : x.k === 'Tag' ? 1.5 : 0), n, x]);
+  });
+  pass(false); if (!scored.length) pass(true);
+  return scored.sort((a, b) => a[0] - b[0] || a[1] - b[1]).slice(0, 60).map(s => s[2]);
+}
+function qsDraw(){
+  const ul = $('#qsList'); if (!ul) return;
+  QS.i = clamp(QS.i, 0, Math.max(0, QS.hits.length - 1));
+  ul.innerHTML = QS.hits.length ? QS.hits.map((x, i) => `<li role="option" id="qs-${i}" class="qs-opt" data-qs="${i}" aria-selected="${i === QS.i}"><span class="qs-k">${esc(x.k)}</span><span class="qs-t">${esc(x.t)}</span>${x.m ? `<span class="qs-m">${esc(x.m)}</span>` : ''}</li>`).join('') : '<li class="qs-none">Nothing matches. Try fewer letters.</li>';
+  $('#qsIn').setAttribute('aria-activedescendant', QS.hits.length ? 'qs-' + QS.i : '');
+  const on = ul.querySelector('[aria-selected="true"]'); if (on) on.scrollIntoView({block: 'nearest'});
+}
+function qsOpen(){
+  if (!S.loaded || !$('#dlgWrap').hidden || ($('#lock') && !$('#lock').hidden)) return;
+  $$('details.menu').forEach(x => x.open = false);
+  let w = $('#qs');
+  if (!w) {
+    w = nodeFrom(`<div class="qs-wrap" id="qs"><div class="qs" role="dialog" aria-modal="true" aria-label="Go to"><input id="qsIn" type="text" role="combobox" aria-expanded="true" aria-controls="qsList" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Go to a chapter, character, tag or command…"><ul id="qsList" role="listbox" aria-label="Matches"></ul><p class="qs-foot"></p></div></div>`);
+    document.body.append(w);
+    w.addEventListener('mousedown', ev => { if (ev.target === w) { ev.preventDefault(); qsClose(); } });
+    w.addEventListener('click', ev => { const o = ev.target.closest('[data-qs]'); if (o) qsGo(+o.dataset.qs, ev.shiftKey); });
+    $('#qsIn').addEventListener('input', ev => { QS.hits = qsFind(ev.target.value); QS.i = 0; qsDraw(); });
+    $('#qsIn').addEventListener('keydown', ev => {
+      if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') { ev.preventDefault(); QS.i = (QS.i + (ev.key === 'ArrowDown' ? 1 : -1) + QS.hits.length) % Math.max(1, QS.hits.length); qsDraw(); }
+      else if (ev.key === 'Enter') { ev.preventDefault(); qsGo(QS.i, ev.shiftKey); }
+      else if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); qsClose(); }
+      else if (ev.key === 'Tab') ev.preventDefault();
+    });
+  }
+  const beside = S.openId && S.view === 'editor';
+  w.querySelector('.qs-foot').innerHTML = `<kbd>↑</kbd><kbd>↓</kbd> choose · <kbd>Enter</kbd> go${beside ? ' · <kbd>Shift</kbd>+<kbd>Enter</kbd> show beside the text' : ''} · <kbd>Esc</kbd> close`;
+  QS.back = document.activeElement; QS.items = qsItems(); QS.hits = qsFind(''); QS.i = 0;
+  w.hidden = false; const inp = $('#qsIn'); inp.value = ''; qsDraw(); inp.focus();
+}
+function qsClose(refocus = true){ const w = $('#qs'); if (!w || w.hidden) return; w.hidden = true; if (refocus && QS.back && document.body.contains(QS.back)) QS.back.focus({preventScroll: true}); }
+function qsGo(i, beside){
+  const x = QS.hits[i]; if (!x) return;
+  qsClose(false);
+  const cur = S.openId && S.entries.get(S.openId);
+  if (beside && x.id && cur && S.view === 'editor' && x.id !== cur.id && REF_KINDS.includes(S.entries.get(x.id).kind)) { S.refOn = S.refNow = true; S.ref = x.id; savePrefs(); refRender(); return; }
+  x.go();
+}
+document.addEventListener('keydown', ev => { if ((ev.ctrlKey || ev.metaKey) && !ev.altKey && !ev.shiftKey && (ev.key || '').toLowerCase() === 'k') { ev.preventDefault(); const w = $('#qs'); if (w && !w.hidden) qsClose(); else qsOpen(); } }, true);
 
 /* ---------- startup ---------- */
 function goLocal(msg){

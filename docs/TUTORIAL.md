@@ -1,8 +1,8 @@
 # Getting around Quire
 
-A short tour of Quire's core features and settings, using the example story that comes with it. It takes about ten minutes. Everything here is also explained in Quire's own Help (Options → Help and info), which you can search.
+A short tour of Quire's core features and settings, using the example story that comes with it. It takes about fifteen minutes. Everything here is also explained in Quire's own Help (Options → Help and info), which you can search.
 
-**Contents:** [Start](#1-start) · [The layout](#2-the-layout) · [Chapters](#3-chapters) · [Writing](#4-writing-a-chapter) · [Focus mode](#5-focus-mode) · [Characters, places and notes](#6-characters-places-and-notes) · [Story arcs](#7-story-arcs) · [Tags and search](#8-tags-and-search) · [Revising](#9-revising) · [Stats](#10-stats) · [Settings](#11-settings) · [Saving and backups](#12-saving-and-backups) · [Bringing writing in and out](#13-bringing-writing-in-and-out) · [The bin](#14-the-bin) · [On a phone](#15-on-a-phone) · [Help](#16-help)
+**Contents:** [Start](#1-start) · [The layout](#2-the-layout) · [Chapters](#3-chapters) · [Writing](#4-writing-a-chapter) · [Focus mode](#5-focus-mode) · [Reference panel](#6-the-reference-panel) · [Go to](#7-go-to) · [Characters, places and notes](#8-characters-places-and-notes) · [Story arcs](#9-story-arcs) · [Tags and search](#10-tags-and-search) · [Revising](#11-revising) · [Stats](#12-stats) · [Settings](#13-settings) · [Saving and backups](#14-saving-and-backups) · [Bringing writing in and out](#15-bringing-writing-in-and-out) · [The bin](#16-the-bin) · [On a phone](#17-on-a-phone) · [Help](#18-help)
 
 ---
 
@@ -20,7 +20,7 @@ Open `quire.html` in your browser. The first time, Quire offers two ways in:
 ![The title bar and tabs, numbered](tutorial/layout.png)
 
 1. **Story picker.** Switch between your stories.
-2. **Story menu.** New story, the example story, duplicate, delete, the bin, find and replace across the story, and importing chapters.
+2. **Story menu.** Go to, new story, the example story, duplicate, delete, the bin, find and replace across the story, and importing chapters.
 3. **Overview.** The story's own sheet: title, logline, genre, theme, target length and deadline, and a count of everything in it.
 4. **Stats.** Word counts, writing pace, chapter lengths, point of view, cast presence, Voices and more.
 5. **Sprint.** A writing timer with an optional word goal and a chime at the end.
@@ -28,6 +28,8 @@ Open `quire.html` in your browser. The first time, Quire offers two ways in:
 7. **Options.** Every setting, plus export, backup and Help.
 8. **Tabs.** One for each kind of entry: story arcs, chapters, characters, places, notes and tags. The number shows how many there are.
 9. **Search.** Searches the whole story. Start with `#` to find a tag, like `#clue`.
+
+Anywhere in Quire, **Ctrl+K** (⌘K on a Mac) opens [Go to](#7-go-to), the quickest way to get anywhere.
 
 **Prefer a sidebar?** Options → Display → Navigation → Sidebar puts the tabs and the list of entries in a column on the left, the way older versions of Quire looked. On a phone, the sidebar becomes its own page.
 
@@ -46,20 +48,30 @@ Each chapter has its own sheet above the text: target length, tags, and **Chapte
 
 ![A chapter's sheet](tutorial/chapter.png)
 
+**The cast check** keeps those lists honest. Under *Characters in this chapter* and *Places*, Quire lists the characters and places whose names appear in the chapter's text but who aren't on the lists yet, with how often they're named. In chapter 2 of the example, Duncan Ross and Vincent Spaulding are both named but were never added to the cast:
+
+![The cast check in chapter 2](tutorial/castcheck.png)
+
+Click one to add it. Quire looks for each name exactly as written, and for the other names listed under *Also known as* on the character or place sheet, so if the text calls Sherlock Holmes "Holmes", add "Holmes" there. Nothing is added unless you click.
+
 ## 4. Writing a chapter
 
 Scroll down a chapter's sheet to its text.
 
 ![The editor and its toolbar](tutorial/editor.png)
 
-1. **The toolbar.** From left to right: font, bold, italic, underline, strikethrough, clear formatting, heading and subheading, quotation block, smart quotes, bulleted and numbered lists, scene break, horizontal line, alignment, paragraph indents, web link, link to an entry, image, embedded video or music, find and replace, the Prose checker, passage tag, *Who says this*, comment and split chapter. Hover over any button for its name.
-2. **Focus mode** hides everything but your writing (see below).
-3. **Drafts** let you try out changes in a copy of the chapter. The main text stays untouched until you merge, change by change.
-4. **Version history** replays how the chapter was written (see [Revising](#9-revising)).
+1. **The toolbar.** From left to right: font, bold, italic, underline, strikethrough, clear formatting, heading and subheading, alignment, paragraph indents, quotation block, smart quotes, bulleted and numbered lists, scene break, horizontal line, web link, link to an entry, image, embedded video or music, find and replace, the Prose checker, passage tag, *Who says this*, comment and split chapter. Hover over any button for its name.
+2. **Focus mode** hides everything but your writing (see below). The full-screen button next to it hides the browser's own bars too.
+3. **Reference** opens the [reference panel](#6-the-reference-panel) beside the text.
+4. **Watch words** lists words to notice while you write, including ones for this chapter only (see [Revising](#11-revising)).
+5. **Drafts** let you try out changes in a copy of the chapter. The main text stays untouched until you merge, change by change.
+6. **Version history** replays how the chapter was written (see [Revising](#11-revising)).
+
+Options → Display → **Buttons above the text…** changes the order of these buttons and which ones show.
 
 A few things happen as you type: `"quotes"` become “quotes” (English, German or French style), `--` becomes —, and `...` becomes …. Ctrl+Z right after undoes just that. Type `[[Watson]]` to link to another entry; the entry you link to lists the link back.
 
-To bring writing in, paste it (formatting is kept, clutter is dropped), drop an image straight into the text, or use [Import chapters](#13-bringing-writing-in-and-out).
+To bring writing in, paste it (formatting is kept, clutter is dropped), drop an image straight into the text, or use [Import chapters](#15-bringing-writing-in-and-out).
 
 ## 5. Focus mode
 
@@ -69,7 +81,30 @@ A running sprint stays visible above the text. Here it is in the Twilight theme,
 
 ![Focus mode in the Twilight theme, with a sprint running](tutorial/focus.png)
 
-## 6. Characters, places and notes
+## 6. The reference panel
+
+What colour was Holmes's dressing gown? What did your research note say about the price of foolscap? The **Reference** button above a text opens a panel beside it, so you can look things up without leaving the chapter.
+
+![The reference panel showing Sherlock Holmes beside chapter 1](tutorial/reference.png)
+
+- **Choose what to show** from the list at the top: any character, place, note, story arc or other chapter. In a chapter, its own cast and places are listed first.
+- **Short fields can be edited right there**, so a detail you settle while writing goes straight onto the sheet. Longer formatted text, like a note, shows as it is; *Open* takes you to the whole entry to edit it, with its tags.
+- **On wide screens** the panel stays beside the text as you move from chapter to chapter, and Quire remembers it after a reload. **On smaller screens** it slides over the text, and closes when you go to another entry.
+- × closes it.
+
+## 7. Go to
+
+Press **Ctrl+K** (⌘K on a Mac), or choose Story → Go to…, and type a few letters:
+
+![Go to, with "ho" typed](tutorial/goto.png)
+
+- **Entries:** any chapter, character, place, note or story arc. Characters are also found by the names under *Also known as*.
+- **Tags** (`#Holmes & Watson`) and your **other stories**.
+- **Commands:** New chapter, Stats, the bin, Find and replace, each export, Save file, a theme, and more.
+
+↑ and ↓ choose, Enter goes there, and **Shift+Enter** puts the chosen entry in the reference panel instead of leaving the chapter. With nothing typed, Go to lists the entries you opened last.
+
+## 8. Characters, places and notes
 
 Characters and places each get a sheet with prompts for what matters about them: role, motivation, psychology, an arc, and relationships to other characters for people; look, sound, smell and significance for places. Both can have a portrait or image. Notes are free-form pages for research, scene ideas, playlists or anything else.
 
@@ -77,7 +112,7 @@ Characters and places each get a sheet with prompts for what matters about them:
 
 Under **Also known as**, list a character's other names (*Sherlock, Mr. Holmes*), and search finds them by any of them. Hints under each field explain what it's for; Options → Display → Field hints makes them smaller or hides them.
 
-## 7. Story arcs
+## 9. Story arcs
 
 A story arc lays out a plotline on a tension curve. Start from a classic structure (Freytag's pyramid, the three-act structure, Save the Cat, the hero's journey or kishōtenketsu) or a blank arc, then drag the numbered beats along the story and up or down in tension.
 
@@ -85,7 +120,7 @@ A story arc lays out a plotline on a tension curve. Start from a classic structu
 
 Link each chapter to the beats it carries, from the chapter's details. The dashed line then shows your chapters as written, and each beat says whether it lands where the structure puts it, early or late.
 
-## 8. Tags and search
+## 10. Tags and search
 
 Tags work on three levels:
 
@@ -99,13 +134,13 @@ The Tags tab shows all of them, how often they're used and what they're used on.
 
 ![The Tags page](tutorial/tags.png)
 
-## 9. Revising
+## 11. Revising
 
 **The Prose checker** (the pencil button in the toolbar) marks hard and very hard sentences, adverbs, passive voice and wordy phrases, after Hemingway's readability rules, plus word echoes and dialogue. Click a highlight to see why it's marked, or a category to show or hide it. Options → Text → Prose checker chooses between the full checker and Hemingway's rules only.
 
 ![The Prose checker](tutorial/prose.png)
 
-**Watch words** (Options → Text) are words and phrases you want to notice: a habit to break, or a fact to keep straight. When you type one, a small note appears beside the line and fades away without interrupting you. Edit the list with *Edit watch words…*, for every story or just this one.
+**Watch words** are words and phrases you want to notice: a habit to break, or a fact to keep straight. When you type one, a small note appears beside the line and fades away without interrupting you. The *Watch words* button above a text edits the list for every story, for this story, or for this chapter only, for something that matters just there for a while, like a name a character shouldn't know yet. Options → Text switches watch words on or off.
 
 **Comments:** select some text and press the speech-bubble button. Comments are listed under the text and left out of every export.
 
@@ -113,7 +148,7 @@ The Tags tab shows all of them, how often they're used and what they're used on.
 
 ![Version history](tutorial/history.png)
 
-## 10. Stats
+## 12. Stats
 
 Stats covers the whole story: manuscript length against your target, writing pace and streak, chapter lengths, draft status, point of view, cast presence, settings, story arc coverage and a story timeline. The switch at the bottom changes the level of detail, from *Basic* to *In depth*, which adds sentence rhythm, openers, punctuation, repeated phrases and a narration check.
 
@@ -121,7 +156,7 @@ Stats covers the whole story: manuscript length against your target, writing pac
 
 **Voices** compares how your viewpoint characters narrate: their sentence length, favourite words and phrases, the senses they lean on, and whether a voice drifts from chapter to chapter. Mark who says a line of dialogue with the *Who says this* button, and Voices compares how your characters speak too. Only lines you mark count; Quire never guesses a speaker.
 
-## 11. Settings
+## 13. Settings
 
 Everything is in **Options**. This is the whole menu, laid out in three columns:
 
@@ -129,7 +164,7 @@ Everything is in **Options**. This is the whole menu, laid out in three columns:
 
 - **Export:** the manuscript as a Word manuscript (standard manuscript format, for submissions), a Word document, an e-book, a web page, Markdown or text; sheets and notes as Markdown; print or PDF; AO3 sharing.
 - **Backup:** back up this story or all of them, encrypt backups, restore, save the notebook file, encrypt the file and the save reminder.
-- **Display:** sidebar or tabs, field hints, stats detail, intense focus, the sprint and word count above the text, the progress bar, status colours, highlighted name chips, theme, page width and text column width.
+- **Display:** sidebar or tabs, field hints, stats detail, intense focus, the sprint and word count above the text, the progress bar, status colours, highlighted name and beat chips, the buttons above the text, theme, page width and text column width.
 - **Text:** Google Fonts, the Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indents, smart quotes and their style, dashes, ellipses and the question before splitting a chapter.
 - **Chapter history:** how soon after a pause a snapshot is taken, thinning out old versions, and whether history goes into the saved file.
 
@@ -137,14 +172,14 @@ Everything is in **Options**. This is the whole menu, laid out in three columns:
 
 ![Making a theme, starting from Lamplight](tutorial/theme.png)
 
-## 12. Saving and backups
+## 14. Saving and backups
 
 - **While you write,** Quire keeps your work in the browser's storage, so a closed tab loses nothing.
 - **Save file** (Ctrl+S) writes everything into `quire.html` itself. **The file is your real copy:** keep it with your writing and back it up like any document. In Chrome and Edge you choose the file once and later saves overwrite it. Firefox and Safari download an updated copy each time, which replaces the old one. A reminder nudges you if work has gone unsaved for a while.
 - **Backups** (Options → Backup) save one story or all of them as a `.json` file, which any copy of Quire can restore.
 - **Encryption** (Options → Backup, optional) locks backups and the saved file with a password. If you forget it, nobody can recover the writing, so keep it safe.
 
-## 13. Bringing writing in and out
+## 15. Bringing writing in and out
 
 **Import chapters** (Story → Import chapters) reads Word documents (.docx), text and Markdown files, or pasted text. Quire shows the chapters it found before adding anything. A new chapter starts at each heading, or at lines like "Chapter 3" or "Prologue". From Word, italics, bold, scene breaks, lists, links and images come along, comments become Quire comments, tracked changes are taken as accepted, and footnotes go at the end of their chapter. You can also just drop a file onto Quire.
 
@@ -154,13 +189,13 @@ Everything is in **Options**. This is the whole menu, laid out in three columns:
 
 ![The e-book settings](tutorial/ebook.png)
 
-## 14. The bin
+## 16. The bin
 
 Deleting a chapter, sheet, note, story arc or whole story moves it to the bin (Story → Bin) for 30 days, and Undo appears right after deleting. Restoring brings it back as it was, with its places in viewpoints, cast lists, arcs and speaker marks. *Delete for good* or *Empty the bin* removes things for good straight away.
 
 ![The bin](tutorial/bin.png)
 
-## 15. On a phone
+## 17. On a phone
 
 Quire works on phones too. The title bar stacks up, the tabs scroll sideways, and the toolbar stays at the top while you write.
 
@@ -168,7 +203,7 @@ Quire works on phones too. The title bar stacks up, the tabs scroll sideways, an
 
 To use the same notebook on your phone, copy `quire.html` there (with a cloud folder, say) and open it in the phone's browser. Use one copy at a time, so two copies don't drift apart.
 
-## 16. Help
+## 18. Help
 
 Options → **Help and info** explains every feature, with topics to jump to and a search: press `/`, type, and Enter steps through the matches.
 

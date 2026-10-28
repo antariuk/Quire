@@ -36,6 +36,7 @@ How saving works, in short:
 - Book-style paragraph indents, plus smart quotes (English, German or French style), em dashes and ellipses as you type
 - Focus mode in two stages: *Focus* hides the navigation; *Intense focus* leaves only the text, its toolbar and the buttons above it. On larger screens, full screen hides the browser's own bars too.
 - Picks up where you left off: Quire reopens the chapter you were writing, at the spot where you stopped
+- A reference panel keeps a character, place, note or another chapter beside the text while you write, and Go to (Ctrl+K) jumps to any entry, tag or command in a few keystrokes
 - Typewriter scrolling, adjustable text size and page width, six themes from light to a warm dark, and your own themes from four colours
 - Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints, towards a chapter's word target, or towards today's share of a deadline
 - Word targets per chapter and for the whole story, a deadline that works out the words a day it takes, a word count for any selection, and find and replace
@@ -53,6 +54,7 @@ How saving works, in short:
 - Scene viewpoints: label whose point of view each scene follows, and see how a chapter's words, and the whole story's, divide between them
 - Status colours: every chapter coloured by its status, with a strip of the whole manuscript at a glance
 - Chapter cards with each chapter's synopsis, viewpoint, places and story arc beats, to drag into a new order
+- A cast check that lists the characters and places named in a chapter but missing from its lists
 
 **Revising**
 - Prose checker: Hemingway-style readability (hard sentences, adverbs, passive voice, wordy phrases), plus word echoes and dialogue
@@ -87,7 +89,7 @@ Quire needs JavaScript, which browsers allow by default. If you use a blocker su
 
 ## Questions
 
-**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 770 KB empty). Your stories, images and history are stored in the same file when you save.
+**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 800 KB empty). Your stories, images and history are stored in the same file when you save.
 
 **Can I use it on more than one computer?** Yes: save, take the file with you, and open it there. Use one copy at a time, so that two copies don't drift apart.
 
