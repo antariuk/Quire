@@ -25,6 +25,7 @@
   --f-display:"Literata", "Iowan Old Style", Georgia, serif;
   --f-ui:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --ts:1; --pw:64rem; --tw:38em;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -152,7 +153,6 @@ select{padding-right:6px}
 .menu-check input{margin-top:2px;cursor:pointer}
 .menu-check > span{display:flex;flex-direction:column;gap:1px}
 .menu-check .muted{font-size:12px}
-:root{--ts:1;--pw:64rem;--tw:38em}
 .app.focus{grid-template-columns:minmax(0,1fr)}
 .app.focus .index{display:none!important}
 .app.focus .desk{display:block!important}
@@ -429,7 +429,7 @@ button.chip:hover{border-color:var(--pencil)}
 .rte-body [data-align="justify"]{text-align:justify}
 .rte-body [data-align="center"] img{margin-inline:auto}
 .rte-body [data-align="right"] img{margin-left:auto}
-.rte-body img{max-width:100%;height:auto;border-radius:6px;display:block;margin:.3em 0 .9em}
+.rte-body img{max-width:100%;height:auto;border-radius:6px;display:block;margin:.3em 0 .9em;cursor:pointer}
 .embed{display:flex;align-items:center;gap:12px;border:1px solid var(--rule);border-radius:8px;padding:10px 12px;margin:0 0 .9em;font-family:var(--f-ui);font-size:13px;line-height:1.35;background:var(--desk);user-select:none}
 .embed-badge{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:var(--ink);color:var(--on-ink);flex:none;font-size:15px}
 .embed-meta{display:flex;flex-direction:column;min-width:0;flex:1}
@@ -484,7 +484,6 @@ button.chip:hover{border-color:var(--pencil)}
 .imgtags .tag-input{flex:1 1 7rem;min-width:6rem;font-size:12.5px;padding:3px 6px!important;border:1px solid var(--field-line)!important;border-radius:5px;background:var(--field)!important}
 .img-shape{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 6px;border-radius:4px;border:1px dashed var(--field-line);color:var(--ink-2);font-size:12px;white-space:nowrap}
 .portrait-col .imgtags,.place-img-col .imgtags{margin-top:2px}
-.rte-body img{cursor:pointer}
 .rte-body img.img-on{outline:2px solid var(--pencil);outline-offset:2px}
 .img-tags-sec{display:flex;flex-direction:column;gap:8px;margin-top:8px}
 .img-shape-chip{display:inline-flex;align-items:center;gap:5px}
@@ -1079,6 +1078,95 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
   .app[data-nav="tabs"] .ttab-search{display:none}
   .sprint-pop{position:fixed;left:16px;right:16px;top:auto;width:auto;max-width:420px;margin-inline:auto}
 }
+/* speaker marks */
+mark.spk{background:none;color:inherit;padding:0;text-decoration:underline dotted color-mix(in oklab, var(--ink-2) 60%, transparent);text-decoration-thickness:1.5px;text-underline-offset:5px}
+mark.spk.on{background:var(--hi-wash)}
+.spk-panel{display:flex;flex-direction:column;gap:8px}
+.spk-chips{display:flex;flex-wrap:wrap;gap:6px}
+.spk-c{min-height:var(--h-m);padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:var(--sheet);font-size:13px;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.spk-c[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.spk-c:hover{border-color:var(--ink-2)}
+.spk-more{height:var(--h-m);max-width:min(100%, 18rem);font-size:13px}
+.spk-sum{margin:0 0 4px;font-size:13px;color:var(--ink-2)}
+.spk-sum b{font-weight:400;color:var(--ink)}
+@media print{mark.spk{text-decoration:none}}
+/* voices */
+.vs-head{flex-wrap:wrap}
+.vs-pick{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.vs-chip{display:inline-flex;align-items:baseline;gap:6px;min-height:var(--h-m);padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:transparent;font-size:13px;cursor:pointer;max-width:100%}
+.vs-chip .mono{font-size:11.5px;color:var(--ink-2)}
+.vs-chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.vs-chip[aria-pressed="true"] .mono{color:inherit;opacity:.75}
+.vs-cmp{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);flex-wrap:wrap}
+.vs-cmp select{height:var(--h-m);max-width:100%}
+.vs-rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px 24px;margin-top:6px}
+.vs-m{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vs-ml{display:flex;flex-direction:column;font-size:13px;line-height:1.3}
+.vs-ml span{font-size:11.5px;color:var(--ink-2)}
+.vs-bars{display:flex;flex-direction:column;gap:3px}
+.vs-b{display:grid;grid-template-columns:minmax(0,1fr) 3.2em;align-items:center;gap:8px;height:16px}
+.vs-t{min-width:0}
+.vs-b i{display:block;height:10px;border-radius:3px;min-width:2px}
+.vs-b.a i,.vs-key i.a{background:var(--pencil)}
+.vs-b.b i,.vs-key i.b{background:color-mix(in oklab, var(--ink-2) 55%, var(--wash))}
+.vs-b em{font-style:normal;font-size:11.5px;color:var(--ink-2);text-align:right}
+.vs-key{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:var(--ink-2);margin-top:8px}
+.vs-key i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.vs-words{display:flex;flex-wrap:wrap;gap:6px}
+.vs-w{border:1px solid var(--rule);border-radius:6px;padding:2px 8px;font-size:13px;overflow-wrap:anywhere}
+.vs-w b{font-weight:400;font-size:11px;color:var(--ink-2)}
+.vs-ph,.vs-lines{margin:0;padding-left:18px;font-size:13.5px;line-height:1.6}
+.vs-ph b{font-weight:400;font-size:11px;color:var(--ink-2)}
+.vs-lines li{font-family:var(--f-display);font-size:15px;margin-bottom:4px}
+.vs-drift{width:100%;height:auto;max-height:150px;display:block;overflow:visible}
+.vs-drift polyline{fill:none;stroke:var(--pencil);stroke-width:2}
+.vs-drift circle{fill:var(--sheet);stroke:var(--pencil);stroke-width:2}
+.vs-drift .vs-mean{stroke:var(--ink-2);stroke-dasharray:4 4;stroke-width:1}
+@media (max-width:640px){.vs-two{grid-template-columns:1fr}}
+/* watch words */
+.ww-note{position:absolute;z-index:7;pointer-events:none;opacity:0;transform:translateY(2px);transition:opacity .22s ease, transform .22s ease;display:flex;flex-direction:column;gap:1px;padding:5px 10px 6px;border-radius:8px;background:var(--sheet);color:var(--ink);border:1px solid color-mix(in oklab, rgb(236,72,153) 55%, var(--rule));border-left-width:3px;box-shadow:0 4px 14px rgba(0,0,0,.12);font:12.5px/1.4 var(--f-ui);width:max-content;overflow-wrap:anywhere}
+.ww-note.side{transform:translateX(-4px)}
+.ww-note.show{opacity:1;transform:none}
+.ww-note b{font-weight:600}
+.ww-note span{color:var(--ink-2)}
+@media (prefers-reduced-motion: reduce){.ww-note{transition:none}}
+.rf-ww{border:0;background:none;padding:0;font:inherit;color:var(--ink-2);cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.rf-ww::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:rgba(236,72,153,.62);margin-right:6px;vertical-align:1px}
+.ww-sec{display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.ww-sec h3{margin:6px 0 0;font-size:14px;font-weight:600}
+.ww-rows{display:flex;flex-direction:column;gap:6px}
+.ww-r{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:6px;align-items:center}
+.ww-r input{height:var(--h-m);padding:0 8px;font-size:13.5px;min-width:0}
+.ww-add{align-self:flex-start}
+@media (max-width:520px){.ww-r{grid-template-columns:minmax(0,1fr) auto}.ww-r .ww-n{grid-column:1/2;grid-row:2}}
+@media print{.ww-note{display:none!important}}
+/* your own themes */
+.ct-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ct-b{display:inline-flex;align-items:center;gap:6px;min-height:var(--h-s);padding:0 9px 0 6px;border:1px solid var(--rule);border-radius:6px;background:transparent;font-size:12px;cursor:pointer;max-width:100%;min-width:0}
+.ct-b > span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ct-b[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.ct-b:hover{border-color:var(--ink-2)}
+.ct-new{padding-left:9px;color:var(--ink-2)}
+.ct-sw{position:relative;flex:none;width:18px;height:18px;border-radius:50%;border:2px solid;overflow:hidden;box-shadow:0 0 0 1px color-mix(in oklab, var(--ink) 25%, transparent)}
+.ct-sw i{position:absolute;right:0;bottom:0;width:8px;height:8px;border-radius:50% 0 0 0}
+.ct-sw b{position:absolute;left:3px;top:4px;width:6px;height:2px;border-radius:1px}
+.theme-ed{position:fixed;z-index:55;top:72px;right:16px;width:min(340px, calc(100vw - 32px));max-height:calc(100vh - 88px);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--sheet);color:var(--ink);border:1px solid var(--rule);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.25)}
+.te-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.te-head h2{margin:0;font-family:var(--f-display);font-style:italic;font-weight:500;font-size:20px}
+.te-lab{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:4px}
+.te-presets{display:flex;flex-wrap:wrap;gap:4px}
+.te-row{display:grid;grid-template-columns:44px minmax(0,1fr) 86px;align-items:center;gap:10px}
+.te-row input[type=color]{width:44px;height:36px;padding:2px;border:1px solid var(--field-line);border-radius:6px;background:var(--field);cursor:pointer}
+.te-row label{display:flex;flex-direction:column;min-width:0;font-size:13px;line-height:1.3;cursor:pointer}
+.te-row label span{font-size:12px;color:var(--ink-2)}
+.te-hex{height:var(--h-m);padding:0 8px;font-size:12.5px;text-transform:uppercase}
+.te-hex.bad{border-color:var(--pencil);outline-color:var(--pencil)}
+.te-check{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.te-ratio.warn{color:var(--pencil)}
+.te-b{display:flex;flex-wrap:wrap;gap:8px}
+.te-b .danger{margin-left:auto}
+@media (max-width:600px){.theme-ed{top:auto;bottom:0;right:0;left:0;width:auto;max-height:64vh;border-radius:14px 14px 0 0;padding:14px 16px max(16px, env(safe-area-inset-bottom, 0px))}}
+@media print{.theme-ed{display:none!important}}
 /* passwords and the lock screen */
 .pw-form{display:flex;flex-direction:column;gap:10px;min-width:0}
 .pw-form input[type=password],.pw-form input[type=text],.lock-box input[type=password],.lock-box input[type=text]{font-family:var(--f-ui);letter-spacing:.02em}
@@ -1126,6 +1214,7 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
 .dlg-f textarea{font-size:14px;color:var(--ink);resize:vertical}
 .dlg-row{display:flex;gap:12px;flex-wrap:wrap}
 .dlg .check{font-size:13px;display:flex;gap:8px;align-items:center}
+.dc-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:6px 14px}
 @media (max-width:520px){.reo-h{width:32px}}
 .app.typewriter .desk{padding-bottom:55vh;--desk-pb:55vh}
 /* Prose checker highlights */
@@ -1136,6 +1225,7 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
 ::highlight(rd-pass){background-color:rgba(34,197,94,.30)}
 ::highlight(rd-wordy){background-color:rgba(168,85,247,.30)}
 ::highlight(rd-echo){background-color:rgba(249,115,22,.34)}
+::highlight(rd-watch){background-color:rgba(236,72,153,.30)}
 ::highlight(rd-dlg){background-color:rgba(20,184,166,.17)}
 .rd-bar{margin:3px -6px -3px;padding:6px 10px 7px;border-top:1px solid var(--field-line);background:var(--sheet);font-size:12.5px}
 .rd-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
@@ -1147,7 +1237,7 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
 .rd-row + .rd-row{margin-top:5px}
 .rd-gl{flex:0 0 6.6em;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
 .rd-k i{width:10px;height:10px;border-radius:3px}
-.rd-hard i{background:rgba(234,179,8,.6)} .rd-vhard i{background:rgba(239,68,68,.6)} .rd-adv i{background:rgba(59,130,246,.6)} .rd-pass i{background:rgba(34,197,94,.6)} .rd-wordy i{background:rgba(168,85,247,.6)} .rd-echo i{background:rgba(249,115,22,.65)} .rd-dlg i{background:rgba(20,184,166,.5)}
+.rd-watch i{background:rgba(236,72,153,.62)} .rd-hard i{background:rgba(234,179,8,.6)} .rd-vhard i{background:rgba(239,68,68,.6)} .rd-adv i{background:rgba(59,130,246,.6)} .rd-pass i{background:rgba(34,197,94,.6)} .rd-wordy i{background:rgba(168,85,247,.6)} .rd-echo i{background:rgba(249,115,22,.65)} .rd-dlg i{background:rgba(20,184,166,.5)}
 .rd-hint{margin-top:5px;color:var(--ink-2);font-style:italic;min-height:1.2em}
 .rd-hint:empty::before{content:"Click a highlighted word or sentence to see why it’s marked."}
 /* control sizes: every control uses one of three heights */
@@ -1235,7 +1325,7 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
         <button data-menu="help" class="menu-help"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.3 6.3a1.8 1.8 0 1 1 2.6 1.6c-.6.3-.9.7-.9 1.3v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".85" fill="currentColor"/></svg>Help and info</button>
         <hr class="menu-sep">
         <p class="menu-h">Export</p>
-        <div class="menu-fmt stack" role="group" aria-label="Export the manuscript as"><span>Manuscript as</span><button data-menu="export-docx" data-needs-story title="Word file in standard manuscript format (.docx)" aria-label="Manuscript as a Word file (.docx)">Word</button><button data-menu="export-html" data-needs-story title="Web page (.html)" aria-label="Manuscript as a web page (.html)">Web page</button><button data-menu="export-ms-md" data-needs-story title="Markdown (.md)" aria-label="Manuscript as Markdown (.md)">Markdown</button><button data-menu="export-txt" data-needs-story title="Plain text (.txt)" aria-label="Manuscript as plain text (.txt)">Text</button></div>
+        <div class="menu-fmt stack" role="group" aria-label="Export the manuscript as"><span>Manuscript as</span><button data-menu="export-docx" data-needs-story title="Word file in standard manuscript format, for submissions (.docx)" aria-label="Word manuscript, in standard manuscript format (.docx)">Word manuscript</button><button data-menu="export-doc" data-needs-story title="Word document that looks like your story, with real headings (.docx)" aria-label="Word document (.docx)">Word document</button><button data-menu="export-html" data-needs-story title="Web page (.html)" aria-label="Manuscript as a web page (.html)">Web page</button><button data-menu="export-ms-md" data-needs-story title="Markdown (.md)" aria-label="Manuscript as Markdown (.md)">Markdown</button><button data-menu="export-txt" data-needs-story title="Plain text (.txt)" aria-label="Manuscript as plain text (.txt)">Text</button></div>
         <button data-menu="export-md" data-needs-story>Sheets and notes as Markdown (.md)</button>
         <button data-menu="print" data-needs-story>Print or save as PDF</button>
         <label class="menu-check"><input type="checkbox" id="ao3Item" data-toggle="ao3"><span>AO3 sharing <span class="muted">Adds “Share on AO3” under each chapter: copy the text for AO3 and open the right page there. Quire never connects to AO3 itself.</span></span></label>
@@ -1263,7 +1353,7 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
         <label class="menu-check"><input type="checkbox" id="stColorsItem" data-toggle="stcolors"><span>Colour chapters by status <span class="muted">Chapter lists show each chapter’s status as a colour, with a strip of the whole manuscript on top.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="chipHiItem" data-toggle="chiphi"><span>Highlight characters and places <span class="muted">Bold, coloured name chips on chapters and story arcs, easier to spot.</span></span></label>
         <hr class="menu-sep menu-sep-soft">
-        <div class="menu-row stack theme-row"><span>Theme</span><div class="seg-toggle" role="group" aria-label="Cool themes"><button data-set="theme" data-v="light">Light</button><button data-set="theme" data-v="twilight">Twilight</button><button data-set="theme" data-v="dark">Dark</button></div><div class="seg-toggle" role="group" aria-label="Warm themes, easier on the eyes"><button data-set="theme" data-v="sepia">Sepia</button><button data-set="theme" data-v="lamplight">Lamplight</button><button data-set="theme" data-v="ember">Ember</button></div></div>
+        <div class="menu-row stack theme-row"><span>Theme</span><div class="seg-toggle" role="group" aria-label="Cool themes"><button data-set="theme" data-v="light">Light</button><button data-set="theme" data-v="twilight">Twilight</button><button data-set="theme" data-v="dark">Dark</button></div><div class="seg-toggle" role="group" aria-label="Warm themes, easier on the eyes"><button data-set="theme" data-v="sepia">Sepia</button><button data-set="theme" data-v="lamplight">Lamplight</button><button data-set="theme" data-v="ember">Ember</button></div><div class="ct-row" id="ctRow" role="group" aria-label="Your own themes"></div></div>
         <hr class="menu-sep menu-sep-soft">
         <div class="menu-row"><span>Page width</span><div class="seg-toggle" role="group" aria-label="Page width"><button data-set="pw" data-v="narrow">Narrow</button><button data-set="pw" data-v="medium">Medium</button><button data-set="pw" data-v="wide">Wide</button><button data-set="pw" data-v="full">Full</button></div></div>
         <div class="menu-row"><span>Text column</span><div class="seg-toggle" role="group" aria-label="Width of the text in editors"><button data-set="tw" data-v="narrow">Narrow</button><button data-set="tw" data-v="medium">Medium</button><button data-set="tw" data-v="wide">Wide</button><button data-set="tw" data-v="full">Full</button></div></div>
@@ -1272,6 +1362,9 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
         <label class="menu-check"><input type="checkbox" id="webFontsItem" data-toggle="webfonts"><span>Load typefaces from Google Fonts <span class="muted">Off: Quire stays offline and uses the fonts on this computer. On: Quire’s own typefaces and more fonts in the font menu, built into the manuscript web page when you export it.</span></span></label>
         <hr class="menu-sep menu-sep-soft">
         <div class="menu-row stack"><span class="menu-lab">Prose checker <span class="muted">A toolbar button that marks what to revise. Full adds word echoes and dialogue to Hemingway’s rules.</span></span><div class="seg-toggle" role="group" aria-label="Prose checker"><button data-set="pc" data-v="off">Off</button><button data-set="pc" data-v="hem">Hemingway</button><button data-set="pc" data-v="full">Full</button></div></div>
+        <hr class="menu-sep menu-sep-soft">
+        <label class="menu-check"><input type="checkbox" id="watchItem" data-toggle="watch"><span>Watch words <span class="muted">Words and phrases you want to notice, such as a habit to avoid or a fact to keep straight. A small note appears beside the line when you type one.</span></span></label>
+        <button data-menu="watch-edit" id="watchEditItem">Edit watch words…</button>
         <hr class="menu-sep menu-sep-soft">
         <label class="menu-check"><input type="checkbox" id="typewriterItem" data-toggle="typewriter"><span>Typewriter scrolling <span class="muted">Keeps the line you’re writing in the middle of the screen.</span></span></label>
         <hr class="menu-sep menu-sep-soft">
@@ -1315,6 +1408,8 @@ mark.hs.cur{background:var(--hi);color:var(--on-ink);box-shadow:none}
 <input type="file" id="imageFile" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
 <input type="file" id="portraitFile" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
 <div class="lock" id="lock" hidden></div>
+<div class="vh" id="wwLive" role="status" aria-live="polite"></div>
+<div class="theme-ed" id="themeEd" role="dialog" aria-modal="false" aria-labelledby="teTitle" hidden></div>
 <div class="help-wrap dlg-wrap" id="dlgWrap" hidden><div class="dlg" id="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlgTitle" tabindex="-1"></div></div>
 <div class="help-wrap" id="helpWrap" hidden><div class="help" id="help" role="dialog" aria-modal="true" aria-labelledby="helpTitle" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -1464,6 +1559,7 @@ const F = {
     {k:'body', type:'rich', big:true, label:'Note', ph:'Write here. Drop images in, paste a video or music link, or link an entry with [[its title]].'}
   ],
   character: [
+    {k:'aka', label:'Also known as', type:'line', hint:'Other names and forms of address, separated by commas: Sherlock, Mr. Holmes. Search finds the character by any of them.'},
     {divider:true},
     {pair:[{k:'role', label:'Role', type:'select', opts:ROLES}, {k:'age', label:'Age', type:'line'}]},
     {divider:true},
@@ -1526,9 +1622,119 @@ const app = $('#app'), desk = $('#desk');
 const RM_PRESETS = ['5', '10', '30'];
 function remindOK(v){ const n = Math.round(+v); return v !== '' && v != null && Number.isFinite(n) && n >= 1 && n <= 480; }
 function loadPrefs(){ try { return JSON.parse(localStorage.getItem('storybible.ui') || '{}') || {}; } catch { return {}; } }
-function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
+/* ---------- your own themes: four colours, the other shades worked out from them ---------- */
+const THEME_PRESETS = {light: ['Light', '#FAFBF8', '#1C2129', '#ECEEEA', '#A4313D'], twilight: ['Twilight', '#3F4659', '#EDE8DE', '#353B4D', '#F2A08F'], dark: ['Dark', '#1C1F24', '#E6E4DE', '#14161A', '#E5757F'],
+  sepia: ['Sepia', '#FAF4E4', '#2F2718', '#EDE3CC', '#9E4426'], lamplight: ['Lamplight', '#453B2B', '#F2E7CD', '#3A3123', '#F1A469'], ember: ['Ember', '#211C16', '#EBDFC6', '#181410', '#E99665']};
+const THEME_KEYS = ['paper', 'text', 'bg', 'accent'];
+const THEME_TOKENS = ['--desk', '--sheet', '--ink', '--ink-2', '--rule', '--wash', '--pencil', '--pencil-wash', '--on-ink', '--ok', '--warn', '--field', '--field-line', '--hi', '--hi-wash', '--hi-line'];
+const HEX_RE = /^#[0-9a-f]{6}$/i;
+const hexRGB = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const relLum = h => { const [r, g, b] = hexRGB(h).map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * r + .7152 * g + .0722 * b; };
+const contrastOf = (a, b) => { const x = relLum(a), y = relLum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+function themesClean(list){
+  const seen = new Set();
+  return (Array.isArray(list) ? list : []).filter(x => x && typeof x === 'object' && typeof x.id === 'string' && /^[a-z0-9]{4,16}$/.test(x.id) && !seen.has(x.id) && seen.add(x.id) && THEME_KEYS.every(k => HEX_RE.test(x[k])))
+    .slice(0, 20).map(x => ({id: x.id, name: String(x.name || 'My theme').replace(/\s+/g, ' ').trim().slice(0, 40) || 'My theme', paper: x.paper, text: x.text, bg: x.bg, accent: x.accent}));
+}
+const themeFromPreset = k => { const p = THEME_PRESETS[k] || THEME_PRESETS.light; return {paper: p[1], text: p[2], bg: p[3], accent: p[4]}; };
+const customTheme = id => (S.themes || []).find(x => x.id === id);
+function themeVars(t){
+  const dark = relLum(t.paper) < .18, mix = (a, p, b) => `color-mix(in oklab, ${a} ${p}%, ${b})`;
+  const sem = dark ? {ok: '#7CC4A0', warn: '#E2AE58', hi: '#86CDD4'} : {ok: '#2E6B4E', warn: '#8F5B00', hi: '#1D6670'};
+  return {'--sheet': t.paper, '--desk': t.bg, '--ink': t.text, '--ink-2': mix(t.text, 66, t.paper), '--rule': mix(t.text, 18, t.paper), '--wash': mix(t.text, 10, t.paper),
+    '--field': mix(t.text, 5, t.paper), '--field-line': mix(t.text, 30, t.paper), '--pencil': t.accent, '--pencil-wash': mix(t.accent, 16, t.paper), '--on-ink': t.paper,
+    '--ok': sem.ok, '--warn': sem.warn, '--hi': sem.hi, '--hi-wash': mix(sem.hi, 18, t.paper), '--hi-line': mix(sem.hi, 55, t.paper), scheme: dark ? 'dark' : 'light'};
+}
+function applyTheme(){
+  const t = S.themeDraft || (S.theme && S.theme.startsWith('c:') ? customTheme(S.theme.slice(2)) : null);
+  if (t) { const v = themeVars(t); for (const k of THEME_TOKENS) root.style.setProperty(k, v[k]); root.style.colorScheme = v.scheme; }
+  else { for (const k of THEME_TOKENS) root.style.removeProperty(k); root.style.removeProperty('color-scheme'); }
+}
+const ctSwatch = t => `<span class="ct-sw" aria-hidden="true" style="background:${t.paper};border-color:${t.bg}"><i style="background:${t.accent}"></i><b style="background:${t.text};box-shadow:0 3px 0 ${t.text}"></b></span>`;
+function ctRender(){
+  const row = $('#ctRow'); if (!row) return;
+  const cur = S.theme && S.theme.startsWith('c:') ? customTheme(S.theme.slice(2)) : null;
+  row.innerHTML = (S.themes || []).map(x => `<button class="ct-b" data-set="theme" data-v="c:${esc(x.id)}" aria-pressed="${S.theme === 'c:' + x.id}">${ctSwatch(x)}<span>${esc(x.name)}</span></button>`).join('')
+    + `<button class="ct-b ct-new" data-menu="theme-new">+ New theme…</button>${cur ? `<button class="ct-b ct-new" data-menu="theme-edit">Edit “${esc(cur.name)}”…</button>` : ''}`;
+}
+function teCheck(){
+  const d = S.themeDraft, el = $('#teCheck'), save = $('#themeEd [data-te-act="save"]'); if (!d || !el) return;
+  const c = contrastOf(d.text, d.paper), a = contrastOf(d.accent, d.paper);
+  const word = c >= 7 ? 'very easy to read' : c >= 4.5 ? 'easy to read' : c >= 3 ? 'hard to read in long passages' : 'too faint to read';
+  el.innerHTML = `<span class="te-ratio${c < 4.5 ? ' warn' : ''}"><b>Text on paper ${c.toFixed(1)} : 1</b>, ${word}.</span>${a < 3 ? ' <span class="te-ratio warn">The accent is faint on this paper, so labels and buttons in it may be hard to see.</span>' : ''}${c < 3 ? ' Choose colours further apart to save the theme.' : ''}`;
+  if (save) save.disabled = c < 3;
+}
+function teHTML(){
+  const e = S.themeEdit, d = S.themeDraft;
+  const rows = [['paper', 'Paper', 'The page you write on'], ['text', 'Text', 'Writing, labels and buttons'], ['bg', 'Background', 'Around the page'], ['accent', 'Accent', 'Headings, marks and warnings']];
+  return `<div class="te-head"><h2 id="teTitle">${e.id ? 'Edit theme' : 'New theme'}</h2><button class="btn small" data-te-act="cancel" aria-label="Cancel and close">×</button></div>
+    <label class="dlg-f"><span>Name</span><input id="teName" maxlength="40" value="${esc(e.name)}" autocomplete="off"></label>
+    <div class="te-from"><span class="te-lab">Start from</span><div class="te-presets">${Object.entries(THEME_PRESETS).map(([k, p]) => `<button type="button" class="ct-b" data-te-from="${k}" title="Start from ${p[0]}">${ctSwatch(themeFromPreset(k))}<span>${p[0]}</span></button>`).join('')}</div></div>
+    ${rows.map(([k, l, hint]) => `<div class="te-row"><input type="color" id="te-${k}" data-te="${k}" value="${d[k].toLowerCase()}"><label for="te-${k}"><b>${l}</b><span>${hint}</span></label><input class="te-hex mono" data-te-hex="${k}" value="${d[k].toUpperCase()}" maxlength="7" spellcheck="false" autocomplete="off" aria-label="${l} colour code"></div>`).join('')}
+    <p class="te-check" id="teCheck" aria-live="polite"></p>
+    <div class="te-b"><button class="btn primary" data-te-act="save">Save theme</button><button class="btn" data-te-act="cancel">Cancel</button>${e.id ? '<button class="btn danger" data-te-act="delete">Delete</button>' : ''}</div>`;
+}
+function themeEdOpen(id){
+  const cur = id ? customTheme(id) : (S.theme.startsWith('c:') ? customTheme(S.theme.slice(2)) : null);
+  const base = cur ? {paper: cur.paper, text: cur.text, bg: cur.bg, accent: cur.accent} : themeFromPreset(S.theme);
+  let name = cur && id ? cur.name : 'My theme';
+  if (!id) { const names = new Set((S.themes || []).map(x => x.name)); for (let n = 2; names.has(name); n++) name = `My theme ${n}`; }
+  S.themeEdit = {id: id || null, prev: S.theme, name, back: document.activeElement};
+  S.themeDraft = {...base};
+  const ed = $('#themeEd'); ed.innerHTML = teHTML(); ed.hidden = false; applyTheme(); teCheck();
+  $('#teName', ed).focus(); $('#teName', ed).select();
+}
+function themeEdClose(){
+  const ed = $('#themeEd'); if (ed.hidden) return;
+  const back = S.themeEdit && S.themeEdit.back; S.themeEdit = null; S.themeDraft = null; ed.hidden = true; ed.innerHTML = ''; applyDisplay();
+  if (back && back.isConnected && back.offsetParent !== null) back.focus({preventScroll: true}); else { const m = $('#menu > summary'); if (m) m.focus({preventScroll: true}); }
+}
+function teSet(k, v){
+  if (!S.themeDraft || !HEX_RE.test(v)) return;
+  S.themeDraft[k] = v.toUpperCase(); const ed = $('#themeEd');
+  const ci = $(`[data-te="${k}"]`, ed), hx = $(`[data-te-hex="${k}"]`, ed);
+  if (ci && ci.value.toLowerCase() !== v.toLowerCase()) ci.value = v.toLowerCase();
+  if (hx && document.activeElement !== hx) hx.value = v.toUpperCase();
+  applyTheme(); teCheck();
+}
+$('#themeEd').addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.dataset.te) teSet(t.dataset.te, t.value);
+  else if (t.dataset.teHex) { let v = t.value.trim(); if (/^[0-9a-f]{6}$/i.test(v)) v = '#' + v; t.classList.toggle('bad', !HEX_RE.test(v)); if (HEX_RE.test(v)) teSet(t.dataset.teHex, v); }
+});
+$('#themeEd').addEventListener('change', ev => { const t = ev.target; if (t.dataset.teHex && S.themeDraft) { t.value = S.themeDraft[t.dataset.teHex]; t.classList.remove('bad'); } });
+$('#themeEd').addEventListener('click', async ev => {
+  const f = ev.target.closest('[data-te-from]');
+  if (f) { const p = themeFromPreset(f.dataset.teFrom); for (const k of THEME_KEYS) teSet(k, p[k]); return; }
+  const a = ev.target.closest('[data-te-act]'); if (!a) return;
+  const e = S.themeEdit; if (!e) return;
+  if (a.dataset.teAct === 'cancel') { S.theme = e.prev; return themeEdClose(); }
+  if (a.dataset.teAct === 'save') {
+    const d = S.themeDraft; if (contrastOf(d.text, d.paper) < 3) return;
+    const name = ($('#teName').value || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'My theme';
+    const id = e.id || Math.random().toString(36).slice(2, 10).padEnd(6, '0');
+    const rec = {id, name, paper: d.paper, text: d.text, bg: d.bg, accent: d.accent};
+    S.themes = e.id ? S.themes.map(x => x.id === id ? rec : x) : [...(S.themes || []), rec].slice(-20);
+    S.theme = 'c:' + id; savePrefs(); themeEdClose(); toast(`Theme “${name}” saved. Find it in Options → Display.`); return;
+  }
+  if (a.dataset.teAct === 'delete') {
+    const cur = customTheme(e.id); if (!cur) return;
+    const ok = await askChoice({title: `Delete “${cur.name}”?`, html: '<p>The theme is removed from this browser. Your writing isn’t affected.</p>', choices: [{label: 'Delete theme', value: true, primary: true}, {label: 'Keep it', value: null}]});
+    if (!ok) return;
+    S.themes = S.themes.filter(x => x.id !== e.id);
+    S.theme = e.prev === 'c:' + e.id ? 'light' : e.prev; if (S.theme.startsWith('c:') && !customTheme(S.theme.slice(2))) S.theme = 'light';
+    savePrefs(); themeEdClose(); toast(`Theme “${cur.name}” deleted.`);
+  }
+});
+$('#themeEd').addEventListener('keydown', ev => {
+  if (ev.key === 'Escape') { ev.stopPropagation(); ev.preventDefault(); if (S.themeEdit) S.theme = S.themeEdit.prev; themeEdClose(); }
+  if (ev.key === 'Enter' && ev.target.id === 'teName') { ev.preventDefault(); const s = $('#themeEd [data-te-act="save"]'); if (s && !s.disabled) s.click(); }
+});
+
+function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, ct:S.themes || [], wwo:!!S.watchOn, ww:S.watch || [], pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
 { const pr = loadPrefs(); S.tagView = pr.tv === 'list' ? 'list' : 'cloud'; S.tagSort = pr.ts === 'az' ? 'az' : 'count'; S.wordAll = !!pr.wa; S.wordsOpen = !!pr.wo; S.chFold = !!pr.cf; S.hints = ['full','subtle','off'].includes(pr.hn) ? pr.hn : 'subtle'; S.chipHi = !!pr.hc; S.splitAsk = pr.sa !== false; S.smartQ = pr.sq !== false; S.qStyle = ['en','de','fr'].includes(pr.qs) ? pr.qs : 'en'; S.smartDash = pr.sd !== false; S.smartEll = pr.se !== false; S.remindOn = pr.ro !== false; S.remindMin = remindOK(pr.rm) ? String(Math.round(+pr.rm)) : '30'; S.sprintMin = +pr.sm >= 1 && +pr.sm <= 480 ? String(Math.round(+pr.sm)) : '30'; S.sprintSound = pr.ss !== false; S.sprintGoal = +pr.sg > 0 ? +pr.sg : '';
-  S.theme = ['light','twilight','dark','sepia','lamplight','ember'].includes(pr.th) ? pr.th : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); S.size = ['s','l'].includes(pr.sz) ? pr.sz : 'm';
+  S.themes = themesClean(pr.ct); S.watchOn = pr.wwo === true; S.watch = wwClean(pr.ww); S.wwStamp = (S.wwStamp || 0) + 1;
+  S.theme = ['light','twilight','dark','sepia','lamplight','ember'].includes(pr.th) || (typeof pr.th === 'string' && pr.th.startsWith('c:') && S.themes.some(x => 'c:' + x.id === pr.th)) ? pr.th : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); S.size = ['s','l'].includes(pr.sz) ? pr.sz : 'm';
   S.pw = ['narrow','medium','wide','full'].includes(pr.pw) ? pr.pw : 'medium'; S.tw = ['narrow','medium','wide','full'].includes(pr.tw) ? pr.tw : 'medium'; S.focus = !!pr.fo;
   S.histPause = ['off','30','60','120','300','600'].includes(pr.hp) ? pr.hp : '120'; S.histThin = !!pr.ht; S.histFile = pr.hf !== false; S.webFonts = pr.wf === true; S.focusX = !!pr.fx; S.typewriter = !!pr.ty; S.rdLevel = ['off', 'hem', 'full'].includes(pr.rl) ? pr.rl : pr.rb === false ? 'off' : 'full'; S.rdBtn = S.rdLevel !== 'off'; S.statsLevel = ['basic', 'standard', 'deep'].includes(pr.sl) ? pr.sl : 'standard'; S.tsSprint = pr.tsp !== false; S.tsWords = pr.tsw === true; S.rdOn = !!pr.rd; S.indent = pr.ind === true; S.ao3 = pr.ao3 === true; S.ptagStyle = ['bar', 'line', 'off'].includes(pr.ptst) ? pr.ptst : pr.pts === false ? 'off' : 'bar'; S.progBar = pr.pb === true; S.stColors = pr.stc === true; S.encBackups = pr.eb === true; S.rdOff = S.rdOff || new Set(); S.rdOff.clear(); for (const c of Array.isArray(pr.rx) ? pr.rx : ['echo', 'dlg']) if (typeof c === 'string') S.rdOff.add(c); S.nav = pr.nv === 'sidebar' ? 'sidebar' : 'tabs'; }
 const root = document.documentElement;
@@ -1536,6 +1742,7 @@ function applyDisplay(){
   const want = S.theme;
   if (want) { if (root.getAttribute('data-theme') !== want) root.setAttribute('data-theme', want); }
   else if (root.hasAttribute('data-theme')) root.removeAttribute('data-theme');
+  applyTheme(); ctRender();
   root.style.setProperty('--ts', {s:'0.9', m:'1', l:'1.15'}[S.size]);
   root.toggleAttribute('data-chiphi', !!S.chipHi); { const ci = $('#chipHiItem'); if (ci) ci.checked = !!S.chipHi; }
   if (root.dataset.hints !== S.hints) { root.dataset.hints = S.hints; if (typeof hintDecorate === 'function') hintDecorate(); }
@@ -1559,6 +1766,7 @@ function applyDisplay(){
   { const pb = $('#progBarItem'); if (pb) pb.checked = !!S.progBar; }
   { const sc = $('#stColorsItem'); if (sc) sc.checked = !!S.stColors; }
   encSync();
+  { const w = $('#watchItem'); if (w) w.checked = !!S.watchOn; const we = $('#watchEditItem'); if (we) { const n = (S.watch || []).length + ((project() || {}).watch || []).length; we.textContent = n ? `Edit watch words (${n})…` : 'Edit watch words…'; } }
   S.ptagShow = S.ptagStyle !== 'off'; root.toggleAttribute('data-ptag-off', !S.ptagShow); if (root.dataset.ptag !== S.ptagStyle) { root.dataset.ptag = S.ptagStyle; if (typeof ptagBarsAll === 'function') ptagBarsAll(); }
   root.toggleAttribute('data-indent', !!S.indent); { const ii = $('#indentItem'); if (ii) ii.checked = !!S.indent; $$('.rte-b[data-cmd="indent"]').forEach(x => x.setAttribute('aria-pressed', !!S.indent)); }
   { const rc = $('#rmCustom'); if (rc && document.activeElement !== rc) rc.value = RM_PRESETS.includes(S.remindMin) ? '' : S.remindMin; }
@@ -1596,6 +1804,7 @@ function normEntry(e){
   for (const f of F[e.kind] ? flatFields(F[e.kind]) : []) if (f.k in e && ['line', 'text', 'select', 'charselect'].includes(f.type) && typeof e[f.k] !== 'string') e[f.k] = str(e[f.k]);
   for (const k of ['project', 'povStart', 'portrait', 'status', 'unit']) if (k in e && typeof e[k] !== 'string') delete e[k];
   if ('order' in e && !Number.isFinite(+e.order)) delete e.order;
+  if ('watch' in e) { e.watch = wwClean(e.watch); if (!e.watch.length) delete e.watch; }
   for (const k of ['created', 'updated']) if (k in e && !Number.isFinite(+e[k])) e[k] = 0;
 }
 function migrate(e){
@@ -1644,7 +1853,7 @@ function chapterLabels(){
 const titleOf = e => e ? (e.title || (KINDS[e.kind] ? KINDS[e.kind].untitled : 'Untitled story')) : '';
 
 /* text and counts */
-const META = new Set(['kind','project','id','title','portrait','portraitOn','portraitShape','role','pov','povs','narration','when','structure','unit','status','target','tension','order','measure','fmt','created','updated','arcInner','arcWorld','arcWant','arcNeed','arcCost','sortCharacter','sortPlace','sortChapter','sortNote','msName','msByline','msContact','msFont','msPaper','msImg']);
+const META = new Set(['docOpt','kind','project','id','title','portrait','portraitOn','portraitShape','role','pov','povs','narration','when','structure','unit','status','target','tension','order','measure','fmt','created','updated','arcInner','arcWorld','arcWant','arcNeed','arcCost','sortCharacter','sortPlace','sortChapter','sortNote','msName','msByline','msContact','msFont','msPaper','msImg']);
 function htmlText(h){
   return String(h || '')
     .replace(/<div class="embed"[^>]*>[\s\S]*?<\/div>/gi, ' ')
@@ -2063,6 +2272,7 @@ function clean(src, dst){
     }
     if (tag === 'HR') { const hr = document.createElement('hr'); if (n.classList.contains('line')) hr.className = 'line'; const pv = n.getAttribute('data-pov') || ''; if (/^[A-Za-z0-9-]{6,64}$/.test(pv)) hr.setAttribute('data-pov', pv); dst.appendChild(hr); continue; }
     if (tag === 'BR') { dst.appendChild(document.createElement('br')); continue; }
+    if (tag === 'MARK' && n.getAttribute('data-spk')) { const sp = n.getAttribute('data-spk'), sid = n.getAttribute('data-sid') || ''; if (!/^[A-Za-z0-9-]{6,64}$/.test(sp) || !/^[a-z0-9]{4,16}$/i.test(sid)) { clean(n, dst); continue; } const el = document.createElement('mark'); el.className = 'spk'; el.setAttribute('data-spk', sp); el.setAttribute('data-sid', sid); clean(n, el); if (el.childNodes.length) dst.appendChild(el); continue; }
     if (tag === 'MARK' && n.getAttribute('data-pid')) { const pid = n.getAttribute('data-pid'), tg = imgTagList(n.getAttribute('data-t')); if (!/^[a-z0-9]{4,16}$/i.test(pid) || !tg.length) { clean(n, dst); continue; } const el = document.createElement('mark'); el.className = 'ptag'; el.setAttribute('data-pid', pid); el.setAttribute('data-t', tg.join(', ')); clean(n, el); if (el.childNodes.length) dst.appendChild(el); continue; }
     if (tag === 'MARK') { const c = (n.getAttribute('data-c') || '').slice(0, 4000).trim(); if (!c) { clean(n, dst); continue; } const el = document.createElement('mark'); el.className = 'cmt'; el.setAttribute('data-c', c); clean(n, el); if (el.childNodes.length) dst.appendChild(el); continue; }
     if (tag === 'SPAN' || tag === 'FONT') {
@@ -2523,6 +2733,7 @@ const TOOLS = [
   {c:'find', t:'Find and replace', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.2" stroke="currentColor" stroke-width="1.4" fill="none"/><path d="M10 10l3.8 3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'},
   {c:'readab', t:'Prose checker: Hemingway’s readability rules (English), word echoes and dialogue', s:'rd', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.6 2.6l3.8 3.8-6.2 6.2H3.4V8.8z"/><path d="M7.8 4.4l3.8 3.8"/><path d="M2.5 14.2h11"/></svg>'},
   {c:'ptag', t:'Tag passage: tag the selected text to find it again (threads, continuity, revision notes)', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M2.5 2.5h5.2l6 6-5.2 5.2-6-6z"/><circle cx="5.4" cy="5.4" r="1.1" fill="currentColor" stroke="none"/></svg>'},
+  {c:'speaker', t:'Who says this: mark a line of dialogue with its speaker, for Voices in Stats', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5.6" r="2.2"/><path d="M1.6 13.6c.5-2.5 1.8-3.7 3.4-3.7s2.9 1.2 3.4 3.7"/><path d="M9.2 2.6h5.2v4.3h-2.1l-1.6 1.5V6.9H9.2z"/></svg>'},
   {c:'comment', t:'Comment on the selected text', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>'},
 ];
 const TOOL = Object.fromEntries(TOOLS.map(t => [t.c, t]));
@@ -2533,13 +2744,13 @@ const TOOL_GROUPS = [
   ['Lists and breaks', ['ul', 'ol', 'hr', 'line']],
   ['Alignment and indent', ['align', 'indent']],
   ['Links and media', ['link', 'entry', 'image', 'embed']],
-  ['Tools', ['find', 'readab', 'comment', 'ptag', 'split']],
+  ['Tools', ['find', 'readab', 'comment', 'ptag', 'speaker', 'split']],
 ];
 const SPLIT_TOOL = {c:'split', t:'Split the chapter here: the paragraph with the cursor starts a new chapter', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="4" cy="4.5" r="2" stroke="currentColor" stroke-width="1.3" fill="none"/><circle cx="4" cy="11.5" r="2" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M5.7 5.6L14 12M5.7 10.4L14 4" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round"/></svg>'};
 function richHTML(e, d){
   const dr = e.kind === 'chapter' && d.k === 'body' ? activeDraft(e) : null;
   return `<div class="rte${d.big ? ' big' : ''}" data-rte="${d.k}">
-    <div class="rte-bar" role="toolbar" aria-label="Formatting"><div class="rte-gs"><div class="rte-gi"><span class="rte-g">${fontSelectHTML()}</span>${TOOL_GROUPS.map(([label, cs]) => { const ts = cs.map(c => c === 'split' ? (e.kind === 'chapter' && d.k === 'body' ? SPLIT_TOOL : null) : TOOL[c]).filter(Boolean); return `<span class="rte-g" role="group" aria-label="${label}">${ts.map(t => `<button type="button" class="rte-b" data-cmd="${t.c}" title="${esc(t.t)}" aria-label="${esc(t.t)}"${t.c === 'align' ? ' aria-haspopup="true" aria-expanded="false"' : ''}${t.s ? ` data-state="${t.s}" aria-pressed="${(t.s === 'smartq' && S.smartQ) || (t.s === 'indent' && S.indent) || (t.s === 'rd' && S.rdOn && S.rdBtn) ? 'true' : 'false'}"` : ''}>${t.i}</button>`).join('')}</span>`; }).join('')}</div></div><div class="rd-bar" hidden></div><div class="rte-panel" hidden></div></div>
+    <div class="rte-bar" role="toolbar" aria-label="Formatting"><div class="rte-gs"><div class="rte-gi"><span class="rte-g">${fontSelectHTML()}</span>${TOOL_GROUPS.map(([label, cs]) => { const ts = cs.map(c => c === 'split' ? (e.kind === 'chapter' && d.k === 'body' ? SPLIT_TOOL : null) : c === 'speaker' ? (e.kind === 'chapter' && d.k === 'body' ? TOOL[c] : null) : TOOL[c]).filter(Boolean); return `<span class="rte-g" role="group" aria-label="${label}">${ts.map(t => `<button type="button" class="rte-b" data-cmd="${t.c}" title="${esc(t.t)}" aria-label="${esc(t.t)}"${t.c === 'align' ? ' aria-haspopup="true" aria-expanded="false"' : ''}${t.s ? ` data-state="${t.s}" aria-pressed="${(t.s === 'smartq' && S.smartQ) || (t.s === 'indent' && S.indent) || (t.s === 'rd' && S.rdOn && S.rdBtn) ? 'true' : 'false'}"` : ''}>${t.i}</button>`).join('')}</span>`; }).join('')}</div></div><div class="rd-bar" hidden></div><div class="rte-panel" hidden></div></div>
     <div class="rte-body" id="rte-${d.k}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="${esc(dr ? `Draft text: ${dr.name}` : d.label || 'Text')}" data-rich="${d.k}"${dr ? ` data-draft="${esc(dr.id)}"` : ''} data-ph="${esc(d.ph || '')}" spellcheck="true">${sanitize((dr ? dr.body : e[d.k]) || '')}</div>
     <div class="rte-foot" hidden></div>
     <div class="cmt-list" hidden></div>
@@ -3018,6 +3229,7 @@ function statsHTML(p){
     <div><h3 class="group">Cast presence</h3><p class="stat-note">Chapters each character appears in.</p>${cast.filter(x => x.n).length ? barsHTML(cast.filter(x => x.n).map(x => ({label:titleOf(x.c), v:x.n, open:x.c.id, val:plural(x.n, 'ch.', 'ch.')})), chs.length) : '<p class="stat-note">No characters are linked to chapters yet.</p>'}
     ${absent.length ? `<p class="stat-note">Not in any chapter yet: ${esc(absent.map(x => titleOf(x.c)).join(', '))}.</p>` : ''}</div></div>`;
 
+  h += voicesHTML(p);
   const places = list('place').map(pl => ({pl, n: chs.filter(c => (c.places || []).includes(pl.id)).length})).filter(x => x.n).sort((a, b) => b.n - a.n);
   const arcs = list('arc').filter(a => a.structure);
   h += `<div class="two"><div><h3 class="group">Settings</h3>${places.length ? barsHTML(places.map(x => ({label:titleOf(x.pl), v:x.n, open:x.pl.id, val:plural(x.n, 'ch.', 'ch.')})), chs.length) : '<p class="stat-note">No places are linked to chapters yet.</p>'}</div>
@@ -3297,6 +3509,7 @@ function duplicateStory(p){
     if (Array.isArray(c.rels)) c.rels = c.rels.map(r => ({...r, to: R(r.to)}));
     if (c.kind === 'arc' && Array.isArray(c.beats)) c.beats = c.beats.map(b => ({...b, chars: (b.chars || []).map(R)}));
     if (c.kind === 'chapter' && Array.isArray(c.beats)) c.beats = c.beats.map(r => { const [a, b] = r.split(':'); return `${R(a)}:${b}`; });
+    for (const s of richSources(c)) { const h0 = s.get(); if (/data-(pov|spk)="/.test(h0)) s.set(h0.replace(/data-(pov|spk)="([^"]+)"/g, (m0, k, v) => `data-${k}="${esc(R(v))}"`)); }
     return c;
   });
   const np = map.get(p.id);
@@ -3453,6 +3666,7 @@ function runCmd(rte, cmd){
     case 'link': case 'embed': case 'entry': return openPanel(rte, cmd);
     case 'comment': return cmtOpen(rte, null);
     case 'ptag': return ptagOpen(rte, null);
+    case 'speaker': return spkOpen(rte);
     case 'readab': S.rdOn = !S.rdOn; savePrefs(); rdRun(); if (S.rdOn) toast('Prose checker on. Click a highlight to see why it’s marked, or a category to show or hide it.'); return;
     case 'smartq': S.smartQ = !S.smartQ; savePrefs(); applyDisplay(); toast(S.smartQ ? `Smart quotes on: ${QSTYLE[S.qStyle].name}.` : 'Smart quotes off. Quotes stay straight as you type.'); return;
     case 'fixq': return fixQuotes(rte);
@@ -3474,7 +3688,7 @@ function openPanel(rte, kind){
   panel.hidden = false;
   const f = panel.querySelector('input,textarea,select'); if (f) f.focus();
 }
-function closePanel(rte){ const p = rte.querySelector('.rte-panel'); p.hidden = true; p.innerHTML = ''; S.ptagPid = null; $$('mark.cmt.on, mark.ptag.on', rte).forEach(x => x.classList.remove('on')); if (typeof ptagBarsAll === 'function') ptagBarsAll(); $$('.split-mark', rte).forEach(x => x.classList.remove('split-mark')); }
+function closePanel(rte){ const p = rte.querySelector('.rte-panel'); p.hidden = true; p.innerHTML = ''; S.ptagPid = null; $$('mark.cmt.on, mark.ptag.on, mark.spk.on', rte).forEach(x => x.classList.remove('on')); S.spkSid = null; if (typeof ptagBarsAll === 'function') ptagBarsAll(); $$('.split-mark', rte).forEach(x => x.classList.remove('split-mark')); }
 function panelInsert(rte, act){
   const bodyEl = rte.querySelector('.rte-body');
   if (act === 'rte-link') {
@@ -3671,10 +3885,75 @@ function cmtList(rte){
   const ms = $$('.rte-body mark.cmt', rte);
   ms.forEach(m => { if (m.title !== m.dataset.c) m.title = m.dataset.c || ''; });
   const ps = new Map(); for (const m of $$('.rte-body mark.ptag[data-pid]', rte)) { const p = ps.get(m.dataset.pid); const tl = imgTagList(m.dataset.t).join(', '); if (m.title !== tl) m.title = tl; if (p) p.text += ' ' + m.textContent; else ps.set(m.dataset.pid, {tags: tl, text: m.textContent}); }
-  box.hidden = !ms.length && !ps.size;
+  const sp = new Map(), sids = new Set();
+  for (const m of $$('.rte-body mark.spk[data-spk]', rte)) { const o = S.entries.get(m.dataset.spk), nm = o ? titleOf(o) : 'Unknown'; const tl = `Spoken by ${nm}`; if (m.title !== tl) m.title = tl; if (sids.has(m.dataset.sid)) continue; sids.add(m.dataset.sid); sp.set(nm, (sp.get(nm) || 0) + 1); }
+  box.hidden = !ms.length && !ps.size && !sp.size;
   box.innerHTML = (ms.length ? `<p class="cmt-h">${plural(ms.length, 'comment')}</p>${ms.map((m, i) => `<button class="cmt-item" data-act="cmt-go" data-i="${i}"><span class="cmt-q">“${esc(m.textContent.trim().slice(0, 80))}”</span><span>${esc(m.dataset.c || '')}</span></button>`).join('')}` : '')
-    + (ps.size ? `<p class="cmt-h${ms.length ? ' cmt-h2' : ''}">${plural(ps.size, 'tagged passage')}</p>${[...ps].map(([pid, p]) => `<button class="cmt-item pt-li" data-act="ptag-go" data-pid="${esc(pid)}"><span class="cmt-q">“${esc(p.text.replace(/\s+/g, ' ').trim().slice(0, 80))}”</span><span class="pt-li-t">${esc(p.tags)}</span></button>`).join('')}` : '');
+    + (ps.size ? `<p class="cmt-h${ms.length ? ' cmt-h2' : ''}">${plural(ps.size, 'tagged passage')}</p>${[...ps].map(([pid, p]) => `<button class="cmt-item pt-li" data-act="ptag-go" data-pid="${esc(pid)}"><span class="cmt-q">“${esc(p.text.replace(/\s+/g, ' ').trim().slice(0, 80))}”</span><span class="pt-li-t">${esc(p.tags)}</span></button>`).join('')}` : '')
+    + (sp.size ? `<p class="cmt-h${ms.length || ps.size ? ' cmt-h2' : ''}">${plural(sids.size, 'line')} with a speaker</p><p class="spk-sum">${[...sp].sort((x, y) => y[1] - x[1]).map(([n, k]) => `${esc(n)} <b class="mono">${k}</b>`).join(' · ')}</p>` : '');
 }
+
+/* ---------- speaker marks: you say who speaks a line, for Voices in Stats ---------- */
+const spkMarks = (bodyEl, sid) => [...bodyEl.querySelectorAll(`mark.spk[data-sid="${CSS.escape(sid)}"]`)];
+function spkWrap(bodyEl, r, id, sid){
+  for (const m of [...bodyEl.querySelectorAll('mark.spk')]) if (r.intersectsNode(m)) m.replaceWith(...m.childNodes);
+  return markWrap(bodyEl, r, () => { const m = document.createElement('mark'); m.className = 'spk'; m.dataset.spk = id; m.dataset.sid = sid; return m; }, 'mark.spk', 'sid');
+}
+/* With the cursor in a quotation and nothing selected, the whole quotation is the line */
+function spkQuoteRange(bodyEl, r){
+  const node = r.startContainer.nodeType === 1 ? r.startContainer : r.startContainer.parentElement;
+  const blk = node.closest('p,li,h2,h3,div'); if (!blk || blk === bodyEl || !bodyEl.contains(blk)) return null;
+  const pre = document.createRange(); pre.setStart(blk, 0); pre.setEnd(r.startContainer, r.startOffset);
+  const off = pre.toString().length, nodes = [], w = document.createTreeWalker(blk, NodeFilter.SHOW_TEXT); let n, text = '';
+  while ((n = w.nextNode())) { nodes.push([n, text.length]); text += n.nodeValue; }
+  const span = dlgSpans(text).find(([a, b]) => off >= a && off <= b); if (!span) return null;
+  const at = i => { let k = nodes.length - 1; while (k > 0 && nodes[k][1] > i) k--; const [nd, s] = nodes[k]; return [nd, Math.min(i - s, nd.nodeValue.length)]; };
+  const out = document.createRange(), [n1, o1] = at(span[0]), [n2, o2] = at(span[1]); out.setStart(n1, o1); out.setEnd(n2, o2);
+  return out;
+}
+function spkOpen(rte){
+  const bodyEl = rte.querySelector('.rte-body'), sel = getSelection(), c = current();
+  if (!c || c.kind !== 'chapter') return;
+  if (!sel.rangeCount || !bodyEl.contains(sel.getRangeAt(0).commonAncestorContainer)) { toast('Put the cursor in a line of dialogue, or select it, then choose who says it.'); return; }
+  const r = sel.getRangeAt(0), node = r.startContainer.nodeType === 1 ? r.startContainer : r.startContainer.parentElement, inMark = node.closest('mark.spk[data-sid]');
+  closePanel(rte);
+  if (r.collapsed && inMark && bodyEl.contains(inMark)) { S.spkSid = inMark.dataset.sid; S.rteRange = null; return spkPanel(rte); }
+  const rr = r.collapsed ? spkQuoteRange(bodyEl, r) : r.cloneRange();
+  if (!rr || !rr.toString().trim()) { toast('Put the cursor in a line of dialogue, or select it, then choose who says it.'); return; }
+  S.spkSid = null; S.rteRange = rr;
+  sel.removeAllRanges(); sel.addRange(rr.cloneRange());
+  spkPanel(rte);
+}
+function spkPanel(rte){
+  const bodyEl = rte.querySelector('.rte-body'), panel = rte.querySelector('.rte-panel'), c = current();
+  const ms = S.spkSid ? spkMarks(bodyEl, S.spkSid) : [], curId = ms[0] ? ms[0].dataset.spk : '';
+  $$('mark.spk.on', bodyEl).forEach(x => x.classList.remove('on')); ms.forEach(x => x.classList.add('on'));
+  const all = list('character'), here = c ? [...new Set([...(c.povs || []), ...(c.chars || [])])].filter(isChar) : [];
+  const first = (here.length ? here : all.map(x => x.id)).slice(0, 10), rest = all.filter(x => !first.includes(x.id));
+  if (!all.length) panel.innerHTML = `<div class="spk-panel"><p class="stat-note">Add your characters first. Speaker marks point to their sheets.</p><div class="pt-acts"><button class="btn small" data-act="rte-close">Close</button></div></div>`;
+  else panel.innerHTML = `<div class="spk-panel"><span class="lab">${S.spkSid ? 'Spoken by' : 'Who says this?'}</span><div class="spk-chips" role="group" aria-label="Speaker">${first.map(id => `<button type="button" class="spk-c" data-act="spk-set" data-id="${esc(id)}" aria-pressed="${id === curId}">${esc(titleOf(S.entries.get(id)))}</button>`).join('')}${rest.length ? `<select class="spk-more" data-spk-more aria-label="Someone else"><option value="">Someone else…</option>${rest.map(x => `<option value="${esc(x.id)}"${x.id === curId ? ' selected' : ''}>${esc(titleOf(x))}</option>`).join('')}</select>` : ''}</div>
+    <div class="pt-acts">${S.spkSid ? '<button class="btn small danger" data-act="spk-clear">Remove mark</button>' : ''}<button class="btn small" data-act="rte-close">${S.spkSid ? 'Done' : 'Cancel'}</button></div></div>`;
+  panel.hidden = false;
+  const f = panel.querySelector('.spk-c[aria-pressed="true"]') || panel.querySelector('.spk-c, select, .btn'); if (f) f.focus({preventScroll: true});
+}
+function spkSet(rte, id){
+  const bodyEl = rte.querySelector('.rte-body'); if (!isChar(id)) return;
+  if (S.spkSid) { const ms = spkMarks(bodyEl, S.spkSid); if (!ms.length) { closePanel(rte); return; } ms.forEach(m => { m.dataset.spk = id; }); }
+  else {
+    const r = S.rteRange; if (!r || !bodyEl.contains(r.commonAncestorContainer)) { closePanel(rte); toast('Select the line again, then choose who says it.'); return; }
+    if (!spkWrap(bodyEl, r, id, shortId())) { closePanel(rte); return; }
+    getSelection().removeAllRanges();
+  }
+  richChanged(bodyEl); closePanel(rte); cmtList(rte); S.vsMemo = null;
+  toast(`Marked as spoken by ${titleOf(S.entries.get(id))}.`);
+}
+function spkClear(rte){
+  const bodyEl = rte.querySelector('.rte-body'), ms = S.spkSid ? spkMarks(bodyEl, S.spkSid) : [];
+  ms.forEach(m => m.replaceWith(...m.childNodes)); bodyEl.normalize();
+  richChanged(bodyEl); closePanel(rte); cmtList(rte); S.vsMemo = null;
+  if (ms.length) toast('Speaker mark removed.');
+}
+desk.addEventListener('change', ev => { const s = ev.target; if (s.dataset.spkMore === undefined || !s.value) return; ev.stopPropagation(); spkSet(s.closest('.rte'), s.value); }, true);
 
 /* ---------- split and merge chapters ---------- */
 function renumberChapters(list){ list.forEach((x, k) => { if (x.order !== k) { x.order = k; touch(x); } }); }
@@ -4096,14 +4375,18 @@ function docxBody(html, ctx){
   const para = (r, o = {}) => { if (!r && !o.keep) return; out.push(`<w:p><w:pPr>${o.style ? `<w:pStyle w:val="${o.style}"/>` : ''}${o.keepNext ? '<w:keepNext/>' : ''}${o.ind || ''}${o.jc ? `<w:jc w:val="${o.jc}"/>` : ''}</w:pPr>${r}</w:p>`); };
   const block = (el, o = {}) => {
     const tg = el.tagName;
-    if (tg === 'HR') return para('<w:r><w:t>#</w:t></w:r>', {style: 'Break'});
-    if (tg === 'H2' || tg === 'H3') return para(runs(el, {b: true}), {style: 'Sub', keepNext: true});
+    if (tg === 'HR') { ctx.after = true; return para(`<w:r><w:t xml:space="preserve">${xe(ctx.breakText || '#')}</w:t></w:r>`, {style: 'Break'}); }
+    if (tg === 'H2' || tg === 'H3') { ctx.after = true; return ctx.heads ? para(runs(el, {}), {style: tg === 'H2' ? 'Heading2' : 'Heading3', keepNext: true}) : para(runs(el, {b: true}), {style: 'Sub', keepNext: true}); }
+    if (el.classList && el.classList.contains('embed')) return;
+    const wasAfter = ctx.after; ctx.after = false;
     if (tg === 'BLOCKQUOTE') { const kids = [...el.children].filter(x => /^(P|DIV)$/.test(x.tagName)); if (!kids.length) return para(runs(el, {}), {style: 'Quote'}); return kids.forEach(k => para(runs(k, {}), {style: 'Quote'})); }
     if (tg === 'UL' || tg === 'OL') { [...el.children].forEach((li, i) => para(`<w:r><w:t xml:space="preserve">${tg === 'OL' ? `${i + 1}.` : '•'}\t</w:t></w:r>` + runs(li, {}), {style: 'Item'})); return; }
     if (el.classList && el.classList.contains('embed')) return;
     if (tg === 'IMG') return para(imgRun(el), {style: 'Pic'});
     const onlyImg = el.querySelector && el.querySelector('img') && !el.textContent.trim();
-    para(runs(el, {}), {style: onlyImg ? 'Pic' : '', jc: onlyImg ? '' : jc(el), keep: false});
+    const r = runs(el, {});
+    if (onlyImg || !r) ctx.after = wasAfter;
+    para(r, {style: onlyImg ? 'Pic' : ctx.first && wasAfter ? 'First' : '', jc: onlyImg ? '' : jc(el), keep: false});
   };
   for (const n of t.content.childNodes) {
     if (n.nodeType === 3) { if (n.nodeValue.trim()) para(`<w:r><w:t xml:space="preserve">${xe(n.nodeValue.replace(/\s+/g, ' '))}</w:t></w:r>`); continue; }
@@ -4112,6 +4395,23 @@ function docxBody(html, ctx){
   return out.join('');
 }
 function aboutWords(n){ const r = n < 10000 ? Math.round(n / 100) * 100 : Math.round(n / 1000) * 1000; return r ? `about ${r.toLocaleString('en-US')} words` : `${n} words`; }
+/* The package around a Word document: content types, relationships, settings and properties */
+function docxPackage({doc, styles, title, creator, media, parts = []}){
+  const settings = `${XML_HEAD}<w:settings ${W_NS}><w:defaultTabStop w:val="720"/><w:characterSpacingControl w:val="doNotCompress"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>`;
+  const now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+  const core = `${XML_HEAD}<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${xe(title)}</dc:title><dc:creator>${xe(creator || 'Quire')}</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${now}</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">${now}</dcterms:modified></cp:coreProperties>`;
+  const exts = [...new Set([...media.values()].map(m => m.ext))];
+  const types = `${XML_HEAD}<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>${exts.map(x => `<Default Extension="${x}" ContentType="image/${x}"/>`).join('')}<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>${parts.map(x => `<Override PartName="/${x.name}" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.${x.type}+xml"/>`).join('')}<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>`;
+  const R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+  const rels = `${XML_HEAD}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>`;
+  const docRels = `${XML_HEAD}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdStyles" Type="${R}/styles" Target="styles.xml"/><Relationship Id="rIdSettings" Type="${R}/settings" Target="settings.xml"/>${parts.map(x => `<Relationship Id="${x.rid}" Type="${R}/${x.type}" Target="${x.name.slice(5)}"/>`).join('')}${[...media.values()].map(m => `<Relationship Id="${m.rid}" Type="${R}/image" Target="media/${m.file}"/>`).join('')}</Relationships>`;
+  return zipFiles([
+    {name: '[Content_Types].xml', data: types}, {name: '_rels/.rels', data: rels}, {name: 'docProps/core.xml', data: core},
+    {name: 'word/document.xml', data: doc}, {name: 'word/styles.xml', data: styles}, {name: 'word/settings.xml', data: settings},
+    ...parts.map(x => ({name: x.name, data: x.data})),
+    {name: 'word/_rels/document.xml.rels', data: docRels}, ...[...media.values()].map(m => ({name: `word/media/${m.file}`, data: m.data}))
+  ], 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+}
 async function manuscriptDocx(p, o){
   const chs = manuscript(), labels = chapterLabels(), media = await docxMedia(chs, o.images);
   const a4 = o.paper === 'a4', pageW = a4 ? 11906 : 12240, pageH = a4 ? 16838 : 15840, textW = pageW - 2880;
@@ -4152,19 +4452,72 @@ async function manuscriptDocx(p, o){
     + `</w:styles>`;
   const headText = [surname, title].filter(Boolean).join(' / ');
   const header = `${XML_HEAD}<w:hdr ${W_NS}><w:p><w:pPr><w:pStyle w:val="Head"/></w:pPr><w:r><w:t xml:space="preserve">${xe(headText)} / </w:t></w:r><w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:t>1</w:t></w:r><w:r><w:fldChar w:fldCharType="end"/></w:r></w:p></w:hdr>`;
-  const settings = `${XML_HEAD}<w:settings ${W_NS}><w:defaultTabStop w:val="720"/><w:characterSpacingControl w:val="doNotCompress"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>`;
-  const now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
-  const core = `${XML_HEAD}<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${xe(title)}</dc:title><dc:creator>${xe(byline || 'Quire')}</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${now}</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">${now}</dcterms:modified></cp:coreProperties>`;
-  const exts = [...new Set([...media.values()].map(m => m.ext))];
-  const types = `${XML_HEAD}<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>${exts.map(x => `<Default Extension="${x}" ContentType="image/${x}"/>`).join('')}<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>`;
-  const R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
-  const rels = `${XML_HEAD}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>`;
-  const docRels = `${XML_HEAD}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdStyles" Type="${R}/styles" Target="styles.xml"/><Relationship Id="rIdSettings" Type="${R}/settings" Target="settings.xml"/><Relationship Id="rIdHead" Type="${R}/header" Target="header1.xml"/>${[...media.values()].map(m => `<Relationship Id="${m.rid}" Type="${R}/image" Target="media/${m.file}"/>`).join('')}</Relationships>`;
-  return zipFiles([
-    {name: '[Content_Types].xml', data: types}, {name: '_rels/.rels', data: rels}, {name: 'docProps/core.xml', data: core},
-    {name: 'word/document.xml', data: doc}, {name: 'word/styles.xml', data: styles}, {name: 'word/settings.xml', data: settings}, {name: 'word/header1.xml', data: header},
-    {name: 'word/_rels/document.xml.rels', data: docRels}, ...[...media.values()].map(m => ({name: `word/media/${m.file}`, data: m.data}))
-  ], 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+  return docxPackage({doc, styles, title, creator: byline, media, parts: [{name: 'word/header1.xml', data: header, rid: 'rIdHead', type: 'header'}]});
+}
+/* A regular Word document: the story as a reader would see it, with real Word headings (so Word's navigation pane lists the chapters),
+   your formatting, scene breaks, images and paragraph style. */
+const DOC_FONTS = ['Georgia', 'Garamond', 'Palatino Linotype', 'Book Antiqua', 'Cambria', 'Times New Roman', 'Calibri', 'Arial'];
+async function documentDocx(p, o){
+  const chs = manuscript(), labels = chapterLabels(), media = await docxMedia(chs, o.images);
+  const a4 = o.paper === 'a4', pageW = a4 ? 11906 : 12240, pageH = a4 ? 16838 : 15840, textW = pageW - 2880;
+  const ctx = {media, textW, pic: 0, first: o.para === 'indent', heads: true, breakText: '* * *'};
+  const font = DOC_FONTS.includes(o.font) ? o.font : 'Georgia', sz = {'10.5': 21, '11': 22, '12': 24, '13': 26}[o.size] || 24;
+  const line = {single: 240, '1.15': 276, '1.5': 360, double: 480}[o.spacing] || 276;
+  const title = (p.title || 'Untitled story').trim(), byline = (o.byline || '').trim();
+  let body = '', firstCh = true;
+  if (o.titlePage) {
+    body += `<w:p><w:pPr><w:pStyle w:val="Title"/></w:pPr><w:r><w:t xml:space="preserve">${xe(title)}</w:t></w:r></w:p>`;
+    if (byline) body += `<w:p><w:pPr><w:pStyle w:val="Byline"/></w:pPr><w:r><w:t xml:space="preserve">${xe(byline)}</w:t></w:r></w:p>`;
+  }
+  for (const c of chs) {
+    const label = labels.get(c.id) || '', ct = (c.title || '').trim(), brk = o.newPage || (firstCh && o.titlePage) ? '<w:pageBreakBefore/>' : '';
+    if (label && ct) body += `<w:p><w:pPr><w:pStyle w:val="ChapterLabel"/>${brk}</w:pPr><w:r><w:t xml:space="preserve">${xe(label)}</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t xml:space="preserve">${xe(ct)}</w:t></w:r></w:p>`;
+    else body += `<w:p><w:pPr><w:pStyle w:val="Heading1"/>${brk}</w:pPr><w:r><w:t xml:space="preserve">${xe(label || ct || 'Untitled chapter')}</w:t></w:r></w:p>`;
+    ctx.after = true; body += docxBody(c.body, ctx); firstCh = false;
+  }
+  const foot = o.pageNums ? '<w:footerReference w:type="default" r:id="rIdFoot"/>' : '';
+  const sect = `<w:sectPr>${foot}<w:pgSz w:w="${pageW}" w:h="${pageH}"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>${o.titlePage && o.pageNums ? '<w:titlePg/>' : ''}</w:sectPr>`;
+  const doc = `${XML_HEAD}<w:document ${W_NS} xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"><w:body>${body}${sect}</w:body></w:document>`;
+  const st = (id, name, ppr, rpr = '', extra = '') => `<w:style w:type="paragraph" ${/^Heading|^Title$/.test(id) ? '' : 'w:customStyle="1" '}w:styleId="${id}"><w:name w:val="${name}"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/>${extra}<w:qFormat/><w:pPr>${ppr}</w:pPr>${rpr ? `<w:rPr>${rpr}</w:rPr>` : ''}</w:style>`;
+  const indent = o.para === 'indent';
+  const styles = `${XML_HEAD}<w:styles ${W_NS}><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="${xe(font)}" w:hAnsi="${xe(font)}" w:eastAsia="${xe(font)}" w:cs="${xe(font)}"/><w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:lang w:val="${xe(o.lang || 'en-US')}"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="${indent ? 0 : 200}" w:line="${line}" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>`
+    + `<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/><w:pPr><w:widowControl/>${indent ? '<w:ind w:firstLine="360"/>' : ''}</w:pPr></w:style>`
+    + st('First', 'First paragraph', '<w:ind w:firstLine="0"/>')
+    + st('Title', 'Title', '<w:spacing w:before="3600" w:after="360"/><w:ind w:firstLine="0"/><w:jc w:val="center"/>', `<w:sz w:val="${sz * 2 + 8}"/><w:szCs w:val="${sz * 2 + 8}"/>`)
+    + st('Byline', 'Byline', '<w:spacing w:after="0"/><w:ind w:firstLine="0"/><w:jc w:val="center"/>', '<w:i/>')
+    + st('ChapterLabel', 'Chapter label', '<w:keepNext/><w:spacing w:before="960" w:after="60"/><w:ind w:firstLine="0"/><w:jc w:val="center"/>', `<w:caps/><w:spacing w:val="20"/><w:sz w:val="${sz - 2}"/><w:szCs w:val="${sz - 2}"/>`)
+    + st('Heading1', 'heading 1', '<w:keepNext/><w:spacing w:before="240" w:after="480"/><w:ind w:firstLine="0"/><w:jc w:val="center"/><w:outlineLvl w:val="0"/>', `<w:sz w:val="${Math.round(sz * 1.6)}"/><w:szCs w:val="${Math.round(sz * 1.6)}"/>`)
+    + st('Heading2', 'heading 2', '<w:keepNext/><w:spacing w:before="360" w:after="120"/><w:ind w:firstLine="0"/><w:outlineLvl w:val="1"/>', `<w:b/><w:sz w:val="${sz + 4}"/><w:szCs w:val="${sz + 4}"/>`)
+    + st('Heading3', 'heading 3', '<w:keepNext/><w:spacing w:before="240" w:after="80"/><w:ind w:firstLine="0"/><w:outlineLvl w:val="2"/>', '<w:b/>')
+    + st('Break', 'Scene break', '<w:spacing w:before="240" w:after="240"/><w:ind w:firstLine="0"/><w:jc w:val="center"/>')
+    + st('Quote', 'Block quote', '<w:ind w:left="720" w:right="720" w:firstLine="0"/><w:spacing w:before="120" w:after="120"/>')
+    + st('Item', 'List item', '<w:ind w:left="720" w:hanging="360"/><w:spacing w:after="60"/>')
+    + st('Pic', 'Picture', '<w:spacing w:before="120" w:after="120" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="center"/>')
+    + st('Foot', 'Page number', '<w:spacing w:after="0" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="center"/>', `<w:sz w:val="${sz - 2}"/>`)
+    + `</w:styles>`;
+  const footer = `${XML_HEAD}<w:ftr ${W_NS}><w:p><w:pPr><w:pStyle w:val="Foot"/></w:pPr><w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:t>1</w:t></w:r><w:r><w:fldChar w:fldCharType="end"/></w:r></w:p></w:ftr>`;
+  return docxPackage({doc, styles, title, creator: byline, media, parts: o.pageNums ? [{name: 'word/footer1.xml', data: footer, rid: 'rIdFoot', type: 'footer'}] : []});
+}
+async function exportDocument(p){
+  if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
+  const hasImg = manuscript().some(c => /<img\b/.test(c.body || ''));
+  const d = Object.assign({font: 'Georgia', size: '12', spacing: '1.15', para: S.indent ? 'indent' : 'gap', paper: p.msPaper || (/^en-(US|CA)$/i.test(navigator.language || '') ? 'letter' : 'a4'), titlePage: true, newPage: true, pageNums: true, images: true, byline: p.msByline || p.msName || ''}, p.docOpt && typeof p.docOpt === 'object' ? p.docOpt : {});
+  const sel = (id, opts, v) => `<select id="${id}">${opts.map(([val, lab]) => `<option value="${esc(val)}"${String(v) === String(val) ? ' selected' : ''}>${esc(lab)}</option>`).join('')}</select>`;
+  const chk = (id, on, lab) => `<label class="check"><input type="checkbox" id="${id}"${on ? ' checked' : ''}> ${lab}</label>`;
+  const r = await askChoice({title: 'Word document', html: `<p class="dlg-note">The story as a reader would see it: your formatting, scene breaks and images, with real Word headings so Word’s navigation pane lists the chapters. For submissions, use Word manuscript instead.</p>
+    <div class="dlg-row"><label class="dlg-f"><span>Typeface</span>${sel('dc-font', DOC_FONTS.map(f => [f, f]), d.font)}</label><label class="dlg-f"><span>Size</span>${sel('dc-size', [['10.5', '10.5 pt'], ['11', '11 pt'], ['12', '12 pt'], ['13', '13 pt']], d.size)}</label></div>
+    <div class="dlg-row"><label class="dlg-f"><span>Line spacing</span>${sel('dc-spacing', [['single', 'Single'], ['1.15', '1.15'], ['1.5', '1.5'], ['double', 'Double']], d.spacing)}</label><label class="dlg-f"><span>Paragraphs</span>${sel('dc-para', [['indent', 'Indented, like a book'], ['gap', 'Space between']], d.para)}</label></div>
+    <div class="dlg-row"><label class="dlg-f"><span>Paper</span>${sel('dc-paper', [['a4', 'A4'], ['letter', 'US Letter']], d.paper)}</label><label class="dlg-f"><span>Byline <i>(optional)</i></span><input id="dc-byline" value="${esc(d.byline)}" placeholder="Your name or pen name"></label></div>
+    <div class="dc-checks">${chk('dc-title', d.titlePage, 'Title page')}${chk('dc-newpage', d.newPage, 'Each chapter on a new page')}${chk('dc-nums', d.pageNums, 'Page numbers')}${hasImg ? chk('dc-img', d.images, 'Include images') : ''}</div>`,
+    choices: [{label: 'Create Word document', value: 'go', primary: true}, {label: 'Cancel', value: null}],
+    read: box => ({font: box.querySelector('#dc-font').value, size: box.querySelector('#dc-size').value, spacing: box.querySelector('#dc-spacing').value, para: box.querySelector('#dc-para').value, paper: box.querySelector('#dc-paper').value,
+      byline: box.querySelector('#dc-byline').value.trim().slice(0, 120), titlePage: box.querySelector('#dc-title').checked, newPage: box.querySelector('#dc-newpage').checked, pageNums: box.querySelector('#dc-nums').checked, images: box.querySelector('#dc-img') ? box.querySelector('#dc-img').checked : d.images})});
+  if (!r) return;
+  const o = r.form;
+  if (JSON.stringify(o) !== JSON.stringify(p.docOpt || null)) { p.docOpt = o; touch(p); }
+  toast('Preparing the Word document…');
+  try { offer(`${slug(p.title)}.docx`, await documentDocx(p, {...o, lang: document.documentElement.lang || 'en-US'})); }
+  catch { toast('The Word document couldn’t be created. Try again, or export as a web page instead.'); }
 }
 async function exportDocx(p){
   if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
@@ -4413,7 +4766,7 @@ const RD_NOT_PASSIVE = new Set('indeed need deed seed speed bleed breed feed cre
 const RD_WORDY = {'utilize':'use','utilise':'use','in order to':'to','a number of':'some, many','at this point in time':'now','at the present time':'now','due to the fact that':'because','in spite of the fact that':'although','despite the fact that':'although','prior to':'before','subsequent to':'after','commence':'begin, start','terminate':'end','facilitate':'help, ease','endeavor':'try','endeavour':'try','assist':'help','approximately':'about','sufficient':'enough','additional':'more, extra','demonstrate':'show','numerous':'many','purchase':'buy','obtain':'get','regarding':'about','in the event that':'if','with regard to':'about','with respect to':'about','for the purpose of':'for, to','in close proximity':'near','on a daily basis':'daily','each and every':'each, every','first and foremost':'first','the majority of':'most','a great deal of':'much','is able to':'can','are able to':'can','has the ability to':'can','in the near future':'soon','until such time as':'until','ascertain':'find out','component':'part','consequently':'so','initial':'first','modify':'change','objective':'aim, goal','possess':'have, own','proceed':'go','request':'ask','reside':'live','transmit':'send','whilst':'while','nevertheless':'still, but','notwithstanding':'despite','henceforth':'from now on','perhaps':'maybe','very':'(often cut)','really':'(often cut)','just':'(often cut)','actually':'(often cut)'};
 const RD_CAT = {hard: 'hard to read', vhard: 'very hard to read', adv: 'adverbs', pass: 'passive voice', wordy: 'wordy phrases'};
 const RD_REV = {echo: 'word echoes', dlg: 'dialogue'};
-const RD_ALL = [...Object.keys(RD_CAT), ...Object.keys(RD_REV)];
+const RD_ALL = [...Object.keys(RD_CAT), ...Object.keys(RD_REV), 'watch'];
 const rdOK = () => typeof CSS !== 'undefined' && CSS.highlights && typeof Highlight === 'function';
 const rdOff = S.rdOff || (S.rdOff = new Set(['echo', 'dlg']));
 let rdT = 0, rdLast = [];
@@ -4435,7 +4788,7 @@ function dlgSpans(text){
 const echoKey = w => { let k = w.toLowerCase().replace(/[’']s$/, ''); if (k.length > 4 && k.endsWith('s') && !k.endsWith('ss')) k = k.slice(0, -1); return k; };
 function rdAnalyse(ed){
   if (ed.isContentEditable) wrapLoose(ed);
-  const out = {hard: [], vhard: [], adv: [], pass: [], wordy: [], echo: [], dlg: [], sentences: 0, words: 0, letters: 0, dlgWords: 0, allWords: 0, echoes: 0, info: []};
+  const out = {hard: [], vhard: [], adv: [], pass: [], wordy: [], echo: [], dlg: [], watch: [], sentences: 0, words: 0, letters: 0, dlgWords: 0, allWords: 0, echoes: 0, info: []};
   const blocks = [...ed.querySelectorAll('p,li,h2,h3,blockquote>div,div:not(.embed):not(.embed *)')].filter(b => !b.querySelector('p,li,div'));
   if (!blocks.length && ed.textContent.trim()) blocks.push(ed);
   const recs = []; let gi = 0;
@@ -4481,6 +4834,7 @@ function rdAnalyse(ed){
     const spoken = dlgSpans(text);
     for (const [a, b] of spoken) { out.dlgWords += countWords(text.slice(a, b)); rng(a, b, 'dlg', ''); }
     for (const r of recs) if (!('dlg' in r)) r.dlg = spoken.some(([a, b]) => r.at >= a && r.at < b);
+    for (const [a, b, it] of wwMatches(text)) rng(a, b, 'watch', `Watch word: “${text.slice(a, b)}”${it.note ? `. ${it.note}` : ''}`);
   }
   const last = new Map(), done = new Set();
   const mark = (rec, note) => { if (done.has(rec)) return; done.add(rec); const r = rec.mk(); if (r) { out.echo.push(r); out.info.push({r, cat: 'echo', note}); } };
@@ -4496,7 +4850,7 @@ function rdAnalyse(ed){
   return out;
 }
 function rdGrade(a){ if (!a.words || !a.sentences) return 0; return Math.max(1, Math.round(4.71 * (a.letters / a.words) + 0.5 * (a.words / a.sentences) - 21.43)); }
-function rdChip(c, label){ return `<button type="button" class="rd-k rd-${c}" data-rd="${c}" aria-pressed="${!rdOff.has(c)}" title="Show or hide ${RD_CAT[c] || RD_REV[c]}"><i></i>${label}</button>`; }
+function rdChip(c, label){ return `<button type="button" class="rd-k rd-${c}" data-rd="${c}" aria-pressed="${!rdOff.has(c)}" title="Show or hide ${RD_CAT[c] || RD_REV[c] || 'watch words'}"><i></i>${label}</button>`; }
 function rdRun(){
   rdT = 0;
   if (rdOK()) for (const c of RD_ALL) CSS.highlights.delete('rd-' + c);
@@ -4509,16 +4863,16 @@ function rdRun(){
   for (const rte of $$('.rte')) {
     const ed = rte.querySelector('.rte-body'), bar = rte.querySelector('.rd-bar'); if (!ed || !bar) continue;
     const a = rdAnalyse(ed); rdLast.push(...a.info);
-    for (const c of RD_ALL) if (!rdOff.has(c) && (rev || RD_CAT[c])) all[c].push(...a[c]);
+    for (const c of RD_ALL) if (!rdOff.has(c) && (rev || RD_CAT[c] || c === 'watch')) all[c].push(...a[c]);
     const g = rdGrade(a), one = (c, n) => n === 1 ? RD_CAT[c].replace(/^adverbs$/, 'adverb').replace(/^wordy phrases$/, 'wordy phrase') : RD_CAT[c];
     const hem = Object.keys(RD_CAT).filter(c => a[c].length);
     const pct = a.allWords ? Math.round(a.dlgWords / a.allWords * 100) : 0;
     bar.hidden = false;
     bar.innerHTML = `<div class="rd-row" role="group" aria-label="Hemingway"><span class="rd-gl">Hemingway</span><span class="rd-grade" title="Approximate school grade needed to read this text easily, by Hemingway’s measure">${a.words ? `Grade ${g}` : 'No text yet'}</span>${hem.map(c => rdChip(c, `${a[c].length} ${one(c, a[c].length)}`)).join('')}${a.words && !hem.length ? '<span class="muted">Nothing to flag.</span>' : ''}</div>
-      ${rev ? `<div class="rd-row" role="group" aria-label="Revision"><span class="rd-gl">Revision</span>${rdChip('echo', a.echoes ? plural(a.echoes, 'word echo', 'word echoes') : 'No word echoes')}${rdChip('dlg', `Dialogue ${pct}%`)}</div>` : ''}${rdOK() ? '' : '<span class="muted">Update your browser to see the highlights.</span>'}<div class="rd-hint" aria-live="polite"></div>`;
+      ${rev ? `<div class="rd-row" role="group" aria-label="Revision"><span class="rd-gl">Revision</span>${rdChip('echo', a.echoes ? plural(a.echoes, 'word echo', 'word echoes') : 'No word echoes')}${rdChip('dlg', `Dialogue ${pct}%`)}</div>` : ''}${S.watchOn && wwCompiled().length ? `<div class="rd-row" role="group" aria-label="Watch words"><span class="rd-gl">Watch words</span>${rdChip('watch', a.watch.length ? plural(a.watch.length, 'watch word') : 'None in this text')}</div>` : ''}${rdOK() ? '' : '<span class="muted">Update your browser to see the highlights.</span>'}<div class="rd-hint" aria-live="polite"></div>`;
   }
   if (rdOK()) {
-    const pri = {dlg: 0, hard: 1, vhard: 2, adv: 3, pass: 4, wordy: 5, echo: 6};
+    const pri = {dlg: 0, hard: 1, vhard: 2, adv: 3, pass: 4, wordy: 5, echo: 6, watch: 7};
     for (const [c, rs] of Object.entries(all)) { if (!rs.length) continue; const h = new Highlight(...rs); h.priority = pri[c]; CSS.highlights.set('rd-' + c, h); }
   }
   rdHint();
@@ -4529,8 +4883,8 @@ function rdHint(){
   const sel = getSelection(); if (!sel.rangeCount) return;
   const r = sel.getRangeAt(0), ed = (r.startContainer.nodeType === 1 ? r.startContainer : r.startContainer.parentElement).closest('.rte-body'); if (!ed) return;
   const hint = ed.closest('.rte').querySelector('.rd-hint'); if (!hint) return;
-  const hit = rdLast.filter(x => { if (!x.note || rdOff.has(x.cat) || (!RD_CAT[x.cat] && S.rdLevel !== 'full') || !ed.contains(x.r.startContainer)) return false; try { return x.r.comparePoint(r.startContainer, r.startOffset) === 0; } catch { return false; } });
-  const order = {wordy: 0, pass: 1, adv: 2, echo: 3, vhard: 4, hard: 5};
+  const hit = rdLast.filter(x => { if (!x.note || rdOff.has(x.cat) || (!RD_CAT[x.cat] && x.cat !== 'watch' && S.rdLevel !== 'full') || !ed.contains(x.r.startContainer)) return false; try { return x.r.comparePoint(r.startContainer, r.startOffset) === 0; } catch { return false; } });
+  const order = {watch: -1, wordy: 0, pass: 1, adv: 2, echo: 3, vhard: 4, hard: 5};
   const best = hit.sort((a, b) => order[a.cat] - order[b.cat])[0];
   hint.textContent = best ? best.note : '';
 }
@@ -4541,8 +4895,307 @@ desk.addEventListener('click', ev => {
   const c = k.dataset.rd; rdOff.has(c) ? rdOff.delete(c) : rdOff.add(c); savePrefs(); rdRun();
 });
 
+/* ---------- voices: how each viewpoint character narrates, and how each character speaks ---------- */
+/* Narration is the text outside quotation marks in a character's scenes (from the chapter's point of view and its scene
+   viewpoints). Dialogue is attributed to a speaker only with good evidence: a tag such as “said Holmes” or “Watson asked”
+   next to the quotation, a paragraph that opens with the speaker's name, or the narrator's own “I said” in first person.
+   Everything else is counted as unattributed rather than guessed. */
+const VS_HON = new Set('mr mrs ms miss dr doctor sir dame lady lord madam madame mme mlle monsieur herr frau captain capt professor prof inspector constable detective colonel col general major sergeant sgt lieutenant lt father mother aunt uncle the of de la le du von van der den st saint king queen prince princess'.split(' '));
+/* speech verbs, kept out of the word and phrase lists */
+const VS_VERB_SET = new Set('said says asked asks replied answered cried whispered shouted murmured muttered called exclaimed remarked observed continued added began returned repeated insisted protested interrupted snapped laughed sighed agreed suggested explained declared demanded inquired enquired responded retorted ventured groaned growled hissed admitted told'.split(' '));
+const VS_FILTER = new Set('saw see sees seeing seen watched watch watches watching looked look looks looking noticed notice notices noticing heard hear hears hearing felt feel feels feeling realized realised realize realise realizes realises wondered wonder wonders thought think thinks knew know knows seemed seem seems decided decide'.split(' '));
+const VS_THINK_RE = /^(thought|think|thinks|thinking|knew|know|knows|knowing|wonder|realiz|realis|remember|recollect|imagin|suppos|believ|guess|hope|hoped|hopes|wish|doubt|reflect|consider|understood|understand|recall|forgot|forget)/;
+const VS_SENSE = [['Sight', /^(see|saw|seen|look|watch|glimps|stare|gaze|glanc|peer|light|dark|shadow|bright|colou?r|gleam|glow|shin|pale|red|white|black|blue|green)/], ['Sound', /^(hear|heard|sound|noise|voice|whisper|loud|quiet|silen|ring|rang|echo|crash|creak|hum|murmur)/], ['Touch', /^(felt|feel|touch|rough|smooth|cold|warm|soft|hard|wet|damp|grip|press|brush|heav)/], ['Smell', /^(smell|scent|odou?r|stink|stank|reek|fragran|perfum|stench|whiff)/], ['Taste', /^(tast|bitter|sweet|sour|salt|savou?r|flavou?r)/]];
+const VS_STOP = new Set('the a an of and to in it was is that he she i his her you my me we they at on as for with be had have not but so this there'.split(' '));
+const vsWords = s => (String(s).match(/\p{L}[\p{L}’'-]*/gu) || []);
+function vsNames(){
+  const chars = inStory('character'), seen = new Map(), own = [];
+  for (const c of chars) {
+    const title = (c.title || '').trim(), names = new Set();
+    if (title) names.add(title);
+    for (const a of String(c.aka || '').split(/[,;\n]/)) { const x = a.trim(); if (x.length > 1) names.add(x); }
+    const toks = title.split(/\s+/).map(w => w.replace(/[.,]$/, '')).filter(w => /^\p{Lu}[\p{L}’'-]{2,}$/u.test(w) && !VS_HON.has(w.toLowerCase()));
+    own.push([c.id, names, toks]); for (const t of toks) seen.set(t, (seen.get(t) || 0) + 1);
+  }
+  const map = new Map();
+  for (const [id, , toks] of own) { for (const t of toks) if (seen.get(t) === 1 && !map.has(t)) map.set(t, id); }
+  for (const [id, names] of own) for (const n of names) map.set(n, id);
+  return map;
+}
+const vsBucket = () => ({segs: [], perCh: new Map(), lines: []});
+function vsAnalyse(p){
+  const chs = manuscript(p.id), chars = inStory('character');
+  const sig = [...chs.map(c => `${c.id}:${c.updated}:${S.ver[c.id] || 0}:${c.narration || ''}:${(c.povs || []).join(',')}:${c.povStart || ''}`), ...chars.map(c => `${c.id}:${c.title}:${c.aka || ''}`)].join('|');
+  if (S.vsMemo && S.vsMemo.sig === sig && S.vsMemo.pid === p.id) return S.vsMemo.data;
+  const data = {narr: new Map(), dlg: new Map(), marked: 0, povChapters: 0, chs};
+  const add = (kind, id, txt, cid) => { if (!id || !txt.trim()) return; const m = data[kind]; if (!m.has(id)) m.set(id, vsBucket()); const bk = m.get(id); bk.segs.push(txt); bk.perCh.set(cid, (bk.perCh.get(cid) || '') + '\n' + txt); if (kind === 'dlg') bk.lines.push(txt); };
+  /* the spoken words inside a speaker mark: the quoted parts, or all of it when the line has no quotation marks */
+  const spoken = s => { const sp = dlgSpans(s); return (sp.length ? sp.map(([a, b]) => s.slice(a, b)).join(' ') : s).replace(/[“”"„«»]|(^|\s)[‘’']|[‘’'](?=\s|$)/g, ' ').replace(/\s+/g, ' ').trim(); };
+  for (const c of chs) {
+    const ps = povList(c), skipNarr = /^(Omniscient|Mixed|Epistolary|Second)/.test(c.narration || '');
+    if (ps.length && !skipNarr) data.povChapters++;
+    let cur = ps.length ? povStartOf(c) : null;
+    const t = document.createElement('template'); t.innerHTML = sanitize(c.body || '');
+    const lines = new Map();
+    for (const m of t.content.querySelectorAll('mark.spk[data-spk]')) { const id = m.dataset.spk; if (!isChar(id)) continue; const k = m.dataset.sid || shortId(), x = lines.get(k); if (x) x.text += ' ' + m.textContent; else lines.set(k, {id, text: m.textContent}); }
+    for (const {id, text} of lines.values()) { const q = spoken(text.replace(/\u00a0/g, ' ')); if (countWords(q)) { data.marked++; add('dlg', id, q, c.id); } }
+    if (!cur || skipNarr) continue;
+    const blocks = [];
+    for (const n of t.content.childNodes) {
+      if (n.nodeType === 1 && n.tagName === 'HR') { blocks.push({hr: n.getAttribute('data-pov')}); continue; }
+      if (n.nodeType === 1 && /^(UL|OL)$/.test(n.tagName)) { for (const li of n.children) blocks.push({el: li}); continue; }
+      if (n.nodeType === 1 && n.tagName === 'BLOCKQUOTE') { const kids = [...n.children]; (kids.length ? kids : [n]).forEach(k => blocks.push({el: k})); continue; }
+      if (n.nodeType === 1 && n.classList && n.classList.contains('embed')) continue;
+      blocks.push(n.nodeType === 1 ? {el: n} : {text: n.textContent || ''});
+    }
+    for (const bl of blocks) {
+      if ('hr' in bl) { if (ps.length > 1 && isChar(bl.hr)) cur = bl.hr; continue; }
+      let text = bl.text || '';
+      if (bl.el) { const cl = bl.el.cloneNode(true); for (const m of cl.querySelectorAll('mark.spk')) m.replaceWith(' … '); text = cl.textContent; }
+      text = text.replace(/\u00a0/g, ' '); if (!text.trim()) continue;
+      let narr = text; for (const [a, b] of [...dlgSpans(text)].reverse()) narr = narr.slice(0, a) + ' … ' + narr.slice(b);
+      add('narr', cur, narr, c.id);
+    }
+  }
+  S.vsMemo = {sig, pid: p.id, data};
+  return data;
+}
+/* Measures for a body of text */
+function vsMeasure(segs){
+  const text = segs.join('\n'), words = vsWords(text), n = words.length || 1;
+  let sents = 0, sentWords = 0, q = 0, ex = 0; const bk = [0, 0, 0, 0];
+  for (const seg of segs) for (const para of seg.split(/\n+/)) for (const [a, b] of sentSpans(para)) {
+    const s = para.slice(a, b), w = countWords(s); if (!w) continue;
+    sents++; sentWords += w; bk[sentBucket(w)]++;
+    const end = s.replace(/[\s”"’'»)…—–-]+$/, '').slice(-1); if (end === '?') q++; else if (end === '!') ex++;
+  }
+  const lw = words.map(w => w.toLowerCase().replace(/’/g, "'"));
+  const per = k => k / n * 1000;
+  const contr = lw.filter(w => /\p{L}'(?:t|m|re|ve|ll|d)$/u.test(w)).length;
+  const adv = lw.filter(w => w.length > 4 && w.endsWith('ly') && !RD_ADV_OK.has(w)).length;
+  const filt = lw.filter(w => VS_FILTER.has(w)).length, think = lw.filter(w => VS_THINK_RE.test(w)).length;
+  const marks = (text.match(/—|–|--|…|\.\.\./g) || []).length;
+  const sense = VS_SENSE.map(([l, r]) => [l, lw.filter(w => r.test(w)).length]);
+  const letters = words.reduce((a, w) => a + w.replace(/[^\p{L}]/gu, '').length, 0);
+  const grade = sents ? Math.max(1, Math.round(4.71 * (letters / n) + 0.5 * (n / sents) - 21.43)) : 0;
+  return {words: words.length, sents, avg: sents ? sentWords / sents : 0, q: sents ? q / sents * 100 : 0, ex: sents ? ex / sents * 100 : 0, contr: per(contr), adv: per(adv), filt: per(filt), think: per(think), marks: per(marks), sense, bk, grade, variety: wordVariety(text), lw};
+}
+function vsCounts(lw, skip){ const m = new Map(); for (const w of lw) { if (w.length < 3 || COMMON_WORDS.has(w) || skip.has(w)) continue; m.set(w, (m.get(w) || 0) + 1); } return m; }
+function vsDistinct(meA, others, skip, min){
+  const a = vsCounts(meA.lw, skip), o = new Map(); let no = 0;
+  for (const x of others) { no += x.lw.length; for (const [w, k] of vsCounts(x.lw, skip)) o.set(w, (o.get(w) || 0) + k); }
+  const na = meA.lw.length || 1;
+  if (no < 400) return {mode: 'top', list: [...a].filter(([, k]) => k >= min).sort((x, y) => y[1] - x[1]).slice(0, 12)};
+  const sc = [...a].filter(([, k]) => k >= min).map(([w, k]) => [w, k, Math.log2(((k + 1) / na) / (((o.get(w) || 0) + 1) / no)) * Math.log(k + 1)]).filter(x => x[2] > 0.6);
+  return {mode: 'rel', list: sc.sort((x, y) => y[2] - x[2]).slice(0, 12)};
+}
+function vsPhrases(segs, min){
+  const m = new Map();
+  for (const seg of segs) for (const para of seg.split(/\n+/)) for (const [a, b] of sentSpans(para)) {
+    const w = vsWords(para.slice(a, b)).map(x => x.toLowerCase().replace(/’/g, "'"));
+    for (let i = 0; i + 3 <= w.length; i++) { const g = w.slice(i, i + 3); if (g.every(x => VS_STOP.has(x)) || g.some(x => VS_VERB_SET.has(x))) continue; const k = g.join(' '); m.set(k, (m.get(k) || 0) + 1); }
+  }
+  return [...m].filter(([, k]) => k >= min).sort((a, b) => b[1] - a[1] || b[0].length - a[0].length).slice(0, 8);
+}
+const VS_ROWS = {
+  narr: [['avg', 'Sentence length', 'words on average', 1], ['q', 'Questions', '% of sentences', 0], ['ex', 'Exclamations', '% of sentences', 0], ['contr', 'Contractions', 'per 1,000 words', 1], ['adv', '-ly adverbs', 'per 1,000 words', 1], ['filt', 'Filter words', 'saw, felt, noticed… per 1,000 words', 1], ['think', 'Thinking words', 'thought, knew, wondered… per 1,000 words', 1], ['marks', 'Dashes and ellipses', 'per 1,000 words', 1], ['grade', 'Reading level', 'school grade', 0], ['variety', 'Word variety', 'different words in every 500', 0]],
+  dlg: [['lineLen', 'Line length', 'words per line', 1], ['avg', 'Sentence length', 'words on average', 1], ['q', 'Questions', '% of sentences', 0], ['ex', 'Exclamations', '% of sentences', 0], ['contr', 'Contractions', 'per 1,000 words', 1], ['adv', '-ly adverbs', 'per 1,000 words', 1], ['marks', 'Dashes and ellipses', 'per 1,000 words', 1], ['variety', 'Word variety', 'different words in every 500', 0]]
+};
+function voicesHTML(p){
+  const data = vsAnalyse(p), marks = data.marked > 0, mode = marks && S.vsMode === 'dlg' ? 'dlg' : 'narr', set = data[mode];
+  const head = `<div class="prose-head vs-head"><h3 class="group">Voices</h3>${marks ? `<div class="seg-toggle" role="group" aria-label="Voice to show"><button data-act="vs-mode" data-v="narr" aria-pressed="${mode === 'narr'}">Narration</button><button data-act="vs-mode" data-v="dlg" aria-pressed="${mode === 'dlg'}">Dialogue</button></div>` : ''}</div>`;
+  const intro = mode === 'narr' ? 'How each viewpoint character tells their scenes: the text outside quotation marks, split scene by scene by the chapter viewpoints. Omniscient, mixed and epistolary chapters are left out.'
+    : `What each character says, from the ${plural(data.marked, 'line')} you’ve marked with “Who says this” in the toolbar. Unmarked dialogue isn’t counted.`;
+  const ids = [...set.entries()].map(([id, bk]) => [id, countWords(bk.segs.join(' '))]).filter(([id, w]) => S.entries.has(id) && w).sort((a, b) => b[1] - a[1]);
+  let h = `<section id="voices">${head}<p class="stat-note">${intro}</p>`;
+  if (!ids.length) return h + `<p class="stat-note vs-empty">${mode === 'narr' ? 'Set a point of view on your chapters, and scene viewpoints where a chapter changes hands, to compare how your characters narrate.' : 'None of the marked lines has words in it yet.'}</p></section>`;
+  if (!ids.some(([id]) => id === S.vsA)) S.vsA = ids[0][0];
+  if (S.vsB && (S.vsB === S.vsA || !ids.some(([id]) => id === S.vsB))) S.vsB = '';
+  const A = S.vsA, B = S.vsB, nameOf = id => titleOf(S.entries.get(id));
+  h += `<div class="vs-pick" role="group" aria-label="Character">${ids.map(([id, w]) => `<button class="vs-chip" data-act="vs-pick" data-id="${esc(id)}" aria-pressed="${id === A}">${esc(nameOf(id))} <span class="mono">${fmt(w)}</span></button>`).join('')}</div>`;
+  if (ids.length > 1) h += `<label class="vs-cmp">Compare with <select data-vs-cmp aria-label="Compare with another character"><option value="">everyone else</option>${ids.filter(([id]) => id !== A).map(([id]) => `<option value="${esc(id)}"${id === B ? ' selected' : ''}>${esc(nameOf(id))}</option>`).join('')}</select></label>`;
+  const meas = new Map(); const mOf = id => { if (!meas.has(id)) { const bk = set.get(id), m = vsMeasure(bk.segs); m.lineLen = bk.lines.length ? countWords(bk.lines.join(' ')) / bk.lines.length : 0; m.lines = bk.lines.length; meas.set(id, m); } return meas.get(id); };
+  const ma = mOf(A), others = ids.map(([id]) => id).filter(id => id !== A);
+  const mb = B ? mOf(B) : others.length ? (() => { const segs = others.flatMap(id => set.get(id).segs), m = vsMeasure(segs), lines = others.flatMap(id => set.get(id).lines); m.lineLen = lines.length ? countWords(lines.join(' ')) / lines.length : 0; return m; })() : null;
+  const labB = B ? nameOf(B) : 'Everyone else';
+  const few = ma.words < (mode === 'narr' ? 300 : 120);
+  h += `<p class="stat-note">${esc(nameOf(A))}: ${fmt(countWords(set.get(A).segs.join(' ')))} words${mode === 'dlg' ? ` in ${plural(ma.lines, 'line')}` : ` of narration in ${plural(set.get(A).perCh.size, 'chapter')}`}.${few ? ' That’s not much yet, so the figures are rough.' : ''}</p>`;
+  // measures, side by side
+  h += `<div class="vs-rows">${VS_ROWS[mode].map(([k, lab, unit, dec]) => {
+    const va = ma[k], vb = mb ? mb[k] : null; if (va == null || (k === 'variety' && va === null)) return '';
+    const max = Math.max(va || 0, vb || 0) || 1, f = v => v == null ? '–' : (+v).toFixed(dec);
+    return `<div class="vs-m"><div class="vs-ml"><b>${lab}</b><span>${unit}</span></div><div class="vs-bars"><span class="vs-b a"><span class="vs-t"><i style="width:${(va / max * 100).toFixed(1)}%"></i></span><em class="mono">${f(va)}</em></span>${mb && vb != null ? `<span class="vs-b b"><span class="vs-t"><i style="width:${(vb / max * 100).toFixed(1)}%"></i></span><em class="mono">${f(vb)}</em></span>` : ''}</div></div>`;
+  }).join('')}</div><div class="vs-key"><span><i class="a"></i>${esc(nameOf(A))}</span>${mb ? `<span><i class="b"></i>${esc(labB)}</span>` : ''}</div>`;
+  // rhythm
+  const ns = ma.bk.reduce((a, b) => a + b, 0) || 1;
+  h += `<h4 class="prose-h">Sentence rhythm</h4><div class="seg" role="img" aria-label="${esc(nameOf(A))}: sentences by length">${ma.bk.map((n, i) => n ? `<span style="flex:${n};background:${sentShade(i)}" title="${esc(`${SENT_B[i][0]} (${SENT_B[i][1]}): ${Math.round(n / ns * 100)}%`)}"></span>` : '').join('')}</div><div class="seg-legend">${ma.bk.map((n, i) => `<span><i style="background:${sentShade(i)}"></i>${SENT_B[i][0]} <b class="mono">${Math.round(n / ns * 100)}%</b></span>`).join('')}</div>`;
+  // words and phrases
+  const skip = new Set([...vsNames().keys()].flatMap(n => n.toLowerCase().split(/\s+/)).concat([...VS_VERB_SET]));
+  const dist = vsDistinct(ma, B ? [mb] : others.map(mOf), skip, mode === 'narr' ? 3 : 2);
+  h += `<div class="two vs-two"><div><h4 class="prose-h">${dist.mode === 'rel' ? `Words ${esc(nameOf(A))} uses more${B ? ` than ${esc(nameOf(B))}` : ''}` : 'Most used words'}</h4>${dist.list.length ? `<div class="vs-words">${dist.list.map(([w, k]) => `<span class="vs-w">${esc(w)} <b class="mono">${k}</b></span>`).join('')}</div>` : '<p class="stat-note">Nothing stands out yet.</p>'}</div>`;
+  const ph = vsPhrases(set.get(A).segs, mode === 'narr' ? 3 : 2);
+  h += `<div><h4 class="prose-h">Favourite phrases</h4>${ph.length ? `<ul class="vs-ph">${ph.map(([g, k]) => `<li>“${esc(g)}” <b class="mono">${k}×</b></li>`).join('')}</ul>` : '<p class="stat-note">No phrase repeats often enough yet.</p>'}</div></div>`;
+  if (mode === 'narr') {
+    const tot = ma.sense.reduce((a, [, k]) => a + k, 0) || 1;
+    h += `<h4 class="prose-h">Senses</h4><p class="stat-note">Which senses ${esc(nameOf(A))}’s narration leans on, by the words it uses.</p><div class="seg" role="img" aria-label="Sense words">${ma.sense.map(([l, k], i) => k ? `<span style="flex:${k};background:color-mix(in oklab, var(--hi) ${[100, 75, 55, 38, 24][i]}%, var(--wash))" title="${l}: ${Math.round(k / tot * 100)}%"></span>` : '').join('')}</div><div class="seg-legend">${ma.sense.map(([l, k], i) => `<span><i style="background:color-mix(in oklab, var(--hi) ${[100, 75, 55, 38, 24][i]}%, var(--wash))"></i>${l} <b class="mono">${Math.round(k / tot * 100)}%</b></span>`).join('')}</div>`;
+    h += vsDriftHTML(data, A);
+  } else {
+    const top = dist.list.slice(0, 5).map(([w]) => w), ls = set.get(A).lines;
+    const pick = ls.filter(l => { const n = countWords(l); return n >= 5 && n <= 45 && top.some(w => l.toLowerCase().includes(w)); }).slice(0, 3);
+    const lines = pick.length ? pick : ls.filter(l => countWords(l) >= 5 && countWords(l) <= 45).slice(0, 3);
+    if (lines.length) h += `<h4 class="prose-h">In their own words</h4><ul class="vs-lines">${lines.map(l => `<li>“${esc(l.length > 220 ? l.slice(0, 217) + '…' : l)}”</li>`).join('')}</ul>`;
+  }
+  return h + '</section>';
+}
+/* Chapter by chapter: does the voice drift? */
+function vsDriftHTML(data, id){
+  const bk = data.narr.get(id), labels = chapterLabels();
+  const pts = data.chs.filter(c => bk.perCh.has(c.id)).map(c => { const m = vsMeasure([bk.perCh.get(c.id)]); return {c, w: m.words, avg: m.avg, filt: m.filt}; }).filter(x => x.w >= 150);
+  if (pts.length < 3) return '';
+  const mean = pts.reduce((a, x) => a + x.avg, 0) / pts.length, lo = Math.min(...pts.map(x => x.avg)), hi = Math.max(...pts.map(x => x.avg)), span = Math.max(1, hi - lo);
+  const W = 600, H = 120, X = i => 24 + i * (W - 48) / (pts.length - 1), Y = v => 14 + (1 - (v - lo) / span) * (H - 28);
+  const odd = pts.reduce((a, x) => Math.abs(x.avg - mean) > Math.abs(a.avg - mean) ? x : a, pts[0]), dev = Math.round((odd.avg - mean) / mean * 100);
+  return `<h4 class="prose-h">Sentence length, chapter by chapter</h4><svg class="vs-drift" viewBox="0 0 ${W} ${H}" role="img" aria-label="Average sentence length in each chapter of this character’s narration">
+    <line x1="16" x2="${W - 16}" y1="${Y(mean).toFixed(1)}" y2="${Y(mean).toFixed(1)}" class="vs-mean"/><polyline points="${pts.map((x, i) => `${X(i).toFixed(1)},${Y(x.avg).toFixed(1)}`).join(' ')}"/>
+    ${pts.map((x, i) => `<circle cx="${X(i).toFixed(1)}" cy="${Y(x.avg).toFixed(1)}" r="4"><title>${esc(`${labels.get(x.c.id)}: ${titleOf(x.c)} · ${x.avg.toFixed(1)} words a sentence`)}</title></circle>`).join('')}</svg>
+    <p class="stat-note">Dashed: the average, ${mean.toFixed(1)} words.${Math.abs(dev) >= 20 ? ` Most different: ${esc(labels.get(odd.c.id))}, “${esc(titleOf(odd.c))}”, with sentences ${Math.abs(dev)}% ${dev > 0 ? 'longer' : 'shorter'} than usual.` : ' The rhythm stays steady from chapter to chapter.'}</p>`;
+}
+desk.addEventListener('click', ev => {
+  const b = ev.target.closest && ev.target.closest('[data-act="vs-mode"], [data-act="vs-pick"]'); if (!b) return;
+  ev.stopPropagation();
+  if (b.dataset.act === 'vs-mode') S.vsMode = b.dataset.v; else { S.vsA = b.dataset.id; if (S.vsB === S.vsA) S.vsB = ''; }
+  const p = project(), box = $('#voices'); if (!p || !box) return;
+  box.outerHTML = voicesHTML(p);
+  const again = b.dataset.act === 'vs-mode' ? $(`#voices [data-act="vs-mode"][data-v="${S.vsMode === 'dlg' ? 'dlg' : 'narr'}"]`) : $(`#voices [data-act="vs-pick"][data-id="${CSS.escape(S.vsA)}"]`);
+  if (again) again.focus({preventScroll: true});
+});
+desk.addEventListener('change', ev => {
+  if (ev.target.dataset.vsCmp === undefined) return;
+  ev.stopPropagation(); S.vsB = ev.target.value;
+  const p = project(), box = $('#voices'); if (!p || !box) return;
+  box.outerHTML = voicesHTML(p); const s = $('#voices [data-vs-cmp]'); if (s) s.focus({preventScroll: true});
+}, true);
+
+/* ---------- watch words: a quiet note when you type a word or phrase you want to notice ---------- */
+let wwCache = null;
+function wwClean(list){
+  const seen = new Set();
+  return (Array.isArray(list) ? list : []).filter(x => x && typeof x === 'object' && typeof x.w === 'string')
+    .map(x => ({w: x.w.replace(/\s+/g, ' ').trim().slice(0, 80), note: typeof x.note === 'string' ? x.note.replace(/\s+/g, ' ').trim().slice(0, 200) : ''}))
+    .filter(x => x.w.replace(/\*/g, '').trim() && !seen.has(x.w.toLowerCase()) && seen.add(x.w.toLowerCase())).slice(0, 200);
+}
+function wwList(){
+  if (!S.watchOn) return [];
+  const p = project();
+  return [...(S.watch || []).map(x => ({...x, scope: 'all'})), ...(p && Array.isArray(p.watch) ? p.watch : []).map(x => ({...x, scope: 'story'}))];
+}
+const wwPat = w => w.trim().split(/\s+/).map(tok => tok.split('*').map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['’]/g, "['’]")).join('\\p{L}*')).join('\\s+');
+function wwCompiled(){
+  const list = wwList(), key = JSON.stringify(list);
+  if (wwCache && wwCache.key === key) return wwCache.items;
+  const items = [];
+  for (const it of list) { try { const p = wwPat(it.w); items.push({...it, all: new RegExp(`(?<![\\p{L}\\p{N}])(?:${p})(?![\\p{L}\\p{N}])`, 'giu'), end: new RegExp(`(?<![\\p{L}\\p{N}])(?:${p})$`, 'iu')}); } catch {} }
+  wwCache = {key, items}; return items;
+}
+function wwMatches(text){
+  const out = [];
+  for (const it of wwCompiled()) { it.all.lastIndex = 0; let m; while ((m = it.all.exec(text))) { if (!m[0].length) { it.all.lastIndex++; continue; } out.push([m.index, m.index + m[0].length, it]); } }
+  return out.sort((a, b) => a[0] - b[0]);
+}
+function wwCount(ed){
+  if (!wwCompiled().length) return 0;
+  const blocks = [...ed.querySelectorAll('p,li,h2,h3,blockquote>div')].filter(b => !b.querySelector('p,li,div'));
+  return (blocks.length ? blocks : [ed]).reduce((n, b) => n + wwMatches(b.textContent).length, 0);
+}
+function wwQueue(rte, ms = 700){
+  clearTimeout(rte._wwT);
+  rte._wwT = setTimeout(() => { if (!rte.isConnected) return; const ed = rte.querySelector('.rte-body[data-rich]'); const n = S.watchOn && ed ? wwCount(ed) : 0; if (String(n) !== rte.dataset.wwn) { rte.dataset.wwn = n; footRender(rte); } }, ms);
+}
+function wwChanged(){ wwCache = null; S.wwStamp = (S.wwStamp || 0) + 1; $$('.rte').forEach(r => footRender(r)); if (S.rdOn) rdRun(); applyDisplay(); }
+const wwBlockOf = (ed, node) => { const el = node && (node.nodeType === 1 ? node : node.parentElement); const b = el && el.closest('li,p,h2,h3,div'); return b && b !== ed && ed.contains(b) ? b : null; };
+function wwNote(rte, rect, word, item){
+  let note = rte.querySelector('.ww-note');
+  if (!note) { note = document.createElement('div'); note.className = 'ww-note'; note.setAttribute('aria-hidden', 'true'); rte.appendChild(note); }
+  note.innerHTML = `<b>${esc(word.replace(/\s+/g, ' '))}</b>${item.note ? `<span>${esc(item.note)}</span>` : ''}`;
+  const ed = rte.querySelector('.rte-body'), rr = rte.getBoundingClientRect(), er = ed.getBoundingClientRect(), cs = getComputedStyle(ed);
+  const textL = er.left + parseFloat(cs.paddingLeft), textR = er.right - parseFloat(cs.paddingRight);
+  const sb = scrollBox(rte), lim = sb === document.scrollingElement || sb === document.documentElement ? document.documentElement.clientWidth : sb.getBoundingClientRect().right - 8;
+  const room = lim - textR - 22;
+  const vh = window.visualViewport ? window.visualViewport.height + window.visualViewport.offsetTop : window.innerHeight;
+  note.classList.remove('side', 'below', 'above'); note.style.left = note.style.right = note.style.top = ''; note.style.maxWidth = '';
+  if (room >= 160) {
+    note.classList.add('side'); note.style.left = (textR + 14 - rr.left) + 'px'; note.style.maxWidth = Math.min(260, room) + 'px';
+    const h = note.offsetHeight, top = clamp(rect.top + rect.height / 2 - h / 2, 8, Math.max(8, vh - h - 8));
+    note.style.top = (top - rr.top) + 'px';
+  } else {
+    note.style.right = Math.max(4, rr.right - textR) + 'px'; note.style.maxWidth = Math.max(160, Math.min(340, (textR - textL) * .85)) + 'px';
+    note.classList.add('below'); note.style.top = (rect.bottom + 6 - rr.top) + 'px';
+    const h = note.offsetHeight;
+    if (rect.bottom + 6 + h > vh - 8) { note.classList.replace('below', 'above'); note.style.top = (rect.top - 6 - h - rr.top) + 'px'; }
+  }
+  note.classList.remove('show'); void note.offsetWidth; note.classList.add('show');
+  clearTimeout(note._t); note._t = setTimeout(() => note.classList.remove('show'), 4500);
+  const live = $('#wwLive'); if (live) live.textContent = `Watch word: ${word}.${item.note ? ' ' + item.note : ''}`;
+}
+desk.addEventListener('input', ev => {
+  if (!S.watchOn || ev.isComposing) return;
+  const ed = ev.target.closest && ev.target.closest('.rte-body'); if (!ed) return;
+  const it = ev.inputType;
+  if (it !== 'insertText' && it !== 'insertParagraph' && it !== 'insertLineBreak') return;
+  if (it === 'insertText' && (!ev.data || /[\p{L}\p{N}'’*-]/u.test(ev.data.slice(-1)))) return;
+  const items = wwCompiled(); if (!items.length) return;
+  const sel = getSelection(); if (!sel.rangeCount) return;
+  const r = sel.getRangeAt(0); if (!ed.contains(r.startContainer)) return;
+  const blk = wwBlockOf(ed, r.startContainer);
+  let tail = '', lineRange = null;
+  if (it === 'insertText') {
+    const pre = document.createRange(); pre.setStart(blk || ed, 0); pre.setEnd(r.startContainer, r.startOffset);
+    tail = pre.toString().slice(0, -ev.data.length);
+    lineRange = r.cloneRange();
+  } else {
+    const prev = blk && blk.previousElementSibling; if (!prev) return;
+    tail = prev.textContent; lineRange = document.createRange(); lineRange.selectNodeContents(prev);
+  }
+  tail = tail.slice(-400);
+  const hit = items.find(x => x.end.test(tail)); if (!hit) return;
+  const word = (tail.match(hit.end) || [hit.w])[0];
+  let rects = lineRange.getClientRects(), rect = rects[rects.length - 1];
+  if (!rect || !rect.height) { const b2 = document.createRange(); b2.selectNodeContents(blk || ed); const rs = b2.getClientRects(); rect = rs[rs.length - 1] || (blk || ed).getBoundingClientRect(); }
+  wwNote(ed.closest('.rte'), rect, word, hit);
+});
+desk.addEventListener('input', ev => { if (!S.watchOn) return; const b = ev.target.closest && ev.target.closest('.rte-body[data-rich]'); if (b) wwQueue(b.closest('.rte')); });
+desk.addEventListener('click', ev => {
+  if (!(ev.target.closest && ev.target.closest('[data-act="ww-show"]'))) return;
+  if (!S.rdBtn) { toast('Switch on the Prose checker in Options → Text to mark each watch word in the text.'); return; }
+  S.rdOn = true; rdOff.delete('watch'); savePrefs(); rdRun();
+  const bar = ev.target.closest('.rte').querySelector('.rd-bar'); if (bar) bar.scrollIntoView({block: 'nearest', behavior: reduced ? 'auto' : 'smooth'});
+});
+async function wwEdit(){
+  const p = project();
+  const row = (x = {w: '', note: ''}) => `<div class="ww-r"><input class="ww-w" value="${esc(x.w)}" placeholder="Word or phrase" aria-label="Word or phrase" maxlength="80" spellcheck="false" autocomplete="off"><input class="ww-n" value="${esc(x.note)}" placeholder="Note (optional)" aria-label="Note for this word" maxlength="200" autocomplete="off"><button type="button" class="btn small ww-x" data-ww-del aria-label="Remove this word" title="Remove">×</button></div>`;
+  const sec = (k, title, sub, list) => `<section class="ww-sec" data-ww-sec="${k}"><h3>${title}</h3><p class="dlg-note">${sub}</p><div class="ww-rows">${(list.length ? list : [{w: '', note: ''}]).map(row).join('')}</div><button type="button" class="btn small ww-add" data-ww-add>+ Add a word</button></section>`;
+  const html = `<div class="ww-wrap"><p class="dlg-note">Capitals don’t matter. A star stands for any ending: <b>realiz*</b> finds realize, realized and realizing. Phrases work too.</p>`
+    + sec('all', 'In every story', 'Kept in this browser, like your other options.', S.watch || [])
+    + (p ? sec('story', `In “${esc(p.title || 'Untitled story')}”`, 'Saved with the story, so it travels with the file and its backups.', Array.isArray(p.watch) ? p.watch : []) : '') + '</div>';
+  const pending = askChoice({title: 'Watch words', html, choices: [{label: 'Save', value: 'ok', primary: true}, {label: 'Cancel', value: null}],
+    read: box => { const get = k => [...box.querySelectorAll(`[data-ww-sec="${k}"] .ww-r`)].map(r => ({w: r.querySelector('.ww-w').value, note: r.querySelector('.ww-n').value})); return {all: get('all'), story: get('story')}; }});
+  const wrap = $('#dlg .ww-wrap');
+  wrap.addEventListener('click', ev => {
+    const add = ev.target.closest('[data-ww-add]');
+    if (add) { const rows = add.parentElement.querySelector('.ww-rows'); rows.insertAdjacentHTML('beforeend', row()); rows.lastElementChild.querySelector('.ww-w').focus(); return; }
+    const del = ev.target.closest('[data-ww-del]');
+    if (del) { const r = del.closest('.ww-r'), rows = r.parentElement; if (rows.children.length > 1) { const next = r.nextElementSibling || r.previousElementSibling; r.remove(); next.querySelector('.ww-w').focus(); } else { r.querySelectorAll('input').forEach(i => i.value = ''); r.querySelector('.ww-w').focus(); } }
+  });
+  const res = await pending; if (!res) return;
+  S.watch = wwClean(res.form.all);
+  if (p) { const nw = wwClean(res.form.story); if (JSON.stringify(nw) !== JSON.stringify(Array.isArray(p.watch) ? p.watch : [])) { if (nw.length) p.watch = nw; else delete p.watch; touch(p); } }
+  const any = S.watch.length || (p && p.watch && p.watch.length);
+  if (any && !S.watchOn) { S.watchOn = true; toast('Watch words are on. A note appears beside the line when you type one.'); }
+  savePrefs(); wwChanged();
+}
+
 /* ---------- help and info ---------- */
-const QUIRE_VERSION = '1.1', QUIRE_DATE = '2026-10-26';
+const QUIRE_VERSION = '1.2', QUIRE_DATE = '2026-10-27';
 function helpFacts(){
   const all = [...S.entries.values()], count = k => all.filter(e => e.kind === k).length;
   const where = S.mode === 'db' ? 'Your private storage in Claude, saved automatically as you type'
@@ -4600,6 +5253,7 @@ function helpHTML(){
       <li><b>Videos and music</b> show as link cards and only open when clicked. In the manuscript web page they become players that load from their websites.</li>
       <li><b>Encryption</b> (Options → Backup, off by default) locks backups${S.mode === 'file' ? ' and this saved file' : ' and saved files'} with a password, so someone who gets hold of the file can’t read it. See <a href="#help-saving" data-help-jump="saving">Saving and backups</a>.</li>
       <li><b>Comments</b> are left out of every export and print.</li>
+      <li><b>Your own themes and watch words “in every story”</b> are kept in this browser, like your other options, and aren’t saved in the file. Watch words for one story are saved with the story.</li>
       <li><b>AO3 sharing</b> (Options → Export, off by default) never connects to AO3. Quire only copies a chapter to your clipboard and opens an AO3 page in a new tab; your browser visits AO3 as usual, and nothing is posted until you paste and post it yourself.</li>
     </ul>
 
@@ -4628,7 +5282,7 @@ function helpHTML(){
     <table class="help-cmp"><thead><tr><th>Action</th><th>What you get</th><th>Use it to</th></tr></thead><tbody>
       <tr><td><b>Save file</b><br><span class="muted">title bar, Ctrl+S</span></td><td>This HTML file with everything in it.</td><td>Keep your work. Open the file again to carry on.</td></tr>
       <tr><td><b>Back up</b><br><span class="muted">Options → Backup</span></td><td>A <code>.json</code> file of one story or all, with images and history.</td><td>Keep extra copies elsewhere, or move stories into another Quire with Restore.</td></tr>
-      <tr><td><b>Export</b><br><span class="muted">Options → Export</span></td><td>The manuscript as Word, web page, Markdown or text; sheets and notes as Markdown; print or PDF.</td><td>Read, share or submit. Quire can’t read exports back in.</td></tr>
+      <tr><td><b>Export</b><br><span class="muted">Options → Export</span></td><td>The manuscript as a Word manuscript or a Word document, a web page, Markdown or text; sheets and notes as Markdown; print or PDF.</td><td>Read, share or submit. Quire can’t read exports back in.</td></tr>
       <tr><td><b>Share on AO3</b><br><span class="muted">under a chapter, after Options → Export → AO3 sharing</span></td><td>The chapter as AO3-ready HTML on the clipboard, and the right AO3 page in a new tab: new work, new chapter, or this chapter’s edit page once you’ve pasted its link.</td><td>Post or update on AO3 by pasting. Quire never connects to AO3 and marks chapters changed since their last copy as “AO3 behind”.</td></tr>
       <tr><td><b>Import chapters</b><br><span class="muted">Story ▾</span></td><td>New chapters from a .txt or .md file.</td><td>Bring writing in. It only adds chapters.</td></tr>
     </tbody></table>
@@ -4674,12 +5328,17 @@ function helpHTML(){
       <li><b>Stats detail</b> (Options → Display or the bottom of Stats): Basic, Standard, or In depth with rhythm, paragraph density, sentence openers, punctuation, repeated phrases and a narration check. Prose figures work for the whole manuscript or one chapter.</li>
       <li><b>Share on AO3</b> (switch on AO3 sharing in Options → Export) appears under each chapter. It copies the text on screen as AO3-ready HTML and opens the right AO3 page: a new work, a new chapter of the work you’ve linked, or this chapter’s edit page once you’ve pasted its link. Formatting, alignment, scene breaks and links carry over; comments, fonts and images don’t, and videos become links. Chapters edited since their last copy show “AO3 behind” in the chapter list.</li>
       <li><b>Story arcs:</b> drag a beat on the curve, sideways through the story and up or down for tension, or click it and use the arrow keys.</li>
-      <li><b>Word manuscripts</b> (Options → Export) use standard manuscript format: 12-point type, double spacing, a title page with word count, each chapter on a new page and a running header. Check the file once in your word processor before sending.</li>
-      <li><b>The toolbar</b> groups style, headings, quotation (smart and fixed quotes), lists, alignment (one button with a menu) and paragraph indent, links and media, then search, Prose checker, comment, tag passage and split. <b>Splitting</b> a chapter asks first; Merge with next undoes it.</li>
-      <li><b>Options → Text:</b> Google Fonts, Prose checker, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, coloured chips, themes and widths.</li>
+      <li><b>Word manuscript</b> (Options → Export) uses standard manuscript format, for submissions: 12-point type, double spacing, a title page with word count, each chapter on a new page and a running header. Check the file once in your word processor before sending.</li>
+      <li><b>Word document</b> (Options → Export) is the story as a reader would see it: your formatting, scene breaks and images, with real Word headings so Word’s navigation pane lists the chapters. Choose the typeface, size, line spacing, indented paragraphs or space between them, a title page, page numbers and whether each chapter starts a new page. Your choices are remembered for the story.</li>
+      <li><b>The toolbar</b> groups style, headings, quotation (smart and fixed quotes), lists, alignment (one button with a menu) and paragraph indent, links and media, then search, Prose checker, comment, tag passage, who says this (in chapters) and split. <b>Splitting</b> a chapter asks first; Merge with next undoes it.</li>
+      <li><b>Options → Text:</b> Google Fonts, Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, coloured chips, themes (including your own) and widths.</li>
       <li><b>Tags</b> has its own page with the tag cloud, image tags, tags used together, rare and missing tags, and renaming a tag everywhere.</li>
       <li><b>Passage tags:</b> select a sentence or a passage, even across paragraphs, and press the tag button in the toolbar. A thin bar in the margin marks the passage; click the bar to change or remove its tags. Options → Text can show an underline instead, or hide the marks while you write. The list under the text shows a chapter’s tagged passages, search finds them with #tag, and on the Tags page a passage tag lists all its passages in story order, so you can follow a thread, a clue or a continuity detail through the book. Passages in drafts count once merged. Exports leave the tags out.</li>
       <li><b>Tags that link:</b> typing in a tag box suggests existing tags and, below them, chapters, characters, places and notes. Pick one with the arrow keys and Enter, or tap it. An entry you pick becomes a linked chip that opens it, and the entry lists “Tagged in” under Links. Searching for #title (the entry’s title as a tag) finds the entries that link to it.</li>
+      <li><b>Your own themes</b> (Options → Display → + New theme…): pick four colours, for the paper, the text, the background and the accent, or start from one of the six themes. Quire works out the other shades, shows the change at once and checks that the text stays readable. Save as many named themes as you like; they’re kept in this browser.</li>
+      <li><b>Watch words</b> (Options → Text): list words and phrases you want to notice, such as a habit to avoid or a fact to keep straight, each with an optional note. When you type one, a small note appears beside the line for a few seconds; it never takes the cursor. Capitals don’t matter, a star stands for any ending (<b>realiz*</b>), and phrases work too. Words “in every story” stay in this browser; words for one story are saved with it. Pasted text doesn’t set off notes. The count at the bottom of the text, and the Prose checker’s Watch words row, mark every one.</li>
+      <li><b>Voices</b> (Stats, Standard or In depth): compares how your viewpoint characters narrate, from the text outside quotation marks in their scenes: sentence length and rhythm, questions, contractions, adverbs, filter and thinking words, senses, the words and phrases they use most, and how a narrator’s rhythm changes from chapter to chapter.</li>
+      <li><b>Who says this</b> (the speaker button in a chapter’s toolbar): put the cursor in a line of dialogue, or select it, and choose who says it. Once you’ve marked a line, Voices adds a <b>Dialogue</b> view comparing how your characters speak. Only the lines you mark count; Quire never guesses a speaker. Marks are invisible apart from a faint dotted underline, and are left out of every export. Put the cursor in a marked line and press the button again to change the speaker or remove the mark.</li>
       <li><b>Scene viewpoints:</b> give a chapter two or more viewpoint characters and a small label appears at the start of the text and at each scene break. Click it to choose whose scene follows; a scene keeps the viewpoint of the one before until you change it. The Point of view field shows how the chapter’s words divide between them, and Stats uses the same split for the whole story.</li>
       <li><b>Status colours</b> (Options → Display → Colour chapters by status): chapter lists show each chapter’s status as a colour, and the chapter list starts with a strip of the whole manuscript, each block as wide as its chapter. Click a block to open the chapter.</li>
       <li><b>Image tags:</b> click an image in a chapter or note to tag it; portraits and place images have a tag box underneath. Quire adds each image’s shape (Portrait, Landscape or Square) by itself. Search for #tag or #landscape finds the entries holding those images. Exports leave image tags out.</li>
@@ -6320,8 +6979,8 @@ function ptagThreadHTML(lt){
   return `<div class="pt-thread"><span class="lab">Passages, in story order</span>${th.map(({e, p, label}) => `<button class="pt-item" data-act="ptag-open" data-id="${esc(e.id)}" data-pid="${esc(p.pid)}"><span class="pt-where">${esc(label)}</span><span class="pt-ex">“${esc(p.text.length > 220 ? p.text.slice(0, 219) + '…' : p.text)}”</span>${p.tags.length > 1 ? `<span class="pt-also">${p.tags.filter(t => t.toLowerCase() !== lt).map(esc).join(' · ')}</span>` : ''}</button>`).join('')}</div>`;
 }
 const ptMarks = (bodyEl, pid) => [...bodyEl.querySelectorAll(`mark.ptag[data-pid="${CSS.escape(pid)}"]`)];
-/* Wrap the text of a range, paragraph by paragraph, in marks sharing one pid */
-function ptagWrap(bodyEl, r, tags, pid){
+/* Wrap the text of a range, paragraph by paragraph, in marks made by make(), then join neighbouring pieces with the same key */
+function markWrap(bodyEl, r, make, sel, key){
   if (r.endContainer.nodeType === 3 && r.endOffset > 0 && r.endOffset < r.endContainer.length) r.endContainer.splitText(r.endOffset);
   if (r.startContainer.nodeType === 3 && r.startOffset > 0 && r.startOffset < r.startContainer.length) { const t = r.startContainer.splitText(r.startOffset); r.setStart(t, 0); }
   const w = document.createTreeWalker(bodyEl, NodeFilter.SHOW_TEXT), nodes = [];
@@ -6332,18 +6991,18 @@ function ptagWrap(bodyEl, r, tags, pid){
     if (n.parentElement.closest('.embed')) continue;
     nodes.push(n);
   }
-  for (const n of nodes) { const m = document.createElement('mark'); m.className = 'ptag'; m.dataset.pid = pid; m.dataset.t = tags.join(', '); n.replaceWith(m); m.appendChild(n); }
-  ptagTidy(bodyEl);
+  for (const n of nodes) { const m = make(); n.replaceWith(m); m.appendChild(n); }
+  markJoin(bodyEl, sel, key);
   return nodes.length;
 }
-/* Join neighbouring pieces of the same passage */
-function ptagTidy(bodyEl){
-  for (const m of [...bodyEl.querySelectorAll('mark.ptag')]) {
+function markJoin(bodyEl, sel, key){
+  for (const m of [...bodyEl.querySelectorAll(sel)]) {
     const prev = m.previousSibling;
-    if (prev && prev.nodeType === 1 && prev.matches('mark.ptag') && prev.dataset.pid === m.dataset.pid) { while (m.firstChild) prev.appendChild(m.firstChild); m.remove(); }
+    if (prev && prev.nodeType === 1 && prev.matches(sel) && prev.dataset[key] === m.dataset[key]) { while (m.firstChild) prev.appendChild(m.firstChild); m.remove(); }
   }
   bodyEl.normalize();
 }
+const ptagWrap = (bodyEl, r, tags, pid) => markWrap(bodyEl, r, () => { const m = document.createElement('mark'); m.className = 'ptag'; m.dataset.pid = pid; m.dataset.t = tags.join(', '); return m; }, 'mark.ptag', 'pid');
 function ptagPanel(rte, pid, focus){
   const bodyEl = rte.querySelector('.rte-body'), panel = rte.querySelector('.rte-panel');
   const ms = pid ? ptMarks(bodyEl, pid) : [], tags = ms.length ? imgTagList(ms[0].dataset.t) : [];
@@ -6478,7 +7137,9 @@ function footRender(rte){
   let selN = 0;
   if (sel.rangeCount && !sel.isCollapsed && ed && ed.contains(sel.getRangeAt(0).commonAncestorContainer)) selN = countWords(sel.toString());
   const pr = footProgress(rte);
-  const html = (selN ? `<span class="rf-sel">${plural(selN, 'word')} selected</span>` : '')
+  if (rte.dataset.wws !== String(S.wwStamp)) { rte.dataset.wws = S.wwStamp; wwQueue(rte, 40); }
+  const wn = S.watchOn ? +(rte.dataset.wwn || 0) : 0;
+  const html = (selN ? `<span class="rf-sel">${plural(selN, 'word')} selected</span>` : '') + (wn ? `<button type="button" class="rf-ww" data-act="ww-show" title="Mark them in the text with the Prose checker">${plural(wn, 'watch word')}</button>` : '')
     + (pr ? `<span class="rf-prog ${pr.kind}" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(Math.min(1, Math.max(0, pr.p)) * 100)}" aria-label="${esc(pr.lab)}"><span class="rf-lab">${esc(pr.lab)}</span><span class="rf-bar"><i style="width:${(Math.min(1, Math.max(0, pr.p)) * 100).toFixed(1)}%"></i></span></span>` : '');
   f.hidden = !html;
   if (f.dataset.h !== html) { f.dataset.h = html; f.innerHTML = html; }
@@ -7055,6 +7716,8 @@ document.addEventListener('click', ev => {
     case 'portrait-del': if (cur) { delete cur.portrait; delete cur.portraitShape; delete cur.portraitTags; touch(cur); rerenderLook(cur); } return;
     case 'imgtag-del': imgTagDel(a); return;
     case 'ptag-add': return ptagAdd(a.closest('.rte'));
+    case 'spk-set': return spkSet(a.closest('.rte'), a.dataset.id);
+    case 'spk-clear': return spkClear(a.closest('.rte'));
     case 'ptag-del': { const rte = a.closest('.rte'), ms = ptMarks(rte.querySelector('.rte-body'), S.ptagPid || ''); return ptagSet(rte, imgTagList(ms[0] && ms[0].dataset.t).filter(x => x !== a.dataset.tag)); }
     case 'ptag-clear': return ptagSet(a.closest('.rte'), []);
     case 'ptag-go': { const rte = a.closest('.rte'), m = ptMarks(rte.querySelector('.rte-body'), a.dataset.pid)[0]; if (m) { m.scrollIntoView({block:'center', behavior: reduced ? 'auto' : 'smooth'}); ptagOpen(rte, a.dataset.pid, false); } return; }
@@ -7172,6 +7835,12 @@ function deleteEntry(cur){
       if (o.kind === 'character' && (o.rels || []).some(r => r.to === cur.id)) { o.rels = o.rels.filter(r => r.to !== cur.id); changed = true; }
       if (o.kind === 'chapter' && (o.chars || []).includes(cur.id)) { o.chars = o.chars.filter(x => x !== cur.id); changed = true; }
       if (o.kind === 'chapter' && (o.povs || []).includes(cur.id)) { o.povs = o.povs.filter(x => x !== cur.id); changed = true; }
+      if (o.kind === 'chapter') for (const s of richSources(o)) {
+        const h0 = s.get(); if (!h0.includes(`data-spk="${cur.id}"`)) continue;
+        const tp = document.createElement('template'); tp.innerHTML = h0;
+        for (const m of tp.content.querySelectorAll(`mark.spk[data-spk="${CSS.escape(cur.id)}"]`)) m.replaceWith(...m.childNodes);
+        s.set(tp.innerHTML); changed = true;
+      }
     }
     if ((o.tagRefs || []).includes(cur.id)) { o.tagRefs = o.tagRefs.filter(x => x !== cur.id); changed = true; }
     if (kind === 'place' && o.kind === 'chapter' && (o.places || []).includes(cur.id)) { o.places = o.places.filter(x => x !== cur.id); changed = true; }
@@ -7250,6 +7919,10 @@ async function menuAction(m){
     toast('Password changed. Use Save file to lock the file with it.'); return;
   }
   if (m === 'help') { helpOpen(); return; }
+  if (m === 'theme-new') { themeEdOpen(null); return; }
+  if (m === 'watch') { S.watchOn = !S.watchOn; savePrefs(); applyDisplay(); wwChanged(); if (S.watchOn && S.loaded && !wwList().length) wwEdit(); return; }
+  if (m === 'watch-edit') { if (S.loaded) wwEdit(); return; }
+  if (m === 'theme-edit') { if (S.theme.startsWith('c:')) themeEdOpen(S.theme.slice(2)); return; }
   if (m === 'chiphi') { S.chipHi = !S.chipHi; savePrefs(); applyDisplay(); return; }
   if (m === 'splitask') { S.splitAsk = !S.splitAsk; savePrefs(); applyDisplay(); return; }
   if (m === 'webfonts') { S.webFonts = !S.webFonts; savePrefs(); applyDisplay(); applyWebFonts(); toast(S.webFonts ? 'Typefaces now load from Google Fonts when there’s a connection.' : 'Quire now uses the fonts on this computer and stays offline.'); return; }
@@ -7282,6 +7955,7 @@ async function menuAction(m){
   if (m === 'import') return showPanel('import');
   if (m === 'export-md') return offer(`${slug(p.title)}-story-bible.md`, storyMarkdown(p));
   if (m === 'export-docx') return exportDocx(p);
+  if (m === 'export-doc') return exportDocument(p);
   if (m === 'export-html') {
     if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
     toast('Preparing the manuscript…');
