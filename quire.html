@@ -241,6 +241,10 @@ select{padding-right:6px}
 .index .st-wrap{padding:0 4px 6px}
 .lp-list .item:hover{border-color:var(--field-line);background:var(--sheet)}
 .item-x{font-size:13px;line-height:1.45;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.item-x.full{display:block;-webkit-line-clamp:unset;overflow:visible}
+.item-c{display:flex;flex-direction:column;gap:1px;margin-top:3px;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.item-c b{font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+[data-act="cards-full"][aria-pressed="true"]{border-color:var(--pencil);color:var(--pencil)}
 .lp-group{grid-column:1/-1;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-top:8px}
 .lp-empty{color:var(--ink-2);margin:0;font-size:14px}
 .sq-input{font-size:17px}
@@ -501,6 +505,16 @@ button.chip:hover{border-color:var(--pencil)}
 .ao3-copy textarea{width:100%;font-family:var(--f-mono);font-size:12px;resize:vertical}
 .ao3-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:12px 16px}
 .ao3-links input{width:100%;font-family:var(--f-mono);font-size:12.5px}
+.bin-list{display:flex;flex-direction:column;gap:8px}
+.bin-g{margin:16px 0 6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);overflow-wrap:anywhere}
+.bin-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--field)}
+.bin-row.bin-story{border-color:var(--field-line)}
+.bin-row > div:first-child{flex:1 1 14rem;min-width:0;display:flex;flex-direction:column;gap:2px}
+.bin-t{font-family:var(--f-display);font-size:15.5px;overflow-wrap:anywhere}
+.bin-m{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2)}
+.bin-acts,.bin-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.bin-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--rule)}
+.bin-q{font-size:13px;flex-basis:100%}
 .stats-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:10px 14px;border:1px dashed var(--rule);border-radius:8px;font-size:13.5px;color:var(--ink-2)}
 .stats-more > span{flex:1 1 16rem}
 .stats-more .seg-toggle button{padding:0 12px;min-height:var(--h-m);font-size:13px}
@@ -663,6 +677,9 @@ button.bar-row:hover{background:var(--wash)}
 .tgt-progress{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .tgt-progress .progress{flex:1 1 200px;margin-top:0;height:8px;border-radius:4px}
 .progress.done i{background:var(--ok)}
+.tgt-due{margin-top:2px}
+.tgt-due b,.due-note b{font-weight:600;color:var(--ink)}
+.tgt-box input[type=date]{width:auto!important}
 .tgt-note{font-size:11.5px;color:var(--ink-2);white-space:nowrap}
 .divider{border:0;border-top:1px solid var(--rule);margin:4px 0 0;width:100%}
 .portrait-wrap{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
@@ -1209,7 +1226,7 @@ mark.spk.on{background:var(--hi-wash)}
 .toast-act{margin-left:10px;background:transparent;border:1px solid var(--on-ink);color:var(--on-ink);border-radius:5px;padding:2px 10px;font:600 12.5px/1.4 var(--f-ui);cursor:pointer}
 .dlg-note{margin:0;font-size:13px;color:var(--ink-2);line-height:1.5}
 .dlg-f{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--ink-2);flex:1 1 0;min-width:0}
-.dlg-f i{font-style:normal;opacity:.8}
+.dlg-f i{font-style:normal}
 .dlg-f input,.dlg-f select{height:var(--h-l);padding-block:0;font-size:14px;color:var(--ink)}
 .dlg-f textarea{font-size:14px;color:var(--ink);resize:vertical}
 .dlg-row{display:flex;gap:12px;flex-wrap:wrap}
@@ -1302,9 +1319,10 @@ mark.spk.on{background:var(--hi-wash)}
           <button data-menu="example">Open the example story</button>
           <button data-menu="dup-story" data-needs-story>Duplicate this story</button>
           <button data-menu="del-story" data-needs-story class="menu-danger">Delete this story…</button>
+          <button data-menu="bin" id="binItem">Bin</button>
           <hr class="menu-sep">
           <button data-menu="replace" data-needs-story>Find and replace…</button>
-          <button data-menu="import" data-needs-story>Import chapters from text…</button>
+          <button data-menu="import" data-needs-story>Import chapters…</button>
         </div>
       </details>
       <button class="btn ghost" data-act="overview" id="ovBtn">Overview</button>
@@ -1325,7 +1343,7 @@ mark.spk.on{background:var(--hi-wash)}
         <button data-menu="help" class="menu-help"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.3 6.3a1.8 1.8 0 1 1 2.6 1.6c-.6.3-.9.7-.9 1.3v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="11.4" r=".85" fill="currentColor"/></svg>Help and info</button>
         <hr class="menu-sep">
         <p class="menu-h">Export</p>
-        <div class="menu-fmt stack" role="group" aria-label="Export the manuscript as"><span>Manuscript as</span><button data-menu="export-docx" data-needs-story title="Word file in standard manuscript format, for submissions (.docx)" aria-label="Word manuscript, in standard manuscript format (.docx)">Word manuscript</button><button data-menu="export-doc" data-needs-story title="Word document that looks like your story, with real headings (.docx)" aria-label="Word document (.docx)">Word document</button><button data-menu="export-html" data-needs-story title="Web page (.html)" aria-label="Manuscript as a web page (.html)">Web page</button><button data-menu="export-ms-md" data-needs-story title="Markdown (.md)" aria-label="Manuscript as Markdown (.md)">Markdown</button><button data-menu="export-txt" data-needs-story title="Plain text (.txt)" aria-label="Manuscript as plain text (.txt)">Text</button></div>
+        <div class="menu-fmt stack" role="group" aria-label="Export the manuscript as"><span>Manuscript as</span><button data-menu="export-docx" data-needs-story title="Word file in standard manuscript format, for submissions (.docx)" aria-label="Word manuscript, in standard manuscript format (.docx)">Word manuscript</button><button data-menu="export-doc" data-needs-story title="Word document that looks like your story, with real headings (.docx)" aria-label="Word document (.docx)">Word document</button><button data-menu="export-epub" data-needs-story title="E-book for e-readers and reading apps (.epub)" aria-label="E-book (.epub)">E-book</button><button data-menu="export-html" data-needs-story title="Web page (.html)" aria-label="Manuscript as a web page (.html)">Web page</button><button data-menu="export-ms-md" data-needs-story title="Markdown (.md)" aria-label="Manuscript as Markdown (.md)">Markdown</button><button data-menu="export-txt" data-needs-story title="Plain text (.txt)" aria-label="Manuscript as plain text (.txt)">Text</button></div>
         <button data-menu="export-md" data-needs-story>Sheets and notes as Markdown (.md)</button>
         <button data-menu="print" data-needs-story>Print or save as PDF</button>
         <label class="menu-check"><input type="checkbox" id="ao3Item" data-toggle="ao3"><span>AO3 sharing <span class="muted">Adds “Share on AO3” under each chapter: copy the text for AO3 and open the right page there. Quire never connects to AO3 itself.</span></span></label>
@@ -1403,7 +1421,7 @@ mark.spk.on{background:var(--hi-wash)}
 </div>
 <datalist id="tagList"></datalist>
 <datalist id="jumpList"></datalist>
-<input type="file" id="importText" accept=".txt,.md,.markdown,.text,text/plain,text/markdown" hidden>
+<input type="file" id="importText" accept=".txt,.md,.markdown,.text,.docx,text/plain,text/markdown,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
 <input type="file" id="importFile" accept=".json,application/json" hidden>
 <input type="file" id="imageFile" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
 <input type="file" id="portraitFile" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
@@ -1613,7 +1631,7 @@ const flatFields = defs => defs.flatMap(d => d.placeTop ? flatFields(d.placeTop)
 
 /* ---------- state ---------- */
 const S = {
-  entries:new Map(), projectId:null, kind:'chapter', openId:null, panel:'overview', q:'', view:'list',
+  entries:new Map(), bin:new Map(), projectId:null, kind:'chapter', openId:null, panel:'overview', q:'', view:'list',
   mode:'loading', loaded:false, confirm:null, col:null,
   timers:{}, ver:{}, dirty:new Set(), inflight:0, chain:Promise.resolve(), err:'',
   downloads:undefined, assets:undefined, base:{}, wc:new Map(), st:new Map(), rteRange:null, rteFor:null
@@ -1731,9 +1749,9 @@ $('#themeEd').addEventListener('keydown', ev => {
   if (ev.key === 'Enter' && ev.target.id === 'teName') { ev.preventDefault(); const s = $('#themeEd [data-te-act="save"]'); if (s && !s.disabled) s.click(); }
 });
 
-function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, ct:S.themes || [], wwo:!!S.watchOn, ww:S.watch || [], pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
+function savePrefs(){ try { localStorage.setItem('storybible.ui', JSON.stringify({cx:S.cardsFull, p:S.projectId, k:S.kind, tv:S.tagView, ts:S.tagSort, th:S.theme, sz:S.size, fo:S.focus, pw:S.pw, tw:S.tw, hp:S.histPause, ht:S.histThin, hf:S.histFile, wa:S.wordAll, wo:S.wordsOpen, ro:S.remindOn, rm:S.remindMin, cf:S.chFold, hn:S.hints, hc:S.chipHi, sa:S.splitAsk, sq:S.smartQ, qs:S.qStyle, sd:S.smartDash, se:S.smartEll, sm:S.sprintMin, sg:S.sprintGoal, ss:S.sprintSound, wf:S.webFonts, nv:S.nav, fx:S.focusX, ty:S.typewriter, rl:S.rdLevel, sl:S.statsLevel, tsp:S.tsSprint, tsw:S.tsWords, rd:S.rdOn, ind:!!S.indent, ao3:!!S.ao3, ptst:S.ptagStyle, stc:!!S.stColors, eb:!!S.encBackups, ct:S.themes || [], wwo:!!S.watchOn, ww:S.watch || [], pb:!!S.progBar, o:S.openId || null, rx:[...(S.rdOff || [])]})); } catch {} }
 { const pr = loadPrefs(); S.tagView = pr.tv === 'list' ? 'list' : 'cloud'; S.tagSort = pr.ts === 'az' ? 'az' : 'count'; S.wordAll = !!pr.wa; S.wordsOpen = !!pr.wo; S.chFold = !!pr.cf; S.hints = ['full','subtle','off'].includes(pr.hn) ? pr.hn : 'subtle'; S.chipHi = !!pr.hc; S.splitAsk = pr.sa !== false; S.smartQ = pr.sq !== false; S.qStyle = ['en','de','fr'].includes(pr.qs) ? pr.qs : 'en'; S.smartDash = pr.sd !== false; S.smartEll = pr.se !== false; S.remindOn = pr.ro !== false; S.remindMin = remindOK(pr.rm) ? String(Math.round(+pr.rm)) : '30'; S.sprintMin = +pr.sm >= 1 && +pr.sm <= 480 ? String(Math.round(+pr.sm)) : '30'; S.sprintSound = pr.ss !== false; S.sprintGoal = +pr.sg > 0 ? +pr.sg : '';
-  S.themes = themesClean(pr.ct); S.watchOn = pr.wwo === true; S.watch = wwClean(pr.ww); S.wwStamp = (S.wwStamp || 0) + 1;
+  S.cardsFull = pr.cx === true; S.themes = themesClean(pr.ct); S.watchOn = pr.wwo === true; S.watch = wwClean(pr.ww); S.wwStamp = (S.wwStamp || 0) + 1;
   S.theme = ['light','twilight','dark','sepia','lamplight','ember'].includes(pr.th) || (typeof pr.th === 'string' && pr.th.startsWith('c:') && S.themes.some(x => 'c:' + x.id === pr.th)) ? pr.th : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); S.size = ['s','l'].includes(pr.sz) ? pr.sz : 'm';
   S.pw = ['narrow','medium','wide','full'].includes(pr.pw) ? pr.pw : 'medium'; S.tw = ['narrow','medium','wide','full'].includes(pr.tw) ? pr.tw : 'medium'; S.focus = !!pr.fo;
   S.histPause = ['off','30','60','120','300','600'].includes(pr.hp) ? pr.hp : '120'; S.histThin = !!pr.ht; S.histFile = pr.hf !== false; S.webFonts = pr.wf === true; S.focusX = !!pr.fx; S.typewriter = !!pr.ty; S.rdLevel = ['off', 'hem', 'full'].includes(pr.rl) ? pr.rl : pr.rb === false ? 'off' : 'full'; S.rdBtn = S.rdLevel !== 'off'; S.statsLevel = ['basic', 'standard', 'deep'].includes(pr.sl) ? pr.sl : 'standard'; S.tsSprint = pr.tsp !== false; S.tsWords = pr.tsw === true; S.rdOn = !!pr.rd; S.indent = pr.ind === true; S.ao3 = pr.ao3 === true; S.ptagStyle = ['bar', 'line', 'off'].includes(pr.ptst) ? pr.ptst : pr.pts === false ? 'off' : 'bar'; S.progBar = pr.pb === true; S.stColors = pr.stc === true; S.encBackups = pr.eb === true; S.rdOff = S.rdOff || new Set(); S.rdOff.clear(); for (const c of Array.isArray(pr.rx) ? pr.rx : ['echo', 'dlg']) if (typeof c === 'string') S.rdOff.add(c); S.nav = pr.nv === 'sidebar' ? 'sidebar' : 'tabs'; }
@@ -1806,6 +1824,9 @@ function normEntry(e){
   if ('order' in e && !Number.isFinite(+e.order)) delete e.order;
   if ('watch' in e) { e.watch = wwClean(e.watch); if (!e.watch.length) delete e.watch; }
   for (const k of ['created', 'updated']) if (k in e && !Number.isFinite(+e[k])) e[k] = 0;
+  if ('bin' in e) { if (Number.isFinite(+e.bin) && +e.bin > 0) e.bin = +e.bin; else delete e.bin; }
+  if ('binBy' in e && (!e.bin || typeof e.binBy !== 'string')) delete e.binBy;
+  if ('due' in e && !(typeof e.due === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(e.due))) delete e.due;
 }
 function migrate(e){
   normEntry(e);
@@ -1853,7 +1874,7 @@ function chapterLabels(){
 const titleOf = e => e ? (e.title || (KINDS[e.kind] ? KINDS[e.kind].untitled : 'Untitled story')) : '';
 
 /* text and counts */
-const META = new Set(['docOpt','kind','project','id','title','portrait','portraitOn','portraitShape','role','pov','povs','narration','when','structure','unit','status','target','tension','order','measure','fmt','created','updated','arcInner','arcWorld','arcWant','arcNeed','arcCost','sortCharacter','sortPlace','sortChapter','sortNote','msName','msByline','msContact','msFont','msPaper','msImg']);
+const META = new Set(['due','docOpt','kind','project','id','title','portrait','portraitOn','portraitShape','role','pov','povs','narration','when','structure','unit','status','target','tension','order','measure','fmt','created','updated','arcInner','arcWorld','arcWant','arcNeed','arcCost','sortCharacter','sortPlace','sortChapter','sortNote','msName','msByline','msContact','msFont','msPaper','msImg']);
 function htmlText(h){
   return String(h || '')
     .replace(/<div class="embed"[^>]*>[\s\S]*?<\/div>/gi, ' ')
@@ -1914,6 +1935,7 @@ function findByTitle(name){
 }
 
 /* ---------- saving ---------- */
+const anyEntry = id => S.entries.get(id) || S.bin.get(id);
 function touch(e){
   e.updated = Date.now();
   S.ver[e.id] = (S.ver[e.id] || 0) + 1;
@@ -1925,11 +1947,11 @@ function touch(e){
   S.timers[e.id] = setTimeout(() => flush(e.id), 700);
   status();
 }
-function stage(e){ if (!e.created) e.created = Date.now(); e.fmt = 2; if (!Array.isArray(e.tags)) e.tags = []; S.entries.set(e.id, e); touch(e); }
+function stage(e){ if (!e.created) e.created = Date.now(); e.fmt = 2; delete e.bin; delete e.binBy; S.bin.delete(e.id); if (!Array.isArray(e.tags)) e.tags = []; S.entries.set(e.id, e); touch(e); }
 function removeEntry(id){
-  const e = S.entries.get(id);
+  const e = anyEntry(id);
   if (e && e.kind === 'chapter') histDropChapter(id);
-  S.entries.delete(id);
+  S.entries.delete(id); S.bin.delete(id);
   if (e && e.kind === 'chapter') scheduleHistory(e.project);
   if (S.mode === 'file') { if (!S.fileDirty) S.dirtySince = Date.now(); S.fileDirty = true; }
   if (S.mode !== 'db' && S.mode !== 'file') return;
@@ -1958,7 +1980,7 @@ function flush(id){
   S.inflight++; status();
   S.chain = S.chain.then(async () => {
     try {
-      const e = S.entries.get(id);
+      const e = anyEntry(id);
       if (S.mode === 'file') {
         if (!e) { await store.del('entries', id); await store.put('meta', 'tomb:' + id, Date.now()); }
         else await store.put('entries', id, body(e));
@@ -2052,7 +2074,7 @@ async function portableEntry(e, cache){
 async function buildOfflineHTML(){
   flushAll();
   const cache = new Map(), entries = [];
-  for (const e of S.entries.values()) entries.push(await portableEntry(e, cache));
+  for (const e of [...S.entries.values(), ...S.bin.values()]) entries.push(await portableEntry(e, cache));
   const doc = new DOMParser().parseFromString(PRISTINE, 'text/html');
   for (const sc of [...doc.querySelectorAll('script')]) if (sc.id !== 'sb-app' && sc.id !== 'sb-data') sc.remove();
   for (const n of [...doc.querySelectorAll('iframe, base, meta[http-equiv], meta[name^="claude:"], link[rel="modulepreload"], link[rel="preload"][as="script"]')]) n.remove();
@@ -2329,6 +2351,7 @@ function renderBar(){
   $('#ovBtn').setAttribute('aria-pressed', !S.openId && S.panel === 'overview');
   $('#stBtn').setAttribute('aria-pressed', !S.openId && S.panel === 'stats');
   for (const b of $$('[data-needs-story]')) b.disabled = !project();
+  { const n = binTop().length; $('#binItem').textContent = n ? `Bin (${n})` : 'Bin'; }
   status();
 }
 
@@ -2344,9 +2367,17 @@ function renderTopTabs(){
   { const a = $('#toptabsIn .ttab[aria-pressed="true"]'), row = $('#toptabsIn'); if (a && row.scrollWidth > row.clientWidth) { const l = a.offsetLeft - row.offsetLeft, r = l + a.offsetWidth; if (l < row.scrollLeft || r > row.scrollLeft + row.clientWidth) row.scrollLeft = Math.max(0, l - 16); } }
   const jl = $('#jumpList'); if (jl) jl.innerHTML = ORDER.flatMap(k => list(k)).map(e => `<option value="${esc(titleOf(e))}">${esc(cap(KINDS[e.kind].one))}</option>`).join('');
 }
-function excerpt(e){
-  const t = (e.synopsis || e.summary || e.logline || e.look || e.want || '').trim() || htmlText(e.body || '').replace(/\s+/g, ' ').trim();
-  return t.length > 160 ? t.slice(0, 157).replace(/\s+\S*$/, '') + '…' : t;
+function excerpt(e, full){
+  const syn = (e.synopsis || e.summary || e.logline || e.look || e.want || '').trim(), t = syn || htmlText(e.body || '').replace(/\s+/g, ' ').trim();
+  return (full && syn) || t.length <= 160 ? t : t.slice(0, 157).replace(/\s+\S*$/, '') + '…';
+}
+/* Chapter cards also show who tells the chapter, where it happens and which arc beats it carries */
+function cardMore(e){
+  if (e.kind !== 'chapter') return '';
+  const names = ids => (ids || []).map(id => S.entries.get(id)).filter(Boolean).map(titleOf);
+  const beats = (e.beats || []).map(r => { const [a, b] = String(r).split(':'), arc = S.entries.get(a), bt = arc && (arc.beats || []).find(x => x.id === b); return bt ? bt.name || 'Beat' : ''; }).filter(Boolean);
+  const bits = [[names(e.povs), 'Viewpoint'], [names(e.places), 'Places'], [beats, 'Beats']].filter(x => x[0].length).map(([v, l]) => `<span><b>${l}</b> ${esc(v.join(', '))}</span>`);
+  return bits.length ? `<span class="item-c">${bits.join('')}</span>` : '';
 }
 /* Status colours: a ramp from grey ideas to green finished chapters, built from each theme's own colours */
 const ST_KEY = {'Idea':'idea', 'Outlined':'outlined', 'Drafting':'drafting', 'First draft':'firstdraft', 'Revising':'revising', 'Done':'done'};
@@ -2360,8 +2391,8 @@ function statusStripHTML(){
     <div class="st-legend">${counts.map(([st, n]) => `<span><i data-st="${ST_KEY[st]}"></i>${esc(st)} <b class="mono">${n}</b></span>`).join('')}${unset ? `<span><i data-st="none"></i>No status <b class="mono">${unset}</b></span>` : ''}</div></div>`;
 }
 function cardHTML(e, labels){
-  const x = excerpt(e);
-  return `<button class="item" data-act="open" data-open="${esc(e.id)}"${stAttr(e)}><span class="item-t">${esc(titleOf(e))}</span><span class="item-m">${esc(itemMeta(e, labels))}</span>${x ? `<span class="item-x">${esc(x)}</span>` : ''}</button>`;
+  const full = S.cardsFull && e.kind === 'chapter', x = excerpt(e, full);
+  return `<button class="item" data-act="open" data-open="${esc(e.id)}"${stAttr(e)}><span class="item-t">${esc(titleOf(e))}</span><span class="item-m">${esc(itemMeta(e, labels))}</span>${x ? `<span class="item-x${full ? ' full' : ''}">${esc(x)}</span>` : ''}${cardMore(e)}</button>`;
 }
 function lpItemsHTML(){
   const k = S.kind, items = list(k), q = (S.lpq || '').trim(), labels = chapterLabels();
@@ -2376,7 +2407,7 @@ function lpRefresh(){ const b = $('#lp-list'); if (b) b.innerHTML = lpItemsHTML(
 function listPageHTML(p){
   const k = KINDS[S.kind];
   return `<article class="sheet" data-panel="list"><h2 class="vh">${esc(KINDS[S.kind] ? KINDS[S.kind].plural : 'List')}</h2>
-    <div class="sheet-top"><span class="eyebrow">${esc(k.plural)}</span>${sortSwitch(S.kind)}<span class="wc mono" id="lp-count">${plural(list(S.kind).length, k.one)}</span></div>
+    <div class="sheet-top"><span class="eyebrow">${esc(k.plural)}</span>${sortSwitch(S.kind)}${S.kind === 'chapter' ? `<button class="btn small ghost" data-act="cards-full" aria-pressed="${!!S.cardsFull}" title="Show each chapter’s whole synopsis on its card">Full synopses</button>` : ''}<span class="wc mono" id="lp-count">${plural(list(S.kind).length, k.one)}</span></div>
     <div class="lp-tools"><span class="search-box"><svg class="search-ico" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.6" cy="8.6" r="5.6"/><path d="M12.8 12.8l4.4 4.4"/></svg><input type="search" id="lpq" data-lp value="${esc(S.lpq || '')}" placeholder="Filter ${esc(k.plural.toLowerCase())}" aria-label="Filter ${esc(k.plural.toLowerCase())}" autocomplete="off"></span><button class="btn primary new-btn" data-act="new"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>New ${esc(k.one)}</button></div>
     ${S.kind === 'chapter' ? `<div id="stStrip">${statusStripHTML()}</div>` : ''}
     <div class="lp-list" id="lp-list">${lpItemsHTML()}</div>
@@ -2463,6 +2494,7 @@ function renderDesk(){
   if (!S.loaded || !projects().length || S.nav === 'tabs') S.view = 'editor';
   app.dataset.view = S.view;
   if (!S.loaded) { desk.innerHTML = '<div class="loading">Opening your notebook…</div>'; return; }
+  if (S.panel === 'bin' && !S.openId) { desk.innerHTML = binHTML(); focusGuard(); return; }
   if (!projects().length) { desk.innerHTML = emptyHTML(); focusGuard(); return; }
   const e = S.openId && S.entries.get(S.openId);
   if (e && e.project === S.projectId) { desk.innerHTML = editorHTML(e); if (e.kind === 'chapter') { histPrime(e, activeDraft(e)); if (S.mg && S.mg.ch === e.id) mgRender(); else if (S.dp && S.dp.ch === e.id) draftPanelOpen(e); else { S.mg = null; S.dp = null; } } else { S.mg = null; S.dp = null; } }
@@ -2527,6 +2559,7 @@ function emptyHTML(){
     <p>Quire keeps everything about a story in one place: chapters, loose notes, a sheet for every character and setting, and story arcs on a tension curve that shows how closely your draft follows them.</p>
     <p class="empty-note">${S.mode === 'db' ? 'Everything saves as you type.' : S.mode === 'file' ? 'Your work is kept in this browser as you type. Use <b>Save file</b> (Ctrl+S) to store it inside this HTML file, which is your real copy to keep, back up and move between computers.' : 'Nothing is saved in this view, so treat it as a place to try things out.'} <a href="#" data-act="help-open" data-section="saving">How saving works</a></p>
     <div class="row"><button class="btn primary" data-act="start-story">Start a new story</button><button class="btn" data-act="load-example">Open an example story</button></div>
+    ${S.bin.size ? `<p class="empty-note">Deleted a story by mistake? <button class="link-btn" data-act="bin-open">Open the bin</button> (${plural(binTop().length, 'item')}).</p>` : ''}
   </div>`;
 }
 
@@ -2547,8 +2580,8 @@ function fieldHTML(e, d){
   if (d.type === 'refs') return `<div class="field" id="field-${d.k}">${refsHTML(e, d)}</div>`;
   if (d.type === 'target') return `<div class="field" id="field-target"><label class="lab" for="f-target">${esc(d.label)}</label>
     <div class="tgt-row"><span class="tgt-box"><input id="f-target" type="number" min="0" step="100" inputmode="numeric" data-f="target" data-num value="${esc(e.target ?? '')}" placeholder="${esc(d.ph || '')}" aria-describedby="tgt-progress"><span class="muted">words</span></span>
-    <span class="tgt-written"><span class="tgt-n mono" id="tgt-written">${fmt(writtenFor(e))}</span><span class="muted">written so far</span></span></div>
-    <div id="tgt-progress" class="tgt-progress">${targetProgressHTML(e)}</div></div>`;
+    ${e.kind === 'project' ? `<span class="tgt-box"><label class="muted" for="f-due">by</label><input id="f-due" type="date" data-f="due" value="${esc(e.due || '')}" aria-describedby="tgt-due"></span>` : ''}<span class="tgt-written"><span class="tgt-n mono" id="tgt-written">${fmt(writtenFor(e))}</span><span class="muted">written so far</span></span></div>
+    <div id="tgt-progress" class="tgt-progress">${targetProgressHTML(e)}</div>${e.kind === 'project' ? `<p class="hint tgt-due" id="tgt-due">${dueHTML(e)}</p>` : ''}</div>`;
   const id = `f-${d.k}`, v = e[d.k] ?? '';
   const lab = d.label ? `<span class="lab">${esc(d.label)}</span>` : '';
   const hint = d.hint ? `<span class="hint">${esc(d.hint)}</span>` : '';
@@ -2626,7 +2659,26 @@ function targetProgressHTML(e){
   return `<div class="progress${done ? ' done' : ''}" role="progressbar" aria-label="Progress toward the target length" aria-valuemin="0" aria-valuemax="${t}" aria-valuenow="${Math.min(w, t)}"><i style="width:${Math.min(100, pct).toFixed(1)}%"></i></div>
     <span class="tgt-note mono">${done ? `✓ Target reached${w > t ? ` · ${fmt(w - t)} over` : ''}` : `${Math.floor(pct)}% · ${fmt(t - w)} to go`}</span>`;
 }
+/* A deadline for the story's target: words a day still needed, today's share, and where the last week's pace would land */
+const dueLab = k => new Date(k + 'T12:00:00').toLocaleDateString(undefined, {month:'short', day:'numeric', year: k.slice(0, 4) === dayKey(0).slice(0, 4) ? undefined : 'numeric'});
+function dueInfo(p){
+  if (!p || !p.due) return null;
+  const t = +p.target || 0, w = writtenWords(p.id), pace = paceData(p, w), today = pace ? pace.today : 0;
+  const days = Math.round((Date.parse(p.due + 'T12:00:00') - Date.parse(dayKey(0) + 'T12:00:00')) / 864e5) + 1;
+  const left = t - w, goal = t && days > 0 ? Math.max(0, Math.ceil((t - (w - today)) / days)) : 0;
+  return {t, w, days, left, goal, today, avg: pace ? pace.week / 7 : 0, lab: dueLab(p.due)};
+}
+function dueHTML(p){
+  const d = dueInfo(p); if (!d) return 'Add a date to plan toward a deadline.';
+  if (!d.t) return `Deadline ${esc(d.lab)}. Set a target length to see how many words a day it takes.`;
+  if (d.left <= 0) return `Target reached${d.days > 0 ? `, ${plural(d.days - 1, 'day')} before the ${esc(d.lab)} deadline` : ''}.`;
+  if (d.days < 1) return `The deadline, ${esc(d.lab)}, has passed with ${fmt(d.left)} words to go. Choose a new date to plan again.`;
+  let h = `<b>${fmt(d.goal)} words a day</b> finishes by ${esc(d.lab)} (${d.days === 1 ? 'today is the last day' : `${d.days} days, today included`}). Today so far: ${d.today >= 0 ? '+' : '−'}${fmt(Math.abs(d.today))}.`;
+  if (d.avg > 0) { const end = Math.ceil(d.left / d.avg), diff = end - d.days; h += ` At your pace over the last week (${fmt(Math.round(d.avg))} a day), you’d finish around ${esc(dueLab(dayKey(end - 1)))}${diff > 0 ? `, ${plural(diff, 'day')} late` : diff < 0 ? `, ${plural(-diff, 'day')} early` : ', right on time'}.`; }
+  return h;
+}
 function updateTarget(e){
+  { const dd = $('#tgt-due'); if (dd && e.kind === 'project') dd.innerHTML = dueHTML(e); }
   const n = $('#tgt-written'), p = $('#tgt-progress');
   if (n) n.textContent = fmt(writtenFor(e));
   if (p) p.innerHTML = targetProgressHTML(e);
@@ -2826,7 +2878,7 @@ function posNote(c){
 function footHTML(e){
   const when = `<span class="mono muted">Edited ${esc(ago(e.updated))}</span>`;
   if (S.confirm === 'merge:' + e.id) { const chs = manuscript(), nx = chs[chs.findIndex(c => c.id === e.id) + 1]; if (nx) return footRow(`<span>Add “${esc(titleOf(nx))}” to the end of this chapter? It’s then removed, along with its own version history.</span><button class="btn primary small" data-act="merge-yes">Merge</button><button class="btn small" data-act="merge-no">Cancel</button>`, when); }
-  if (S.confirm === 'del:' + e.id) return footRow(`<span>Delete “${esc(titleOf(e))}” for good?</span><button class="btn danger primary small" data-act="del-yes">Delete</button><button class="btn small" data-act="del-no">Keep it</button>`, when);
+  if (S.confirm === 'del:' + e.id) return footRow(`<span>Delete “${esc(titleOf(e))}”? It goes to the bin, where you can restore it for ${BIN_DAYS} days.</span><button class="btn danger primary small" data-act="del-yes">Delete</button><button class="btn small" data-act="del-no">Keep it</button>`, when);
   let move = '';
   if (e.kind === 'chapter') {
     const chs = manuscript(), i = chs.findIndex(c => c.id === e.id);
@@ -3006,7 +3058,7 @@ function overviewHTML(p){
 }
 function storyFootHTML(p){
   const n = [...S.entries.values()].filter(e => e.project === p.id).length;
-  if (S.confirm === 'story:' + p.id) return `<span>Delete “${esc(p.title || 'Untitled story')}” and its ${plural(n, 'entry', 'entries')} for good?</span><button class="btn danger primary small" data-act="story-del-yes">Delete story</button><button class="btn small" data-act="story-del-no">Keep it</button>`;
+  if (S.confirm === 'story:' + p.id) return `<span>Delete “${esc(p.title || 'Untitled story')}” and its ${plural(n, 'entry', 'entries')}? The story goes to the bin, where you can restore it for ${BIN_DAYS} days.</span><button class="btn danger primary small" data-act="story-del-yes">Delete story</button><button class="btn small" data-act="story-del-no">Keep it</button>`;
   return `<button class="btn ghost danger small" data-act="story-del">Delete this story</button><span class="mono muted">Started ${esc(ago(p.created))}</span>`;
 }
 
@@ -3196,6 +3248,7 @@ function statsHTML(p){
       <div class="days-axis"><span>${dayLabel(pace.days[0].k)}</span><span>${peak.d > 0 ? `Best day: +${fmt(peak.d)} on ${dayLabel(peak.k)}` : ''}</span><span>Today</span></div></div>`;
   }
 
+  if (p.due) h += `<p class="stat-note due-note">${dueHTML(p)}</p>`;
   h += sprintStatsHTML(p);
   const maxW = Math.max(...ws, ...chs.map(c => +c.target || 0));
   h += `<h3 class="group">Chapter lengths</h3><p class="stat-note">Black ticks mark each chapter’s target length.</p>
@@ -3520,29 +3573,33 @@ function duplicateStory(p){
   toast(`Made a copy of “${p.title || 'Untitled story'}” with ${plural(copies.length - 1, 'entry', 'entries')}.`);
 }
 async function blobToDataURL(blob){ return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); }); }
+/* A chapter ready for export: comments and marks gone, embeds as players (web page) or links (e-book), images without Quire's tags */
+function chapterDOM(c, players){
+  const H = {spotify:{Track:152, Episode:152}, soundcloud:166, bandcamp:120, apple:175};
+  const t = document.createElement('template'); t.innerHTML = sanitize(c.body || '');
+  for (const m of [...t.content.querySelectorAll('mark')]) m.replaceWith(...m.childNodes);
+  for (const d of [...t.content.querySelectorAll('.embed')]) {
+    const info = parseEmbed(d.getAttribute('data-url')), name = info ? (PROVIDERS[info.p] || PROVIDERS.link)[0] : 'Link';
+    let el;
+    if (players && info && info.src) {
+      el = document.createElement('iframe'); el.setAttribute('src', info.src); el.setAttribute('loading', 'lazy'); el.setAttribute('allowfullscreen', '');
+      el.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'); el.setAttribute('title', `${name} ${info.kind}`);
+      const hgt = info.p === 'spotify' ? (H.spotify[info.kind] || 352) : H[info.p];
+      el.setAttribute('style', hgt ? `height:${hgt}px` : 'aspect-ratio:16/9');
+    } else if (info) { el = document.createElement('p'); el.innerHTML = `<a href="${esc(info.url)}">${esc(name)}: ${esc(info.url)}</a>`; }
+    if (el) d.replaceWith(el); else d.remove();
+  }
+  for (const img of t.content.querySelectorAll('img')) { img.removeAttribute('data-asset'); img.removeAttribute('data-tags'); img.removeAttribute('data-shape'); }
+  for (const hr of t.content.querySelectorAll('hr[data-pov]')) hr.removeAttribute('data-pov');
+  return t;
+}
 async function manuscriptHTML(p, opt = {}){
   const labels = chapterLabels(), parts = [];
-  const H = {spotify:{Track:152, Episode:152}, soundcloud:166, bandcamp:120, apple:175};
   for (const c of manuscript()) {
-    const t = document.createElement('template'); t.innerHTML = sanitize(c.body || '');
-    for (const m of [...t.content.querySelectorAll('mark')]) m.replaceWith(...m.childNodes);
-    for (const d of [...t.content.querySelectorAll('.embed')]) {
-      const info = parseEmbed(d.getAttribute('data-url')), name = info ? (PROVIDERS[info.p] || PROVIDERS.link)[0] : 'Link';
-      let el;
-      if (info && info.src) {
-        el = document.createElement('iframe'); el.setAttribute('src', info.src); el.setAttribute('loading', 'lazy'); el.setAttribute('allowfullscreen', '');
-        el.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'); el.setAttribute('title', `${name} ${info.kind}`);
-        const hgt = info.p === 'spotify' ? (H.spotify[info.kind] || 352) : H[info.p];
-        el.setAttribute('style', hgt ? `height:${hgt}px` : 'aspect-ratio:16/9');
-      } else if (info) { el = document.createElement('p'); el.innerHTML = `<a href="${esc(info.url)}">${esc(name)}: ${esc(info.url)}</a>`; }
-      if (el) d.replaceWith(el); else d.remove();
-    }
+    const t = chapterDOM(c, true);
     for (const img of [...t.content.querySelectorAll('img')]) {
       const src = img.getAttribute('src') || '';
       if (src.startsWith('/_blob/')) { try { const r = await fetch(src); if (r.ok) img.setAttribute('src', await blobToDataURL(await r.blob())); } catch {} }
-      img.removeAttribute('data-asset'); img.removeAttribute('data-tags'); img.removeAttribute('data-shape');
-    }
-    for (const hr of [...t.content.querySelectorAll('hr[data-pov]')]) { hr.removeAttribute('data-pov');
     }
     const div = document.createElement('div'); div.appendChild(t.content);
     parts.push(`<section class="chapter"><p class="label">${esc(labels.get(c.id) || '')}</p><h2>${esc(c.title || '')}</h2>${div.innerHTML}</section>`);
@@ -3810,6 +3867,12 @@ async function imgReadable(f){
   if (!(window.URL && URL.createObjectURL)) return true;
   return new Promise(res => { const u = URL.createObjectURL(f), i = new Image(); i.onload = () => { URL.revokeObjectURL(u); res(true); }; i.onerror = () => { URL.revokeObjectURL(u); res(false); }; i.src = u; });
 }
+/* An image kept inside the notebook: large photos are scaled to 1600 px */
+async function imgDataHTML(f){
+  const keep = f.size < 400000 || (f.type === 'image/gif' && f.size < 2000000);
+  const small = keep ? f : ((await shrink(f, 1600, 0.85)) || f);
+  return `<img src="${await blobToDataURL(small)}" alt="">`;
+}
 async function insertImages(files, rte, range){
   const bodyEl = rte.querySelector('.rte-body');
   let first = true, added = 0;
@@ -3829,11 +3892,7 @@ async function insertImages(files, rte, range){
         catch (err) { if (err && err.code === 'store_unavailable') { await wait(800); r = await assets.upload(blob, {type: blob.type || f.type}); } else throw err; }
         html = `<img src="${esc(r.url)}" data-asset="${esc(r.id)}" alt="">`;
       } catch (err) { toast(assetErr(err)); continue; }
-    } else {
-      const keep = f.size < 400000 || (f.type === 'image/gif' && f.size < 2000000);
-      const small = keep ? f : ((await shrink(f, 1600, 0.85)) || f);
-      html = `<img src="${await blobToDataURL(small)}" alt="">`;
-    }
+    } else html = await imgDataHTML(f);
     if (first) { restoreRange(bodyEl, range); first = false; } else bodyEl.focus({preventScroll:true});
     exec('insertHTML', html);
     added++;
@@ -3886,7 +3945,7 @@ function cmtList(rte){
   ms.forEach(m => { if (m.title !== m.dataset.c) m.title = m.dataset.c || ''; });
   const ps = new Map(); for (const m of $$('.rte-body mark.ptag[data-pid]', rte)) { const p = ps.get(m.dataset.pid); const tl = imgTagList(m.dataset.t).join(', '); if (m.title !== tl) m.title = tl; if (p) p.text += ' ' + m.textContent; else ps.set(m.dataset.pid, {tags: tl, text: m.textContent}); }
   const sp = new Map(), sids = new Set();
-  for (const m of $$('.rte-body mark.spk[data-spk]', rte)) { const o = S.entries.get(m.dataset.spk), nm = o ? titleOf(o) : 'Unknown'; const tl = `Spoken by ${nm}`; if (m.title !== tl) m.title = tl; if (sids.has(m.dataset.sid)) continue; sids.add(m.dataset.sid); sp.set(nm, (sp.get(nm) || 0) + 1); }
+  for (const m of $$('.rte-body mark.spk[data-spk]', rte)) { const o = S.entries.get(m.dataset.spk), b = !o && S.bin.get(m.dataset.spk), nm = o ? titleOf(o) : b ? `${titleOf(b)} (in the bin)` : 'Unknown'; const tl = `Spoken by ${nm}`; if (m.title !== tl) m.title = tl; if (sids.has(m.dataset.sid)) continue; sids.add(m.dataset.sid); sp.set(nm, (sp.get(nm) || 0) + 1); }
   box.hidden = !ms.length && !ps.size && !sp.size;
   box.innerHTML = (ms.length ? `<p class="cmt-h">${plural(ms.length, 'comment')}</p>${ms.map((m, i) => `<button class="cmt-item" data-act="cmt-go" data-i="${i}"><span class="cmt-q">“${esc(m.textContent.trim().slice(0, 80))}”</span><span>${esc(m.dataset.c || '')}</span></button>`).join('')}` : '')
     + (ps.size ? `<p class="cmt-h${ms.length ? ' cmt-h2' : ''}">${plural(ps.size, 'tagged passage')}</p>${[...ps].map(([pid, p]) => `<button class="cmt-item pt-li" data-act="ptag-go" data-pid="${esc(pid)}"><span class="cmt-q">“${esc(p.text.replace(/\s+/g, ' ').trim().slice(0, 80))}”</span><span class="pt-li-t">${esc(p.tags)}</span></button>`).join('')}` : '')
@@ -4311,7 +4370,7 @@ async function zipFiles(files, type){
   const d = new Date(), time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1), date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
   for (const f of files) {
     const name = enc.encode(f.name), raw = typeof f.data === 'string' ? enc.encode(f.data) : f.data, crc = crc32(raw);
-    const z = await deflateRaw(raw), method = z && z.length < raw.length ? 8 : 0, body = method ? z : raw;
+    const z = f.store ? null : await deflateRaw(raw), method = z && z.length < raw.length ? 8 : 0, body = method ? z : raw;
     const h = new DataView(new ArrayBuffer(30));
     h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, method, true); h.setUint16(10, time, true); h.setUint16(12, date, true);
     h.setUint32(14, crc, true); h.setUint32(18, body.length, true); h.setUint32(22, raw.length, true); h.setUint16(26, name.length, true);
@@ -4513,11 +4572,71 @@ async function exportDocument(p){
     read: box => ({font: box.querySelector('#dc-font').value, size: box.querySelector('#dc-size').value, spacing: box.querySelector('#dc-spacing').value, para: box.querySelector('#dc-para').value, paper: box.querySelector('#dc-paper').value,
       byline: box.querySelector('#dc-byline').value.trim().slice(0, 120), titlePage: box.querySelector('#dc-title').checked, newPage: box.querySelector('#dc-newpage').checked, pageNums: box.querySelector('#dc-nums').checked, images: box.querySelector('#dc-img') ? box.querySelector('#dc-img').checked : d.images})});
   if (!r) return;
-  const o = r.form;
+  const o = {...(p.docOpt && typeof p.docOpt === 'object' ? p.docOpt : {}), ...r.form};
   if (JSON.stringify(o) !== JSON.stringify(p.docOpt || null)) { p.docOpt = o; touch(p); }
   toast('Preparing the Word document…');
   try { offer(`${slug(p.title)}.docx`, await documentDocx(p, {...o, lang: document.documentElement.lang || 'en-US'})); }
   catch { toast('The Word document couldn’t be created. Try again, or export as a web page instead.'); }
+}
+/* ---------- E-book (EPUB 3, with an EPUB 2 table of contents for older readers) ---------- */
+async function epubFile(p, o){
+  const chs = manuscript(), labels = chapterLabels(), media = await docxMedia(chs, o.images), files = [], items = [], spine = [];
+  const XH = (title, body, cls) => `${XML_HEAD}<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="${xe(o.lang)}" lang="${xe(o.lang)}"><head><title>${xe(title)}</title><link rel="stylesheet" type="text/css" href="style.css"/></head><body${cls ? ` class="${cls}"` : ''}>${body}</body></html>`;
+  const add = (id, href, type, data, extra = '') => { files.push({name: 'OEBPS/' + href, data}); items.push(`<item id="${id}" href="${href}" media-type="${type}"${extra}/>`); };
+  const page = (id, title, body, cls) => { add(id, id + '.xhtml', 'application/xhtml+xml', XH(title, body, cls)); spine.push(id); };
+  const by = o.byline ? xe(o.byline) : '', title = p.title || 'Untitled story';
+  if (o.cover) {
+    const c = document.createElement('canvas'); c.width = 1600; c.height = 2560; const g = c.getContext('2d');
+    g.fillStyle = '#1C2129'; g.fillRect(0, 0, 1600, 2560); g.fillStyle = '#A4313D'; g.fillRect(160, 760, 120, 12);
+    g.fillStyle = '#FAFBF8'; g.textBaseline = 'top';
+    let size = 150, lines; do { g.font = `italic ${size}px Georgia, serif`; lines = wrapText(g, title, 1280); size -= 10; } while (lines.length * size > 900 && size > 60);
+    lines.forEach((l, i) => g.fillText(l, 160, 820 + i * (size + 34)));
+    if (o.byline) { g.font = '64px Georgia, serif'; g.fillStyle = '#C9CCD2'; g.fillText(o.byline.slice(0, 60), 160, 2280); }
+    const blob = await new Promise(r => { c.toBlob(r, 'image/jpeg', 0.9); });
+    if (blob) { add('cover-image', 'cover.jpg', 'image/jpeg', new Uint8Array(await blob.arrayBuffer()), ' properties="cover-image"'); page('cover', 'Cover', `<div class="cover"><img src="cover.jpg" alt="${xe(title)}"/></div>`, 'cover'); }
+  }
+  if (o.titlePage) page('titlepage', title, `<div class="tp"><h1>${xe(title)}</h1>${p.logline ? `<p class="logline">${xe(p.logline)}</p>` : ''}${by ? `<p class="by">${by}</p>` : ''}</div>`);
+  for (const m of media.values()) add('img' + m.n, 'images/' + m.file, 'image/' + m.ext, m.data);
+  const toc = [], ser = new XMLSerializer();
+  chs.forEach((c, i) => {
+    const t = chapterDOM(c, false), id = 'c' + String(i + 1).padStart(3, '0'), lab = labels.get(c.id) || '';
+    for (const img of [...t.content.querySelectorAll('img')]) { const m = media.get(img.getAttribute('src') || ''); if (m) { img.setAttribute('src', 'images/' + m.file); img.setAttribute('alt', img.getAttribute('alt') || ''); } else img.remove(); }
+    for (const hr of [...t.content.querySelectorAll('hr:not(.line)')]) { const s = document.createElement('p'); s.className = 'sb'; s.textContent = '⁂'; hr.replaceWith(s); }
+    for (const n of t.content.querySelectorAll('[data-align]')) { n.className = 'a-' + n.getAttribute('data-align'); n.removeAttribute('data-align'); }
+    for (const n of t.content.querySelectorAll('[data-font]')) n.removeAttribute('data-font');
+    const div = document.createElement('div'); div.appendChild(t.content);
+    const name = [lab, c.title].filter(Boolean).join(': ') || 'Chapter';
+    page(id, name, `<section epub:type="chapter">${lab ? `<p class="label">${xe(lab)}</p>` : ''}${c.title ? `<h2>${xe(c.title)}</h2>` : ''}${ser.serializeToString(div).replace(/^<div xmlns="http:\/\/www\.w3\.org\/1999\/xhtml">|<\/div>$/g, '')}</section>`);
+    toc.push([id, name]);
+  });
+  const uid = 'urn:quire:' + p.id, now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+  add('nav', 'nav.xhtml', 'application/xhtml+xml', XH('Contents', `<nav epub:type="toc" id="toc"><h1>Contents</h1><ol>${toc.map(([id, n]) => `<li><a href="${id}.xhtml">${xe(n)}</a></li>`).join('')}</ol></nav>`), ' properties="nav"');
+  add('ncx', 'toc.ncx', 'application/x-dtbncx+xml', `${XML_HEAD}<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1"><head><meta name="dtb:uid" content="${xe(uid)}"/></head><docTitle><text>${xe(title)}</text></docTitle><navMap>${toc.map(([id, n], i) => `<navPoint id="np${i + 1}" playOrder="${i + 1}"><navLabel><text>${xe(n)}</text></navLabel><content src="${id}.xhtml"/></navPoint>`).join('')}</navMap></ncx>`);
+  add('css', 'style.css', 'text/css', `body{font-family:serif;line-height:1.5;margin:0 4%}p{margin:0 0 .8em}${o.para === 'indent' ? 'section p{margin:0;text-indent:1.5em}section p.label,section h2+p,section .sb+p,section p:first-child,section :is(h3,hr,blockquote,ul,ol,img)+p,section p.a-center,section p.a-right{text-indent:0}' : ''}h1,h2{font-weight:normal;font-style:italic;line-height:1.2}h2{margin:0 0 1.2em}.label{margin:3em 0 .3em;font-size:.8em;letter-spacing:.12em;text-transform:uppercase}.sb{text-align:center;margin:1em 0;text-indent:0}hr.line{border:0;border-top:1px solid;margin:1.5em 20%}blockquote{margin:0 0 .8em 1.5em;font-style:italic}img{max-width:100%;height:auto}.a-center{text-align:center}.a-right{text-align:right}.a-justify{text-align:justify}.tp{text-align:center;margin-top:30%}.tp h1{font-size:2em}.logline{font-style:italic}.by{margin-top:2em}.cover{text-align:center;margin:0}body.cover{margin:0}.cover img{max-height:100%}`);
+  const opf = `${XML_HEAD}<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="${xe(o.lang)}"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:identifier id="uid">${xe(uid)}</dc:identifier><dc:title>${xe(title)}</dc:title>${by ? `<dc:creator>${by}</dc:creator>` : ''}<dc:language>${xe(o.lang)}</dc:language><meta property="dcterms:modified">${now}</meta>${o.cover ? '<meta name="cover" content="cover-image"/>' : ''}</metadata><manifest>${items.join('')}</manifest><spine toc="ncx">${spine.map(id => `<itemref idref="${id}"/>`).join('')}</spine></package>`;
+  return zipFiles([{name: 'mimetype', data: 'application/epub+zip', store: true}, {name: 'META-INF/container.xml', data: `${XML_HEAD}<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>`}, {name: 'OEBPS/content.opf', data: opf}, ...files], 'application/epub+zip');
+}
+function wrapText(g, text, w){
+  const lines = []; let cur = '';
+  for (const word of String(text).split(/\s+/).filter(Boolean)) { const t = cur ? cur + ' ' + word : word; if (g.measureText(t).width > w && cur) { lines.push(cur); cur = word; } else cur = t; }
+  if (cur) lines.push(cur); return lines.slice(0, 8);
+}
+async function exportEpub(p){
+  if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
+  const hasImg = manuscript().some(c => /<img\b/.test(c.body || ''));
+  const d = Object.assign({para: S.indent ? 'indent' : 'gap', titlePage: true, cover: true, images: true, byline: p.msByline || p.msName || ''}, p.docOpt && typeof p.docOpt === 'object' ? p.docOpt : {});
+  const chk = (id, on, lab) => `<label class="check"><input type="checkbox" id="${id}"${on ? ' checked' : ''}> ${lab}</label>`;
+  const r = await askChoice({title: 'E-book (EPUB)', html: `<p class="dlg-note">For e-readers and reading apps: Apple Books, Kobo, Google Play Books, and Kindle through Send to Kindle. Readers choose their own typeface and size, so the book carries your text, chapters, scene breaks and images.</p>
+    <div class="dlg-row"><label class="dlg-f"><span>Byline <i>(optional)</i></span><input id="dc-byline" value="${esc(d.byline)}" placeholder="Your name or pen name"></label><label class="dlg-f"><span>Paragraphs</span><select id="dc-para"><option value="indent"${d.para === 'indent' ? ' selected' : ''}>Indented, like a book</option><option value="gap"${d.para !== 'indent' ? ' selected' : ''}>Space between</option></select></label></div>
+    <div class="dc-checks">${chk('dc-cover', d.cover, 'Cover with the title')}${chk('dc-title', d.titlePage, 'Title page')}${hasImg ? chk('dc-img', d.images, 'Include images') : ''}</div>`,
+    choices: [{label: 'Create e-book', value: 'go', primary: true}, {label: 'Cancel', value: null}],
+    read: box => ({byline: box.querySelector('#dc-byline').value.trim().slice(0, 120), para: box.querySelector('#dc-para').value, cover: box.querySelector('#dc-cover').checked, titlePage: box.querySelector('#dc-title').checked, images: box.querySelector('#dc-img') ? box.querySelector('#dc-img').checked : d.images})});
+  if (!r) return;
+  const o = {...(p.docOpt && typeof p.docOpt === 'object' ? p.docOpt : {}), ...r.form};
+  if (JSON.stringify(o) !== JSON.stringify(p.docOpt || null)) { p.docOpt = o; touch(p); }
+  toast('Preparing the e-book…');
+  try { offer(`${slug(p.title)}.epub`, await epubFile(p, {...o, lang: document.documentElement.lang || 'en'})); }
+  catch { toast('The e-book couldn’t be created. Try again, or export as a Word document instead.'); }
 }
 async function exportDocx(p){
   if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
@@ -4689,12 +4808,27 @@ async function dropFile(f){
   const name = (f.name || '').toLowerCase();
   if (/\.json$/.test(name) || f.type === 'application/json') return restore(f);
   if (/\.html?$/.test(name)) { toast('To open another Quire notebook, open that HTML file in your browser. To bring its stories in here, back them up there and drop the backup here.'); return; }
-  if (!(/\.(txt|md|markdown|text)$/.test(name) || /^text\/(plain|markdown)/.test(f.type))) return false;
-  if (f.size > 20e6) { toast('That file is too large to import.'); return; }
-  let text; try { text = await f.text(); } catch { toast('That file couldn’t be read.'); return; }
+  if (!(/\.(txt|md|markdown|text|docx|doc|odt|rtf|pages)$/.test(name) || /^text\/(plain|markdown)/.test(f.type) || f.type === DOCX_TYPE)) return false;
+  if (await impLoad(f)) toast(`Loaded “${f.name}”. Check the chapters it found, then import them.`);
+}
+const DOCX_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+async function impLoad(f){
+  const name = (f.name || '').toLowerCase(), docx = /\.docx$/.test(name) || f.type === DOCX_TYPE;
+  const other = (name.match(/\.(doc|odt|rtf|pages)$/) || [])[1];
+  if (other) { toast(other === 'doc' ? 'Quire reads Word files in the newer .docx format. In Word, use File → Save As → Word Document (.docx), then import that.' : `Quire can’t read .${other} files. Save it as a Word document (.docx) or plain text (.txt) first, then import that.`); return false; }
+  if (f.size > (docx ? 60e6 : 20e6)) { toast('That file is too large to import.'); return false; }
+  let imp;
+  if (docx) {
+    if (typeof DecompressionStream !== 'function') { toast('This browser can’t unpack Word files. Try a current Firefox, Chrome, Edge or Safari, or save the document as plain text.'); return false; }
+    toast(`Reading “${f.name}”…`);
+    try { imp = {text: '', name: f.name, ...(await readDocx(f))}; }
+    catch (e) { toast(e && e.code === 'big' ? 'That Word file unpacks to far more than a book would, so Quire won’t open it.' : 'That file couldn’t be read as a Word document. It may be damaged, or saved in another format.'); return false; }
+    if (imp.chs.length === 1 && !imp.chs[0].title && imp.chs[0].unit === 'Chapter') imp.chs[0].title = f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
+  } else { try { imp = {text: await f.text(), name: f.name}; } catch { toast('That file couldn’t be read.'); return false; } }
   if (!project()) newStory(f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim());
-  S.imp = {text, name: f.name}; showPanel('import');
-  toast(`Loaded “${f.name}”. Check the chapters it found, then import them.`);
+  S.imp = imp;
+  if (S.panel !== 'import' || S.openId) showPanel('import'); else renderDesk();
+  return true;
 }
 
 
@@ -5195,7 +5329,7 @@ async function wwEdit(){
 }
 
 /* ---------- help and info ---------- */
-const QUIRE_VERSION = '1.2', QUIRE_DATE = '2026-10-27';
+const QUIRE_VERSION = '1.3', QUIRE_DATE = '2026-10-28';
 function helpFacts(){
   const all = [...S.entries.values()], count = k => all.filter(e => e.kind === k).length;
   const where = S.mode === 'db' ? 'Your private storage in Claude, saved automatically as you type'
@@ -5266,10 +5400,10 @@ function helpHTML(){
       <tr><td><b>Suits</b></td><td>Wide screens and many entries.</td><td>Phones, narrow windows, more room for the page.</td></tr>
     </tbody></table>
     <ul>
-      <li><b>The title bar</b> holds the story picker (at the top of the sidebar on wide screens), the Story menu (new, duplicate, delete, find and replace, import chapters), Overview, Stats, Sprint, Save file and Options.</li>
+      <li><b>The title bar</b> holds the story picker (at the top of the sidebar on wide screens), the Story menu (new, duplicate, delete, the bin, find and replace, import chapters), Overview, Stats, Sprint, Save file and Options.</li>
       <li><b>Tags</b> on an entry are links that search the story for that tag.</li>
       <li><b>Order:</b> each list has an order switch (chapters 1–9, characters and places A–Z, notes Recent). Choose Custom, then drag the ⋮⋮ handles, or click one and use ↑ ↓. Undo appears after each move.</li>
-      <li><b>Dropping files:</b> a .txt or .md manuscript imports its chapters, a backup (.json) restores it, and images go into any text or onto a portrait.</li>
+      <li><b>Dropping files:</b> a Word (.docx), .txt or .md manuscript imports its chapters, a backup (.json) restores it, and images go into any text or onto a portrait.</li>
       <li><b>On phones</b> the toolbar becomes one line that scrolls sideways, and with the sidebar the list and the page take turns on screen.</li>
     </ul>
 
@@ -5282,12 +5416,13 @@ function helpHTML(){
     <table class="help-cmp"><thead><tr><th>Action</th><th>What you get</th><th>Use it to</th></tr></thead><tbody>
       <tr><td><b>Save file</b><br><span class="muted">title bar, Ctrl+S</span></td><td>This HTML file with everything in it.</td><td>Keep your work. Open the file again to carry on.</td></tr>
       <tr><td><b>Back up</b><br><span class="muted">Options → Backup</span></td><td>A <code>.json</code> file of one story or all, with images and history.</td><td>Keep extra copies elsewhere, or move stories into another Quire with Restore.</td></tr>
-      <tr><td><b>Export</b><br><span class="muted">Options → Export</span></td><td>The manuscript as a Word manuscript or a Word document, a web page, Markdown or text; sheets and notes as Markdown; print or PDF.</td><td>Read, share or submit. Quire can’t read exports back in.</td></tr>
+      <tr><td><b>Export</b><br><span class="muted">Options → Export</span></td><td>The manuscript as a Word manuscript, a Word document, an e-book (EPUB), a web page, Markdown or text; sheets and notes as Markdown; print or PDF.</td><td>Read, share or submit. Quire can’t read exports back in.</td></tr>
       <tr><td><b>Share on AO3</b><br><span class="muted">under a chapter, after Options → Export → AO3 sharing</span></td><td>The chapter as AO3-ready HTML on the clipboard, and the right AO3 page in a new tab: new work, new chapter, or this chapter’s edit page once you’ve pasted its link.</td><td>Post or update on AO3 by pasting. Quire never connects to AO3 and marks chapters changed since their last copy as “AO3 behind”.</td></tr>
-      <tr><td><b>Import chapters</b><br><span class="muted">Story ▾</span></td><td>New chapters from a .txt or .md file.</td><td>Bring writing in. It only adds chapters.</td></tr>
+      <tr><td><b>Import chapters</b><br><span class="muted">Story ▾</span></td><td>New chapters from a Word document (.docx), a .txt or .md file, or pasted text.</td><td>Bring writing in. It only adds chapters.</td></tr>
     </tbody></table>
     <ul>
-      <li><b>Restoring</b> a backup asks before touching entries that already exist, and by default keeps whichever version is newer.</li>
+      <li><b>Restoring</b> a backup asks before touching entries that already exist, and by default keeps whichever version is newer. An entry restored from a backup leaves the bin.</li>
+      <li><b>The bin</b> (Story ▾ → Bin): deleted chapters, sheets, notes, story arcs and whole stories wait here for 30 days, then they’re deleted for good. Right after deleting, Undo on the message brings it straight back. Restoring from the bin brings back an entry as it was, with its places in viewpoints, casts, arcs, links and speaker marks. Binned entries stay in the notebook${S.mode === 'file' ? ' and the saved file' : ''} (encrypted along with it, if you use encryption) but are left out of backups, exports and search. To get rid of something now, use Delete for good, or Empty the bin.</li>
       <li><b>Encrypted backups</b> (Options → Backup → Encrypt backups): each backup asks for a password and is saved as <code>…-encrypted.json</code>. Restoring asks for the same password.</li>
       <li><b>Encrypting the file</b> (Options → Backup → Encrypt this file, in a downloaded Quire): from the next Save file on, the notebook inside the HTML file is encrypted. Opening the file shows a lock screen first. Change the file’s password… sets a new one; copies saved before keep the old one.</li>
       <li><b>Choosing a password:</b> a meter rates it as you type and estimates how long guessing it would take. Several unrelated words make a strong, memorable password; names from your story, years and common passwords make a weak one. Very weak passwords aren’t accepted.</li>
@@ -5320,7 +5455,7 @@ function helpHTML(){
     <ul>
       <li><b>Focus mode</b> (above the text) hides the ${S.nav === 'tabs' ? 'tabs and title bar' : 'sidebar'}. With Intense focus (Options → Display) only the text, its toolbar and the buttons above it remain. On larger screens a full screen button there hides the browser’s own bars too. Esc leaves.</li>
       <li><b>Picking up where you left off:</b> Quire reopens the chapter or entry you last had open, at the spot where you stopped; on a computer the cursor is back there too. Each chapter remembers its place in this browser.</li>
-      <li><b>At the bottom of the text:</b> selected text shows its word count. With the progress bar on (Options → Display), a slim bar stays at the bottom of the screen during a sprint or when the chapter has a word target.</li>
+      <li><b>At the bottom of the text:</b> selected text shows its word count. With the progress bar on (Options → Display), a slim bar stays at the bottom of the screen during a sprint, when the chapter has a word target, or, when the story has a deadline, for today’s share of it.</li>
       <li><b>Sprints</b> time your writing and count the words you add. Options → Display can show a running sprint, and a word count, just above the text; in focus mode a Sprint button appears there.</li>
       <li><b>Drafts</b> try out changes in a copy of a chapter. The main text, stats and exports are untouched until you merge. Merging shows each change in green and red to accept or reject; edits made to the main text meanwhile are kept, and where both changed the same passage you choose. Each draft has its own history, and a merge can be undone.</li>
       <li><b>Version history</b> replays how a chapter was written. Name a version (“Sent to beta readers”) to mark it; named versions are never thinned out.</li>
@@ -5330,6 +5465,10 @@ function helpHTML(){
       <li><b>Story arcs:</b> drag a beat on the curve, sideways through the story and up or down for tension, or click it and use the arrow keys.</li>
       <li><b>Word manuscript</b> (Options → Export) uses standard manuscript format, for submissions: 12-point type, double spacing, a title page with word count, each chapter on a new page and a running header. Check the file once in your word processor before sending.</li>
       <li><b>Word document</b> (Options → Export) is the story as a reader would see it: your formatting, scene breaks and images, with real Word headings so Word’s navigation pane lists the chapters. Choose the typeface, size, line spacing, indented paragraphs or space between them, a title page, page numbers and whether each chapter starts a new page. Your choices are remembered for the story.</li>
+      <li><b>E-book</b> (Options → Export) makes an EPUB for e-readers and reading apps: Apple Books, Kobo, Google Play Books, and Kindle through Send to Kindle. It holds your chapters with a table of contents, scene breaks, images, and optionally a title page and a simple cover with the title and byline. Readers pick their own typeface and size. Embedded videos and music become links.</li>
+      <li><b>Importing from Word</b> (Story ▾ → Import chapters): a new chapter starts at each heading (Heading 1, or whichever level the chapters use, in any language of Word) or at lines like “Chapter 3” and “Prologue”. Parts above chapters become part openers. Italics, bold, underlining, centred lines, lists, links, images and scene breaks come along; Word comments become Quire comments; tracked changes are taken as accepted; footnotes go at the end of their chapter. Older .doc files need saving as .docx first.</li>
+      <li><b>Deadline:</b> on the story overview, add a date beside the target length. Quire works out how many words a day finish the story in time, counting today, shows today’s progress toward that share, and says where your pace over the last week would land. Stats repeats it under Writing pace.</li>
+      <li><b>Chapter cards</b> (the Chapters page) show each chapter’s viewpoint, places and story arc beats under its synopsis. Full synopses shows the whole synopsis instead of the first lines.</li>
       <li><b>The toolbar</b> groups style, headings, quotation (smart and fixed quotes), lists, alignment (one button with a menu) and paragraph indent, links and media, then search, Prose checker, comment, tag passage, who says this (in chapters) and split. <b>Splitting</b> a chapter asks first; Merge with next undoes it.</li>
       <li><b>Options → Text:</b> Google Fonts, Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, coloured chips, themes (including your own) and widths.</li>
       <li><b>Tags</b> has its own page with the tag cloud, image tags, tags used together, rare and missing tags, and renaming a tag everywhere.</li>
@@ -5366,7 +5505,7 @@ function helpHTML(){
     <h3 id="help-built">How it’s built</h3>
     <ul>
       <li><b>Made with the help of Claude</b>, Anthropic’s AI assistant.</li>
-      <li><b>One file</b> of about 650 KB: page, styles and program, with no frameworks, libraries or build step.</li>
+      <li><b>One file</b> of about 770 KB: page, styles and program, with no frameworks, libraries or build step.</li>
       <li><b>Data</b> are plain JSON entries in a <code>&lt;script type="application/json"&gt;</code> block inside the file (format version 2; older notebooks upgrade on opening). Browser storage uses IndexedDB, then local storage, then memory.</li>
       <li><b>The editor</b> is the browser’s own rich-text editing. Everything pasted or loaded passes a strict filter that keeps only basic formatting, links, images and media links.</li>
       <li><b>Encryption</b> uses the browser’s own Web Crypto: AES-256-GCM with a key derived from the password by PBKDF2-SHA-256 with 600,000 rounds and a random salt, and a fresh random IV for every save. The settings are authenticated with the data, so a changed or damaged file is refused rather than misread.</li>
@@ -5656,6 +5795,189 @@ function importBody(lines, md){
   while (out[0] === '<hr>') out.shift(); while (out[out.length - 1] === '<hr>') out.pop();
   return out.join('');
 }
+/* ---------- Word import (.docx): a ZIP reader and a converter from Word's XML to Quire's HTML ---------- */
+async function inflateRaw(u8, max){
+  const rd = new Blob([u8]).stream().pipeThrough(new DecompressionStream('deflate-raw')).getReader(), parts = []; let n = 0;
+  for (;;) { const {done, value} = await rd.read(); if (done) break; n += value.length; if (n > max) { rd.cancel().catch(() => {}); throw {code:'big'}; } parts.push(value); }
+  const out = new Uint8Array(n); let o = 0; for (const x of parts) { out.set(x, o); o += x.length; } return out;
+}
+/* Reads the central directory, so sizes are known up front; whatever a file claims, nothing unpacks past its stated size or 200 MB in all. */
+async function unzip(buf, want){
+  const u8 = new Uint8Array(buf), dv = new DataView(buf), dec = new TextDecoder(), out = new Map();
+  let eo = -1; for (let i = u8.length - 22; i >= Math.max(0, u8.length - 65557); i--) if (dv.getUint32(i, true) === 0x06054b50) { eo = i; break; }
+  if (eo < 0) throw {code:'zip'};
+  let p = dv.getUint32(eo + 16, true), total = 0;
+  for (let k = dv.getUint16(eo + 10, true); k > 0; k--) {
+    if (p + 46 > u8.length || dv.getUint32(p, true) !== 0x02014b50) throw {code:'zip'};
+    const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true), size = dv.getUint32(p + 24, true), nl = dv.getUint16(p + 28, true), lo = dv.getUint32(p + 42, true);
+    const name = dec.decode(u8.subarray(p + 46, p + 46 + nl)); p += 46 + nl + dv.getUint16(p + 30, true) + dv.getUint16(p + 32, true);
+    if (!want(name)) continue;
+    if (size > 60e6 || (total += size) > 200e6) throw {code:'big'};
+    if (lo + 30 > u8.length || dv.getUint32(lo, true) !== 0x04034b50) throw {code:'zip'};
+    const ds = lo + 30 + dv.getUint16(lo + 26, true) + dv.getUint16(lo + 28, true), raw = u8.subarray(ds, ds + csize);
+    if (method === 0) out.set(name, raw.slice(0, size));
+    else if (method === 8) { try { out.set(name, await inflateRaw(raw, size)); } catch (e) { throw e && e.code ? e : {code:'zip'}; } }
+    else throw {code:'zip'};
+  }
+  return out;
+}
+const DOCX_IMG = {png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', gif:'image/gif', webp:'image/webp'};
+/* Word to chapters. Chapters start at headings (the level used most like chapters) or at paragraphs like “Chapter 3”.
+   Italics and bold come from the text, its character style or its paragraph style; tracked changes count as accepted;
+   comments become Quire comments; footnotes go under their chapter; images go through the same checks as added ones. */
+async function readDocx(file){
+  const files = await unzip(await file.arrayBuffer(), n => /^word\/(document|styles|numbering|footnotes|endnotes|comments)\.xml$|^word\/_rels\/document\.xml\.rels$|^word\/media\/[^/]+$/.test(n));
+  const parse = n => { if (!files.has(n)) return null; const d = new DOMParser().parseFromString(new TextDecoder().decode(files.get(n)), 'application/xml'); return d.getElementsByTagName('parsererror').length ? null : d; };
+  const doc = parse('word/document.xml'); if (!doc) throw {code:'docx'};
+  const kids = (el, ln) => el ? [...el.children].filter(c => !ln || c.localName === ln) : [];
+  const kid = (el, ln) => kids(el, ln)[0] || null;
+  const att = (el, ln) => { if (!el) return null; for (const a of el.attributes) if (a.localName === ln) return a.value; return null; };
+  const on = el => !!el && !/^(0|false|off|none)$/i.test(att(el, 'val') || '');
+  const rels = new Map(); { const d = parse('word/_rels/document.xml.rels'); if (d) for (const r of d.getElementsByTagName('*')) if (r.localName === 'Relationship') rels.set(r.getAttribute('Id'), r.getAttribute('Target') || ''); }
+  /* styles, with what each passes on through basedOn */
+  const styles = new Map(); { const d = parse('word/styles.xml'); if (d) for (const st of d.getElementsByTagName('*')) if (st.localName === 'style') styles.set(att(st, 'styleId'), st); }
+  const sCache = new Map();
+  const style = id => {
+    if (!id || !styles.has(id)) return {};
+    if (sCache.has(id)) return sCache.get(id);
+    sCache.set(id, {});
+    const st = styles.get(id), base = style(att(kid(st, 'basedOn'), 'val')), r = {...base};
+    const name = (att(kid(st, 'name'), 'val') || '').toLowerCase(), rp = kid(st, 'rPr'), pp = kid(st, 'pPr');
+    for (const [k, ln] of [['i', 'i'], ['b', 'b'], ['s', 'strike']]) { const x = kid(rp, ln); if (x) r[k] = on(x); }
+    { const x = kid(rp, 'u'); if (x) r.u = on(x); }
+    const ol = kid(pp, 'outlineLvl'); if (ol && +att(ol, 'val') < 9) r.lvl = +att(ol, 'val') + 1;
+    let m; if ((m = name.match(/^heading\s*(\d)$/))) r.lvl = +m[1]; else if (/^(title|subtitle)$/.test(name)) r.lvl = 0;
+    if (/quote/.test(name)) r.quote = true; if (/^toc\b|^table of contents/.test(name)) r.toc = true;
+    { const np = kid(pp, 'numPr'); if (np) r.num = att(kid(np, 'numId'), 'val'); }
+    sCache.set(id, r); return r;
+  };
+  /* numbering: bullets versus numbers */
+  const listKind = new Map(); { const d = parse('word/numbering.xml'); if (d) {
+    const abs = new Map(); for (const a of d.getElementsByTagName('*')) if (a.localName === 'abstractNum') { const l0 = kids(a, 'lvl').find(l => att(l, 'ilvl') === '0') || kid(a, 'lvl'); abs.set(att(a, 'abstractNumId'), att(kid(l0, 'numFmt'), 'val') === 'bullet' ? 'ul' : 'ol'); }
+    for (const n of d.getElementsByTagName('*')) if (n.localName === 'num') listKind.set(att(n, 'numId'), abs.get(att(kid(n, 'abstractNumId'), 'val')) || 'ul');
+  } }
+  const textOfEl = el => { let t = ''; for (const n of el.getElementsByTagName('*')) if (n.localName === 't') t += n.textContent; else if (n.localName === 'p' && t) t += '\n'; return t.trim(); };
+  const comments = new Map(); { const d = parse('word/comments.xml'); if (d) for (const c of d.getElementsByTagName('*')) if (c.localName === 'comment') { const a = (att(c, 'author') || '').trim(), t = textOfEl(c); if (t) comments.set(att(c, 'id'), (a ? a + ': ' : '') + t); } }
+  const notes = {footnote: new Map(), endnote: new Map()};
+  for (const k of ['footnote', 'endnote']) { const d = parse(`word/${k}s.xml`); if (d) for (const f of d.getElementsByTagName('*')) if (f.localName === k && !/separator|continuation/i.test(att(f, 'type') || '')) notes[k].set(att(f, 'id'), textOfEl(f)); }
+  const info = {images: 0, skipped: 0, comments: 0, notes: 0, tracked: 0}, media = new Map(), usedC = new Set();
+  let openC = [];
+  const image = async rid => {
+    const tg = (rels.get(rid) || '').replace(/^\/?word\//, '').replace(/^\.\//, ''), path = 'word/' + tg, ext = (tg.split('.').pop() || '').toLowerCase();
+    if (media.has(path)) return media.get(path);
+    let html = '';
+    if (files.has(path) && DOCX_IMG[ext]) {
+      const f = new Blob([files.get(path)], {type: DOCX_IMG[ext]});
+      if (await imgReadable(f)) { html = await imgDataHTML(f); info.images++; } else info.skipped++;
+    } else info.skipped++;
+    media.set(path, html); return html;
+  };
+  /* one paragraph's runs, as segments that know which comment covers them */
+  let noteN = 0, chNotes = [];
+  const runs = async (el, ps, ctx, out) => {
+    for (const n of el.children) {
+      const ln = n.localName;
+      if (ln === 'r') {
+        const rp = kid(n, 'rPr'), cs = style(att(kid(rp, 'rStyle'), 'val'));
+        const f = {};
+        for (const [k, l] of [['i', 'i'], ['b', 'b'], ['s', 'strike']]) { const x = kid(rp, l); f[k] = x ? on(x) : cs[k] !== undefined ? cs[k] : !!ps[k]; }
+        { const x = kid(rp, 'u'); f.u = x ? on(x) : cs.u !== undefined ? cs.u : !!ps.u; }
+        if (kid(rp, 'vanish')) continue;
+        for (const c of n.children) {
+          const cl = c.localName; let h = '';
+          if (cl === 't') h = esc(c.textContent);
+          else if (cl === 'tab') h = ' ';
+          else if (cl === 'br' || cl === 'cr') { if (att(c, 'type') !== 'page' && att(c, 'type') !== 'column') h = '<br>'; }
+          else if (cl === 'noBreakHyphen') h = '‑';
+          else if (cl === 'drawing' || cl === 'pict' || cl === 'AlternateContent' || cl === 'object') {
+            const bl = [...c.getElementsByTagName('*')].find(x => x.localName === 'blip' || x.localName === 'imagedata');
+            const rid = bl && (att(bl, 'embed') || att(bl, 'id')); if (rid) h = await image(rid);
+          } else if (cl === 'footnoteReference' || cl === 'endnoteReference') {
+            const t = notes[cl === 'footnoteReference' ? 'footnote' : 'endnote'].get(att(c, 'id'));
+            if (t) { noteN++; info.notes++; chNotes.push(`[${noteN}] ${t}`); h = `[${noteN}]`; }
+          } else if (cl === 'commentReference') { const id = att(c, 'id'); if (comments.has(id)) ctx.refs.push(id); }
+          if (!h) continue;
+          if (h !== '<br>' && !h.startsWith('<img')) { if (f.s) h = `<s>${h}</s>`; if (f.u) h = `<u>${h}</u>`; if (f.i) h = `<i>${h}</i>`; if (f.b) h = `<b>${h}</b>`; }
+          out.push({h, c: ctx.open.size ? [...ctx.open].pop() : null});
+        }
+      } else if (ln === 'commentRangeStart') { const id = att(n, 'id'); if (comments.has(id)) ctx.open.add(id); }
+      else if (ln === 'commentRangeEnd') ctx.open.delete(att(n, 'id'));
+      else if (ln === 'del' || ln === 'moveFrom') info.tracked++;
+      else if (ln === 'hyperlink') {
+        const url = rels.get(att(n, 'id')) || '', sub = []; await runs(n, ps, ctx, sub);
+        if (/^(https?:|mailto:)/i.test(url)) { const inner = sub.map(x => x.h).join(''); if (inner) out.push({h: `<a href="${esc(url)}">${inner}</a>`, c: sub.length ? sub[0].c : null}); }
+        else out.push(...sub);
+      } else if (['ins', 'moveTo', 'smartTag', 'sdt', 'sdtContent', 'customXml', 'fldSimple', 'dir', 'bdo'].includes(ln)) { if (ln === 'ins' || ln === 'moveTo') info.tracked++; await runs(n, ps, ctx, out); }
+    }
+  };
+  /* paragraphs and tables to blocks */
+  const blocks = [];
+  const walk = async parent => {
+    for (const el of parent.children) {
+      const ln = el.localName;
+      if (ln === 'tbl') { for (const tr of kids(el, 'tr')) for (const tc of kids(tr, 'tc')) await walk(tc); continue; }
+      if (['sdt', 'sdtContent', 'customXml', 'ins', 'moveTo'].includes(ln)) { await walk(el); continue; }
+      if (ln !== 'p') continue;
+      const pp = kid(el, 'pPr'), ps = style(att(kid(pp, 'pStyle'), 'val'));
+      if (ps.toc) continue;
+      let lvl = ps.lvl; { const ol = kid(pp, 'outlineLvl'); if (ol && +att(ol, 'val') < 9) lvl = +att(ol, 'val') + 1; }
+      const np = kid(pp, 'numPr'), numId = np ? att(kid(np, 'numId'), 'val') : ps.num, jc = att(kid(pp, 'jc'), 'val') || '';
+      const ctx = {open: new Set(openC), refs: []}, segs = []; await runs(el, lvl !== undefined || ps.quote ? {...ps, i: false, b: false} : ps, ctx, segs); openC = [...ctx.open];
+      for (const id of segs.map(x => x.c).filter(Boolean)) usedC.add(id);
+      /* a comment on a point rather than a stretch of text marks the last words before it */
+      for (const id of ctx.refs) if (!usedC.has(id)) { const k = segs.findLastIndex(x => !x.c && !/^<(br|img)/.test(x.h)); if (k >= 0) { segs[k].c = id; usedC.add(id); } }
+      let h = ''; for (let i = 0; i < segs.length;) { const c = segs[i].c; let j = i, s = ''; while (j < segs.length && segs[j].c === c) s += segs[j++].h; h += c ? `<mark data-c="${esc(comments.get(c))}">${s}</mark>` : s; i = j; }
+      const text = htmlText(h).replace(/\s+/g, ' ').trim();
+      if (!text && !h.includes('<img')) continue;
+      blocks.push({h: h.replace(/^(\s|<br>)+|(\s|<br>)+$/g, ''), text, lvl: text ? lvl : undefined, quote: ps.quote, list: numId && numId !== '0' ? listKind.get(numId) || 'ul' : '', align: /^(center|right|end)$/.test(jc) ? (jc === 'end' ? 'right' : jc) : '', notes: chNotes.splice(0)});
+    }
+  };
+  const bodyEl = [...doc.getElementsByTagName('*')].find(x => x.localName === 'body'); if (!bodyEl) throw {code:'docx'};
+  await walk(bodyEl);
+  info.comments = usedC.size;
+  return {chs: docxChapters(blocks), info};
+}
+/* Blocks to chapters, splitting where parseImport would */
+function docxChapters(blocks){
+  const count = {}; for (const b of blocks) if (b.lvl >= 1 && b.lvl <= 3) count[b.lvl] = (count[b.lvl] || 0) + 1;
+  const lv = Object.keys(count).map(Number).sort(), level = lv.find(x => count[x] > 1) || lv[0] || 0;
+  const split = new Set(level ? [level] : []);
+  if (level && count[level + 1] > 1 && blocks.filter(b => b.lvl === level).every(b => /^(part|book|volume)\b/i.test(b.text))) split.add(level + 1);
+  const isHead = b => split.has(b.lvl) || (b.lvl === undefined && !b.list && b.text.length <= 70 && CH_RE.test(b.text) && (b.text.length <= 16 || !/[.!?,;…]["”’)]?$/.test(b.text)));
+  const chs = []; let cur = null;
+  const html = list => { const out = []; let L = null;
+    for (const b of list) {
+      if (b.list) { if (!L || L.k !== b.list) { L = {k: b.list, items: []}; out.push(L); } L.items.push(`<li>${b.h}</li>`); }
+      else { L = null; out.push(SCENE_RE.test(b.text) && !b.h.includes('<img') ? '<hr>' : b.lvl >= 0 && b.lvl !== undefined ? `<${b.lvl <= 2 ? 'h2' : 'h3'}>${b.h}</${b.lvl <= 2 ? 'h2' : 'h3'}>` : b.quote ? `<blockquote>${b.h}</blockquote>` : `<p${b.align ? ` data-align="${b.align}"` : ''}>${b.h}</p>`); }
+      for (const n of b.notes) out.push({note: n});
+    }
+    const notes = out.filter(x => x.note), body = out.filter(x => !x.note).map(x => typeof x === 'string' ? x : `<${x.k}>${x.items.join('')}</${x.k}>`);
+    while (body[0] === '<hr>') body.shift(); while (body[body.length - 1] === '<hr>') body.pop();
+    if (notes.length) body.push('<hr class="line">', ...notes.map(x => `<p>${esc(x.note)}</p>`));
+    return sanitize(body.join(''));
+  };
+  const close = () => { if (!cur) return; const h = html(cur.blocks); const w = countWords(htmlText(h)); if (w || cur.head || h.includes('<img')) chs.push({...chHead(cur.head), html: h, words: w}); };
+  const pre = [];
+  for (const b of blocks) {
+    if (isHead(b)) { close(); cur = {head: b.text, blocks: []}; continue; }
+    (cur ? cur.blocks : pre).push(b);
+  }
+  close();
+  const front = pre.filter(b => b.lvl === undefined || b.lvl > 3);
+  if (front.length || !chs.length) { const h = html(chs.length ? front : pre), w = countWords(htmlText(h)); if (w || h.includes('<img')) chs.unshift({...chHead(''), title: chs.length ? 'Opening' : '', html: h, words: w}); }
+  return chs;
+}
+/* Chapter headings: “Chapter Three: The Ferry” is a Chapter titled “The Ferry”; “Prologue” is a Prologue */
+function chHead(head){
+  let unit = 'Chapter', title = head || '';
+  const m = title.match(CH_RE);
+  if (m) {
+    const w = m[1].toLowerCase();
+    unit = /^prolog/.test(w) ? 'Prologue' : /^epilog/.test(w) ? 'Epilogue' : w === 'interlude' ? 'Interlude' : w === 'part' ? 'Part opener' : 'Chapter';
+    title = m[2].replace(/^\s*([\divxlcdm]+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty[\w-]*|thirty[\w-]*|forty[\w-]*|fifty[\w-]*)?\b\s*[:.\-–—]?\s*/i, '').trim();
+  }
+  return {unit, title};
+}
 function parseImport(text, name){
   const lines = String(text || '').replace(/\r\n?/g, '\n').replace(/\u00a0/g, ' ').split('\n');
   const md = /\.(md|markdown)$/i.test(name || '') || lines.some(l => /^#{1,3}\s+\S/.test(l)) || /\*\*\S|__\S/.test(text);
@@ -5668,17 +5990,7 @@ function parseImport(text, name){
     if (m && m[1].length === level) heads.push({i, text: m[2].trim()});
     else if (!m && CH_RE.test(l) && l.trim().length <= 90 && (i === 0 || !lines[i - 1].trim()) && (i === lines.length - 1 || !lines[i + 1].trim() || /^\s*\S.{0,70}$/.test(lines[i + 1]))) heads.push({i, text: l.trim()});
   });
-  const toCh = (head, body) => {
-    let unit = 'Chapter', title = head || '';
-    const m = title.match(CH_RE);
-    if (m) {
-      const w = m[1].toLowerCase();
-      unit = /^prolog/.test(w) ? 'Prologue' : /^epilog/.test(w) ? 'Epilogue' : w === 'interlude' ? 'Interlude' : w === 'part' ? 'Part opener' : 'Chapter';
-      title = m[2].replace(/^\s*([\divxlcdm]+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty[\w-]*|thirty[\w-]*|forty[\w-]*|fifty[\w-]*)?\b\s*[:.\-–—]?\s*/i, '').trim();
-    }
-    const html = importBody(body, md);
-    return {unit, title, html, words: countWords(htmlText(html))};
-  };
+  const toCh = (head, body) => { const html = importBody(body, md); return {...chHead(head), html, words: countWords(htmlText(html))}; };
   const chs = [];
   if (!heads.length) { const c = toCh('', lines); c.title = (name || '').replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim(); if (c.words) chs.push(c); return chs; }
   const pre = lines.slice(0, heads[0].i);
@@ -5686,31 +5998,37 @@ function parseImport(text, name){
   heads.forEach((h, k) => chs.push(toCh(h.text, lines.slice(h.i + 1, k + 1 < heads.length ? heads[k + 1].i : lines.length))));
   return chs;
 }
+const impChs = () => S.imp.chs || (S.imp.text ? parseImport(S.imp.text, S.imp.name) : []);
 function importHTML(p){
-  const chs = S.imp.text ? parseImport(S.imp.text, S.imp.name) : [];
+  const chs = impChs();
   const total = chs.reduce((a, c) => a + c.words, 0);
   return `<article class="sheet" data-panel="import"><h2 class="vh">Import chapters</h2>
     <div class="sheet-top"><button class="btn ghost back" data-act="back">← Menu</button><span class="eyebrow">Import chapters</span><span class="wc mono">${esc(p.title || 'Untitled story')}</span></div>
     <div class="imp-src">
-      <p class="stat-note">Load a plain text (.txt) or Markdown (.md) file, or paste text below. A new chapter starts at each Markdown heading, or at lines like “Chapter 3”, “Chapter Three: The Ferry”, “Prologue” or “Epilogue”. Blank lines separate paragraphs, and lines like *** or # become scene breaks.</p>
-      <div class="imp-row"><button class="btn" data-act="imp-file">Choose a file…</button>${S.imp.name ? `<span class="mono muted">${esc(S.imp.name)}</span>` : ''}${S.imp.text ? '<button class="btn ghost small" data-act="imp-clear">Clear</button>' : ''}</div>
-      <textarea id="imp-text" data-imp="text" placeholder="…or paste your manuscript here" aria-label="Text to import" spellcheck="false">${esc(S.imp.text)}</textarea>
+      <p class="stat-note">Load a Word document (.docx), a plain text (.txt) or a Markdown (.md) file, or paste text below. A new chapter starts at each heading, or at lines like “Chapter 3”, “Chapter Three: The Ferry”, “Prologue” or “Epilogue”. Lines like *** or # become scene breaks. From Word, Quire keeps italics, bold, underlining, centred lines, lists, links, images and comments; tracked changes are taken as accepted, and footnotes go at the end of their chapter.</p>
+      <div class="imp-row"><button class="btn" data-act="imp-file">Choose a file…</button>${S.imp.name ? `<span class="mono muted">${esc(S.imp.name)}</span>` : ''}${S.imp.text || S.imp.chs ? '<button class="btn ghost small" data-act="imp-clear">Clear</button>' : ''}</div>
+      ${S.imp.chs ? impInfoHTML(S.imp.info) : `<textarea id="imp-text" data-imp="text" placeholder="…or paste your manuscript here" aria-label="Text to import" spellcheck="false">${esc(S.imp.text)}</textarea>`}
     </div>
     <div id="imp-preview">${impPreviewHTML(chs, total, p)}</div>
   </article>`;
 }
+function impInfoHTML(x){
+  const bits = [x.images && plural(x.images, 'image'), x.comments && plural(x.comments, 'comment'), x.notes && plural(x.notes, 'footnote'), x.tracked && 'tracked changes, taken as accepted'].filter(Boolean);
+  return `<p class="stat-note imp-info">${bits.length ? `Also found: ${bits.join(', ')}.` : 'Text only: no images, comments or footnotes.'}${x.skipped ? ` ${plural(x.skipped, 'image')} in a format Quire can’t show (such as drawings or TIFF) ${x.skipped === 1 ? 'is' : 'are'} left out.` : ''}</p>`;
+}
 function impPreviewHTML(chs, total, p){
-  if (!S.imp.text) return '';
+  if (!S.imp.text && !S.imp.chs) return '';
   if (!chs.length) return `<p class="stat-note">No text to import yet.</p>`;
   const start = manuscript().length;
   return `<h3 class="group">${plural(chs.length, 'chapter')} found · ${words(total)}</h3>
     <div class="imp-list">${chs.map((c, i) => `<div class="imp-item"><span class="mono">${start + i + 1}</span><span><b>${esc(c.unit !== 'Chapter' ? c.unit + (c.title ? ': ' : '') : '')}${esc(c.title || (c.unit === 'Chapter' ? 'Untitled chapter' : ''))}</b></span><span class="mono">${words(c.words)}</span><p>${esc(htmlText(c.html).trim().slice(0, 160))}</p></div>`).join('')}</div>
     <div class="imp-row" style="margin-top:12px"><button class="btn primary" data-act="imp-go">Add ${plural(chs.length, 'chapter')} to “${esc(p.title || 'Untitled story')}”</button><span class="stat-note">They go after your existing chapters, with status “First draft”.</span></div>`;
 }
-function impRefresh(){ const p = project(), box = $('#imp-preview'); if (!p || !box) return; const chs = S.imp.text ? parseImport(S.imp.text, S.imp.name) : []; box.innerHTML = impPreviewHTML(chs, chs.reduce((a, c) => a + c.words, 0), p); }
-function impGo(){
+function impRefresh(){ const p = project(), box = $('#imp-preview'); if (!p || !box) return; const chs = impChs(); box.innerHTML = impPreviewHTML(chs, chs.reduce((a, c) => a + c.words, 0), p); }
+async function impGo(){
   const p = project(); if (!p) return;
-  const chs = parseImport(S.imp.text, S.imp.name); if (!chs.length) return;
+  const chs = impChs(); if (!chs.length) return;
+  if (S.mode === 'db' && chs.some(c => c.html.includes('data:image'))) { toast('Moving images into storage…'); for (const c of chs) c.html = await adoptInlineImages(c.html); }
   const existing = manuscript(); let order = existing.length ? Math.max(...existing.map(c => +c.order || 0)) + 1 : 0;
   let first = null;
   for (const c of chs) {
@@ -5882,7 +6200,7 @@ function tlText(tk){
 }
 const histValidRec = r => r && typeof r === 'object' && typeof r.key === 'string' && typeof r.ch === 'string' && ID_RE.test(r.ch) && (r.dr === undefined || (typeof r.dr === 'string' && ID_RE.test(r.dr))) && Number.isInteger(r.seg) && typeof r.z === 'string' && r.key === `${tlKey(r.ch, r.dr)}~${r.seg}`;
 /* Is this record still wanted: its chapter exists and, for a draft, so does the draft. */
-const histRecLive = r => { const c = S.entries.get(r.ch); return !!c && (!r.dr || !!draftOf(c, r.dr)); };
+const histRecLive = r => { const c = anyEntry(r.ch); return !!c && (!r.dr || !!draftOf(c, r.dr)); };
 async function histRecords(tk, any){
   const {ch, dr} = tlSplit(tk), ok = v => v && v.ch === ch && (any || (v.dr || '') === dr);
   if (S.mode === 'file') return (await store.all('history')).map(([, v]) => v).filter(ok);
@@ -7127,7 +7445,8 @@ function footProgress(rte){
     return sp.goal ? {p: Math.max(0, w) / sp.goal, lab: `Sprint · ${mmss(left)} left · ${fmt(w)} of ${fmt(sp.goal)} words`, kind: 'sprint'}
                    : {p: (Date.now() - sp.start) / (sp.end - sp.start), lab: `Sprint · ${mmss(left)} left · ${w >= 0 ? '+' : '−'}${fmt(Math.abs(w))} words`, kind: 'sprint time'};
   }
-  if (e.kind !== 'chapter' || rte.dataset.rte !== 'body' || !(+e.target > 0)) return null;
+  if (e.kind !== 'chapter' || rte.dataset.rte !== 'body') return null;
+  if (!(+e.target > 0)) { const dl = dueInfo(S.entries.get(e.project)); return dl && dl.goal > 0 && dl.left > 0 && dl.days > 0 ? {p: dl.today / dl.goal, lab: dl.today >= dl.goal ? `Today’s ${fmt(dl.goal)} words for the ${dl.lab} deadline: done` : `Today ${fmt(Math.max(0, dl.today))} of ${fmt(dl.goal)} words for the ${dl.lab} deadline`, kind: 'target'} : null; }
   const d = activeDraft(e), w = d ? draftWords(e, d) : bodyWords(e), t = +e.target;
   return {p: w / t, lab: w >= t ? `${fmt(w)} words · target of ${fmt(t)} reached` : `${fmt(w)} of ${fmt(t)} words · ${fmt(t - w)} to go`, kind: 'target'};
 }
@@ -7553,7 +7872,7 @@ desk.addEventListener('input', ev => {
   if (t.classList.contains('grow')) autoGrow(t);
   touch(e);
   if (e.kind === 'chapter' && t.dataset.rich === 'body') histNoteEdit(e, t.dataset.draft);
-  if (t.dataset.f === 'target') { updateTarget(e); if (e.kind === 'chapter') { const wc = $('#wc'); if (wc) wc.textContent = chapterWc(e); } }
+  if (t.dataset.f === 'target' || t.dataset.f === 'due') { updateTarget(e); if (e.kind === 'chapter') { const wc = $('#wc'); if (wc) wc.textContent = chapterWc(e); } }
   clearTimeout(wcT);
   wcT = setTimeout(() => {
     const wc = $('#wc'); if (!wc || e.kind === 'project') return;
@@ -7655,7 +7974,7 @@ document.addEventListener('drop', async ev => {
   ev.preventDefault();
   if (!S.loaded || !$('#dlgWrap').hidden) return;
   const r = await dropFile(files[0]);
-  if (r === false && !(ev.target.closest && ev.target.closest('.rte-body'))) toast('Drop images into a text area or onto a portrait. Text and Markdown files open in Import chapters, and backups (.json) can be restored the same way.');
+  if (r === false && !(ev.target.closest && ev.target.closest('.rte-body'))) toast('Drop images into a text area or onto a portrait. Word, text and Markdown files open in Import chapters, and backups (.json) can be restored the same way.');
 });
 document.addEventListener('selectionchange', () => { const a = document.activeElement; if (a && a.classList && a.classList.contains('rte-body')) updateToolbar(a); });
 $('#portraitFile').addEventListener('change', ev => {
@@ -7790,15 +8109,22 @@ document.addEventListener('click', ev => {
     case 'del': S.confirm = 'del:' + (cur && cur.id); return cur && ($('#foot').innerHTML = footHTML(cur));
     case 'del-no': S.confirm = null; return cur && ($('#foot').innerHTML = footHTML(cur));
     case 'del-yes': return cur && deleteEntry(cur);
+    case 'cards-full': S.cardsFull = !S.cardsFull; savePrefs(); a.setAttribute('aria-pressed', S.cardsFull); return lpRefresh();
+    case 'bin-open': return showPanel('bin');
+    case 'bin-close': return showPanel('overview');
+    case 'bin-restore': S.confirm = null; return binRestore(a.dataset.id);
+    case 'bin-purge': case 'bin-empty': S.confirm = act === 'bin-empty' ? 'bin-empty' : 'purge:' + a.dataset.id; return binRefresh();
+    case 'bin-purge-no': case 'bin-empty-no': S.confirm = null; return binRefresh();
+    case 'bin-purge-yes': { const e = S.bin.get(a.dataset.id); S.confirm = null; if (e) { binPurge(e); toast(`Deleted “${titleOf(e)}” for good.`); } return binRefresh(); }
+    case 'bin-empty-yes': S.confirm = null; binPurge(binTop()); toast('The bin is empty.'); return binRefresh();
     case 'tagref-del': if (cur) { cur.tagRefs = (cur.tagRefs || []).filter(x => x !== a.dataset.ref); touch(cur); rerenderTags(cur, false); const lk = $('#links'); if (lk) lk.innerHTML = linksHTML(cur); } return;
     case 'story-del': S.confirm = 'story:' + S.projectId; { const p = project(); if (p) $('#foot').innerHTML = storyFootHTML(p); } return;
     case 'story-del-no': S.confirm = null; { const p = project(); if (p) $('#foot').innerHTML = storyFootHTML(p); } return;
     case 'story-del-yes': {
       const p = project(); if (!p) return;
-      for (const o of [...S.entries.values()]) if (o.project === p.id) removeEntry(o.id);
-      removeEntry(p.id);
+      binEntries([...[...S.entries.values()].filter(o => o.project === p.id), p], p.id);
       S.confirm = null; S.projectId = null; S.openId = null; pickProject(); savePrefs();
-      renderAll(); return toast(`Deleted “${p.title || 'Untitled story'}”.`);
+      renderAll(); return toast(`Moved “${p.title || 'Untitled story'}” to the bin.`, {label: 'Undo', run: () => binRestore(p.id, true)});
     }
     case 'rel-add': if (cur) { cur.rels = [...(cur.rels || []), {to:'', how:''}]; touch(cur); $('#rels').innerHTML = relsHTML(cur); const s = $(`#rel-${cur.rels.length - 1}-to`); if (s) s.focus(); } return;
     case 'rel-del': if (cur) { cur.rels.splice(+a.dataset.i, 1); touch(cur); $('#rels').innerHTML = relsHTML(cur); $('#links').innerHTML = linksHTML(cur); } return;
@@ -7824,32 +8150,90 @@ function removeBeat(arc, beatId){
   for (const c of manuscript()) if ((c.beats || []).includes(arc.id + ':' + beatId)) { c.beats = c.beats.filter(r => r !== arc.id + ':' + beatId); touch(c); }
   S.confirm = null; touch(arc); rerenderArc(arc);
 }
+/* ---------- bin: deleted entries and stories wait here for 30 days ----------
+   A binned entry keeps its links from other entries, so restoring brings everything back as it was;
+   they are only cleared when it is deleted for good. Binned entries live in S.bin, never in S.entries. */
+const BIN_DAYS = 30;
+function putLoaded(d){ if (d.bin) { S.entries.delete(d.id); S.bin.set(d.id, d); } else { S.bin.delete(d.id); S.entries.set(d.id, d); } }
+function binEntries(list, by){
+  const t = Date.now();
+  for (const e of list) { e.bin = t; if (by) e.binBy = by; else delete e.binBy; S.entries.delete(e.id); S.bin.set(e.id, e); touch(e); }
+  computeBases();
+}
+function binRestore(id, go){
+  const e = S.bin.get(id); if (!e) return;
+  if (e.kind !== 'project' && !S.entries.has(e.project)) return;
+  for (const x of e.kind === 'project' ? [...S.bin.values()].filter(x => x.id === id || x.binBy === id) : [e]) { delete x.bin; delete x.binBy; S.bin.delete(x.id); S.entries.set(x.id, x); touch(x); }
+  computeBases();
+  const show = () => { S.projectId = e.kind === 'project' ? e.id : e.project; S.q = ''; savePrefs(); if (e.kind === 'project') { S.panel = 'overview'; S.openId = null; renderAll(); } else { renderBar(); open(e.id); } };
+  if (go) { show(); toast(`Restored “${titleOf(e)}”.`); }
+  else { renderBar(); renderIndex(); binRefresh(); toast(`Restored “${titleOf(e)}”.`, {label: 'Open', run: show}); }
+}
+function binPurge(list){
+  list = [].concat(list).filter(e => S.bin.has(e.id));
+  const stories = new Set(list.filter(e => e.kind === 'project').map(e => e.id));
+  unref(list.filter(e => e.kind !== 'project' && !stories.has(e.project)));
+  for (const x of [...S.bin.values()]) if (stories.has(x.project)) removeEntry(x.id);
+  for (const e of list) removeEntry(e.id);
+}
+function binSweep(){ const lim = Date.now() - BIN_DAYS * 864e5; binPurge([...S.bin.values()].filter(e => e.bin < lim)); }
+/* What the bin lists: binned stories, and entries whose own story is still here (or gone entirely) */
+const binTop = () => [...S.bin.values()].filter(e => e.kind === 'project' || !S.bin.has(e.project)).sort((a, b) => b.bin - a.bin);
+function binRowHTML(e){
+  const days = Math.max(1, Math.ceil((e.bin + BIN_DAYS * 864e5 - Date.now()) / 864e5));
+  const inner = e.kind === 'project' ? [...S.bin.values()].filter(x => x.project === e.id) : [];
+  const what = e.kind === 'project' ? `Story · ${plural(inner.length, 'entry', 'entries')} · ${words(inner.filter(x => x.kind === 'chapter').reduce((s, c) => s + bodyWords(c), 0))}` : `${cap(KINDS[e.kind] ? KINDS[e.kind].one : 'entry')} · ${words(e.kind === 'chapter' ? bodyWords(e) : wordCount(e))}`;
+  const can = e.kind === 'project' || S.entries.has(e.project);
+  const acts = S.confirm === 'purge:' + e.id
+    ? `<span class="bin-q">Delete for good? This can’t be undone.</span><button class="btn danger primary small" data-act="bin-purge-yes" data-id="${esc(e.id)}">Delete for good</button><button class="btn small" data-act="bin-purge-no">Keep it</button>`
+    : `${can ? `<button class="btn small" data-act="bin-restore" data-id="${esc(e.id)}">Restore</button>` : ''}<button class="btn ghost danger small" data-act="bin-purge" data-id="${esc(e.id)}">Delete for good</button>`;
+  return `<div class="bin-row${e.kind === 'project' ? ' bin-story' : ''}"><div><span class="bin-t">${esc(titleOf(e))}</span><span class="bin-m">${esc(what)}</span><span class="bin-m">Deleted ${esc(ago(e.bin))} · ${days === 1 ? 'deleted for good tomorrow' : `${days} days left`}</span></div><div class="bin-acts">${acts}</div></div>`;
+}
+function binHTML(){
+  const top = binTop(), groups = new Map();
+  for (const e of top) { const k = e.kind === 'project' ? '' : e.project; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(e); }
+  const head = k => { if (!k) return 'Stories'; const p = S.entries.get(k); return p ? `From “${p.title || 'Untitled story'}”` : 'From a story that’s no longer here'; };
+  return `<article class="sheet" data-panel="bin"><h2 class="vh">Bin</h2>
+    <div class="sheet-top"><span class="eyebrow">Bin</span><span class="wc mono">${plural(top.length, 'item')}</span><button class="btn small" data-act="bin-close">Close the bin</button></div>
+    <p class="stat-note">Deleted stories and entries wait here for ${BIN_DAYS} days, then they’re deleted for good. Until then they’re still in this notebook${S.mode === 'file' ? ' and in the saved file' : ''}, but not in backups, exports or search. Restoring brings back an entry with its links, viewpoints and speaker marks.</p>
+    ${top.length ? [...groups].sort((a, b) => (a[0] ? 1 : 0) - (b[0] ? 1 : 0)).map(([k, rows]) => `<h3 class="bin-g">${esc(head(k))}</h3><div class="bin-list">${rows.map(binRowHTML).join('')}</div>`).join('')
+      + `<div class="bin-foot">${S.confirm === 'bin-empty' ? `<span class="bin-q">Delete everything in the bin for good?</span><button class="btn danger primary small" data-act="bin-empty-yes">Empty the bin</button><button class="btn small" data-act="bin-empty-no">Keep it</button>` : `<button class="btn ghost danger small" data-act="bin-empty">Empty the bin</button>`}</div>`
+      : '<p class="lp-empty">The bin is empty.</p>'}
+  </article>`;
+}
+function binRefresh(){
+  if (S.panel !== 'bin' || S.openId) return;
+  renderBar(); renderDesk();
+  const f = $(S.confirm ? '#desk [data-act$="-yes"]' : '#desk [data-act="bin-close"]'); if (f) f.focus({preventScroll:true});
+}
 function deleteEntry(cur){
-  const kind = cur.kind, title = titleOf(cur);
-  for (const o of S.entries.values()) {
-    if (o.project !== S.projectId || o.id === cur.id) continue;
+  const kind = cur.kind, title = titleOf(cur), id = cur.id;
+  binEntries([cur]);
+  S.confirm = null; S.openId = null; S.view = 'list';
+  if (S.nav === 'tabs' && KINDS[kind]) { S.kind = kind; S.panel = 'list'; S.lpq = ''; }
+  renderBar(); renderIndex(); renderDesk();
+  toast(`Moved “${title}” to the bin.`, {label: 'Undo', run: () => binRestore(id, true)});
+}
+/* Entries deleted for good leave no links behind: viewpoints, casts, places, relationships, arc beats, tag links and speaker marks */
+function unref(gone){
+  const ids = new Set(gone.map(e => e.id)), pids = new Set(gone.map(e => e.project)), drop = a => a.filter(x => !ids.has(x)), arcOf = r => String(r).split(':')[0];
+  if (!ids.size) return;
+  for (const o of [...S.entries.values(), ...S.bin.values()]) {
+    if (ids.has(o.id) || !pids.has(o.project)) continue;
     let changed = false;
-    if (kind === 'character') {
-      if (o.pov === cur.id) { o.pov = ''; changed = true; }
-      if (o.kind === 'arc') for (const b of o.beats || []) if ((b.chars || []).includes(cur.id)) { b.chars = b.chars.filter(x => x !== cur.id); changed = true; }
-      if (o.kind === 'character' && (o.rels || []).some(r => r.to === cur.id)) { o.rels = o.rels.filter(r => r.to !== cur.id); changed = true; }
-      if (o.kind === 'chapter' && (o.chars || []).includes(cur.id)) { o.chars = o.chars.filter(x => x !== cur.id); changed = true; }
-      if (o.kind === 'chapter' && (o.povs || []).includes(cur.id)) { o.povs = o.povs.filter(x => x !== cur.id); changed = true; }
-      if (o.kind === 'chapter') for (const s of richSources(o)) {
-        const h0 = s.get(); if (!h0.includes(`data-spk="${cur.id}"`)) continue;
-        const tp = document.createElement('template'); tp.innerHTML = h0;
-        for (const m of tp.content.querySelectorAll(`mark.spk[data-spk="${CSS.escape(cur.id)}"]`)) m.replaceWith(...m.childNodes);
-        s.set(tp.innerHTML); changed = true;
-      }
+    for (const k of ['povs', 'chars', 'places', 'tagRefs']) if (Array.isArray(o[k]) && o[k].some(x => ids.has(x))) { o[k] = drop(o[k]); changed = true; }
+    if (ids.has(o.pov)) { o.pov = ''; changed = true; }
+    if (o.kind === 'arc') for (const b of o.beats || []) if ((b.chars || []).some(x => ids.has(x))) { b.chars = drop(b.chars); changed = true; }
+    if (o.kind === 'character' && (o.rels || []).some(r => ids.has(r.to))) { o.rels = o.rels.filter(r => !ids.has(r.to)); changed = true; }
+    if (o.kind === 'chapter' && (o.beats || []).some(r => ids.has(arcOf(r)))) { o.beats = o.beats.filter(r => !ids.has(arcOf(r))); changed = true; }
+    if (o.kind === 'chapter') for (const s of richSources(o)) {
+      const h0 = s.get(); if (!h0.includes('data-spk="') || ![...ids].some(c => h0.includes(`data-spk="${c}"`))) continue;
+      const tp = document.createElement('template'); tp.innerHTML = h0;
+      for (const m of tp.content.querySelectorAll('mark.spk')) if (ids.has(m.getAttribute('data-spk'))) m.replaceWith(...m.childNodes);
+      s.set(tp.innerHTML); changed = true;
     }
-    if ((o.tagRefs || []).includes(cur.id)) { o.tagRefs = o.tagRefs.filter(x => x !== cur.id); changed = true; }
-    if (kind === 'place' && o.kind === 'chapter' && (o.places || []).includes(cur.id)) { o.places = o.places.filter(x => x !== cur.id); changed = true; }
-    if (kind === 'arc' && o.kind === 'chapter' && (o.beats || []).some(r => r.startsWith(cur.id + ':'))) { o.beats = o.beats.filter(r => !r.startsWith(cur.id + ':')); changed = true; }
     if (changed) touch(o);
   }
-  removeEntry(cur.id); S.confirm = null; S.openId = null; S.view = 'list';
-  if (S.nav === 'tabs' && KINDS[kind]) { S.kind = kind; S.panel = 'list'; S.lpq = ''; }
-  renderIndex(); renderDesk(); toast(`Deleted “${title}”.`);
 }
 function jumpToBeat(id){
   const el = document.getElementById('beat-' + id); if (!el) return;
@@ -7893,9 +8277,7 @@ $('#storySel').addEventListener('change', ev => {
 });
 $('#importText').addEventListener('change', async ev => {
   const f = ev.target.files && ev.target.files[0]; ev.target.value = ''; if (!f) return;
-  if (f.size > 20e6) { toast('That file is too large to import.'); return; }
-  try { S.imp = {text: await f.text(), name: f.name}; } catch { toast('That file couldn’t be read.'); return; }
-  if (S.panel !== 'import' || S.openId) showPanel('import'); else renderDesk();
+  if (await impLoad(f) && S.imp.chs) toast(`Loaded “${f.name}”.`);
 });
 $('#importFile').addEventListener('change', ev => { const f = ev.target.files && ev.target.files[0]; ev.target.value = ''; if (f) restore(f); });
 
@@ -7942,6 +8324,7 @@ async function menuAction(m){
   if (m === 'tssprint') { S.tsSprint = !S.tsSprint; savePrefs(); applyDisplay(); return; }
   if (m === 'tswords') { S.tsWords = !S.tsWords; savePrefs(); applyDisplay(); return; }
   if (m === 'focusx') { S.focusX = !S.focusX; savePrefs(); applyDisplay(); $$('[data-act="focus-toggle"]').forEach(b => b.title = focusTip()); return; }
+  if (m === 'bin') return showPanel('bin');
   const p = project(); if (!p) { toast('Start or choose a story first.'); return; }
   if (m === 'dup-story') return duplicateStory(p);
   if (m === 'del-story') { showPanel('overview'); S.confirm = 'story:' + p.id; const f = $('#foot'); if (f) { f.innerHTML = storyFootHTML(p); f.scrollIntoView({block:'center', behavior: reduced ? 'auto' : 'smooth'}); const y = f.querySelector('[data-act="story-del-no"]'); if (y) y.focus({preventScroll:true}); } return; }
@@ -7956,6 +8339,7 @@ async function menuAction(m){
   if (m === 'export-md') return offer(`${slug(p.title)}-story-bible.md`, storyMarkdown(p));
   if (m === 'export-docx') return exportDocx(p);
   if (m === 'export-doc') return exportDocument(p);
+  if (m === 'export-epub') return exportEpub(p);
   if (m === 'export-html') {
     if (!manuscript().length) { toast('This story has no chapters to export yet.'); return; }
     toast('Preparing the manuscript…');
@@ -7972,7 +8356,7 @@ function rescueWrite(){
   if (S.mode !== 'file' || !S.loaded) return;
   try {
     const ids = [...S.dirty]; if (!ids.length) { localStorage.removeItem(RESCUE_KEY()); return; }
-    localStorage.setItem(RESCUE_KEY(), JSON.stringify({t: Date.now(), e: ids.map(id => { const e = S.entries.get(id); return e ? [id, body(e)] : null; }).filter(Boolean)}));
+    localStorage.setItem(RESCUE_KEY(), JSON.stringify({t: Date.now(), e: ids.map(id => { const e = anyEntry(id); return e ? [id, body(e)] : null; }).filter(Boolean)}));
   } catch {}
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') histFlushAll(); });
@@ -8229,8 +8613,8 @@ async function goFile(){
     let have = new Map(); try { have = new Map(await store.all('history')); } catch {}
     for (const r of EMBED.history) { if (!histValidRec(r)) continue; const cur = have.get(r.key); if (!cur || (r.t1 || 0) > (cur.t1 || 0)) store.put('history', r.key, r).catch(() => {}); }
   }
-  for (const [id, b] of merged) { const d = migrate(JSON.parse(JSON.stringify(b))); d.id = id; S.entries.set(id, d); }
-  S.fileDirty = dirty; if (dirty) S.dirtySince = Date.now(); S.loaded = true; app.dataset.mode = 'file'; encSync();
+  for (const [id, b] of merged) { const d = migrate(JSON.parse(JSON.stringify(b))); d.id = id; putLoaded(d); }
+  S.fileDirty = dirty; if (dirty) S.dirtySince = Date.now(); S.loaded = true; app.dataset.mode = 'file'; encSync(); binSweep();
   computeBases(); pickProject(); renderAll();
 }
 function onSnap(snap){
@@ -8238,12 +8622,12 @@ function onSnap(snap){
   for (const ch of snap.docChanges()) {
     const id = ch.doc.id;
     if (S.dirty.has(id) || S.timers[id]) continue;
-    if (ch.type === 'removed') { S.entries.delete(id); if (id === S.openId) openChanged = true; continue; }
+    if (ch.type === 'removed') { S.entries.delete(id); S.bin.delete(id); if (id === S.openId) openChanged = true; continue; }
     const d = migrate(JSON.parse(JSON.stringify(ch.doc.data() || {}))); d.id = id;
-    S.entries.set(id, d);
+    putLoaded(d);
     if (id === S.openId) openChanged = true;
   }
-  if (!S.loaded) { S.loaded = true; computeBases(); pickProject(); renderAll(); return; }
+  if (!S.loaded) { S.loaded = true; binSweep(); computeBases(); pickProject(); renderAll(); return; }
   computeBases();
   if (!S.projectId || !S.entries.has(S.projectId)) { S.projectId = null; pickProject(); renderAll(); return; }
   renderBar(); renderIndex();

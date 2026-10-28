@@ -4,7 +4,7 @@
 
 **A writing notebook for stories, in one HTML file.** Open it in a browser and start writing. No account, no install, and it works offline.
 
-**[Try it online](https://antariuk.github.io/quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/quire/releases/latest/download/quire.html)** · [What's new](CHANGELOG.md)
+**[Try it online](https://antariuk.github.io/quire/quire.html)** · **[Download quire.html](https://github.com/antariuk/quire/releases/latest/download/quire.html)** · [Tutorial](docs/TUTORIAL.md) · [What's new](CHANGELOG.md)
 
 ![Writing a chapter in Quire, with passage tags in the margin](docs/writing.png)
 
@@ -37,8 +37,8 @@ How saving works, in short:
 - Focus mode in two stages: *Focus* hides the navigation; *Intense focus* leaves only the text, its toolbar and the buttons above it. On larger screens, full screen hides the browser's own bars too.
 - Picks up where you left off: Quire reopens the chapter you were writing, at the spot where you stopped
 - Typewriter scrolling, adjustable text size and page width, six themes from light to a warm dark, and your own themes from four colours
-- Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints or towards a chapter's word target
-- Word targets per chapter and for the whole story, a word count for any selection, and find and replace
+- Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints, towards a chapter's word target, or towards today's share of a deadline
+- Word targets per chapter and for the whole story, a deadline that works out the words a day it takes, a word count for any selection, and find and replace
 
 **Drafts and history**
 - Drafts: try out changes in a copy of a chapter, then merge them change by change. A merge can be undone.
@@ -52,6 +52,7 @@ How saving works, in short:
 - Tag suggestions as you type, including chapters, characters, places and notes, which become links
 - Scene viewpoints: label whose point of view each scene follows, and see how a chapter's words, and the whole story's, divide between them
 - Status colours: every chapter coloured by its status, with a strip of the whole manuscript at a glance
+- Chapter cards with each chapter's synopsis, viewpoint, places and story arc beats, to drag into a new order
 
 **Revising**
 - Prose checker: Hemingway-style readability (hard sentences, adverbs, passive voice, wordy phrases), plus word echoes and dialogue
@@ -61,12 +62,14 @@ How saving works, in short:
 - Voices: compare how your viewpoint characters narrate, with their favourite words and phrases, rhythm, and how a voice changes from chapter to chapter; mark who says a line, and compare how your characters speak too
 
 **Saving and sharing**
-- Export the manuscript as a Word manuscript in standard format for submissions, a regular Word document with real headings, a web page, Markdown or plain text, or print it or save it as PDF
+- Export the manuscript as a Word manuscript in standard format for submissions, a regular Word document with real headings, an e-book (EPUB) for e-readers and reading apps, a web page, Markdown or plain text, or print it or save it as PDF
+- Import chapters from Word (.docx), keeping italics, scene breaks, images and comments, or from text and Markdown files
 - Optional AO3 sharing: copy a chapter for AO3 in one click and open the right page there
-- Backups of one story or all of them, optionally encrypted, and importing chapters from text files
+- Backups of one story or all of them, optionally encrypted
+- A bin: deleted chapters, sheets, notes and whole stories wait there for 30 days, and come back with all their links
 - An optional password on the saved file itself
 
-Built-in help, with search, explains every feature.
+Built-in help, with search, explains every feature, and the [tutorial](docs/TUTORIAL.md) walks through the core features and settings with screenshots.
 
 ## Screenshots
 
@@ -84,7 +87,7 @@ Quire needs JavaScript, which browsers allow by default. If you use a blocker su
 
 ## Questions
 
-**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 730 KB empty). Your stories, images and history are stored in the same file when you save.
+**Is it really just one file?** Yes. The page, the styles and the program are all inside `quire.html` (about 770 KB empty). Your stories, images and history are stored in the same file when you save.
 
 **Can I use it on more than one computer?** Yes: save, take the file with you, and open it there. Use one copy at a time, so that two copies don't drift apart.
 
