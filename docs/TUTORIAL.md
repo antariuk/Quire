@@ -2,7 +2,7 @@
 
 A short tour of Quire's core features and settings, using the example story that comes with it. It takes about fifteen minutes. Everything here is also explained in Quire's own Help (Options → Help and info), which you can search.
 
-**Contents:** [Start](#1-start) · [The layout](#2-the-layout) · [Chapters](#3-chapters) · [Writing](#4-writing-a-chapter) · [Focus mode](#5-focus-mode) · [Reference panel](#6-the-reference-panel) · [Go to](#7-go-to) · [Characters, places and notes](#8-characters-places-and-notes) · [Story arcs](#9-story-arcs) · [Tags and search](#10-tags-and-search) · [Revising](#11-revising) · [Stats](#12-stats) · [Settings](#13-settings) · [Saving and backups](#14-saving-and-backups) · [Bringing writing in and out](#15-bringing-writing-in-and-out) · [The bin](#16-the-bin) · [On a phone](#17-on-a-phone) · [Help](#18-help)
+**Contents:** [Start](#1-start) · [The layout](#2-the-layout) · [Chapters](#3-chapters) · [Writing](#4-writing-a-chapter) · [Focus mode](#5-focus-mode) · [Reference panel](#6-the-reference-panel) · [Go to](#7-go-to) · [Characters, places and notes](#8-characters-places-and-notes) · [Story arcs](#9-story-arcs) · [Tags and search](#10-tags-and-search) · [Revising](#11-revising) · [Stats](#12-stats) · [Settings](#13-settings) · [Saving and backups](#14-saving-and-backups) · [Bringing writing in and out](#15-bringing-writing-in-and-out) · [The trash](#16-the-trash) · [On a phone](#17-on-a-phone) · [Help](#18-help)
 
 ---
 
@@ -20,7 +20,7 @@ Open `quire.html` in your browser. The first time, Quire offers two ways in:
 ![The title bar and tabs, numbered](tutorial/layout.png)
 
 1. **Story picker.** Switch between your stories.
-2. **Story menu.** Go to, new story, the example story, duplicate, delete, the bin, find and replace across the story, and importing chapters.
+2. **Story menu.** Go to, new story, the example story, duplicate, delete, the trash, find and replace across the story, and importing chapters.
 3. **Overview.** The story's own sheet: title, logline, genre, theme, target length and deadline, and a count of everything in it.
 4. **Stats.** Word counts, writing pace, chapter lengths, point of view, cast presence, Voices and more.
 5. **Sprint.** A writing timer with an optional word goal and a chime at the end.
@@ -41,7 +41,7 @@ The Chapters tab shows every chapter as a card: its title, status, word count ag
 
 1. **Order.** *1–9* keeps manuscript order. *Custom* lets you drag the ⋮⋮ handles to rearrange chapters, or click a handle and use ↑ ↓. Chapter numbers follow the new order, and Undo appears after each move.
 2. **Full synopses** shows each chapter's whole synopsis instead of the first lines.
-3. **The status strip** (switched on with Options → Display → Colour chapters by status) shows the whole manuscript at a glance, one block per chapter, sized by length and coloured from *Idea* to *Done*. Click a block to open that chapter.
+3. **The status strip** (switched on with Options → Display → Color chapters by status) shows the whole manuscript at a glance, one block per chapter, sized by length and colored from *Idea* to *Done*. Click a block to open that chapter.
 4. **A card.** Click it to open the chapter.
 
 Each chapter has its own sheet above the text: target length, tags, and **Chapter details** with type (chapter, prologue, scene and so on), status, narration, point of view, the characters and places in it, when it happens, a synopsis and the arc beats it carries.
@@ -83,7 +83,7 @@ A running sprint stays visible above the text. Here it is in the Twilight theme,
 
 ## 6. The reference panel
 
-What colour was Holmes's dressing gown? What did your research note say about the price of foolscap? The **Reference** button above a text opens a panel beside it, so you can look things up without leaving the chapter.
+What color was Holmes's dressing gown? What did your research note say about the price of foolscap? The **Reference** button above a text opens a panel beside it, so you can look things up without leaving the chapter.
 
 ![The reference panel showing Sherlock Holmes beside chapter 1](tutorial/reference.png)
 
@@ -100,7 +100,7 @@ Press **Ctrl+K** (⌘K on a Mac), or choose Story → Go to…, and type a few l
 
 - **Entries:** any chapter, character, place, note or story arc. Characters are also found by the names under *Also known as*.
 - **Tags** (`#Holmes & Watson`) and your **other stories**.
-- **Commands:** New chapter, Stats, the bin, Find and replace, each export, Save file, a theme, and more.
+- **Commands:** New chapter, Stats, the trash, Find and replace, each export, Save file, a theme, and more.
 
 ↑ and ↓ choose, Enter goes there, and **Shift+Enter** puts the chosen entry in the reference panel instead of leaving the chapter. With nothing typed, Go to lists the entries you opened last.
 
@@ -154,7 +154,7 @@ Stats covers the whole story: manuscript length against your target, writing pac
 
 ![Stats](tutorial/stats.png)
 
-**Voices** compares how your viewpoint characters narrate: their sentence length, favourite words and phrases, the senses they lean on, and whether a voice drifts from chapter to chapter. Mark who says a line of dialogue with the *Who says this* button, and Voices compares how your characters speak too. Only lines you mark count; Quire never guesses a speaker.
+**Voices** compares how your viewpoint characters narrate: their sentence length, favorite words and phrases, the senses they lean on, and whether a voice drifts from chapter to chapter. Mark who says a line of dialogue with the *Who says this* button, and Voices compares how your characters speak too. Only lines you mark count; Quire never guesses a speaker.
 
 ## 13. Settings
 
@@ -164,11 +164,11 @@ Everything is in **Options**. This is the whole menu, laid out in three columns:
 
 - **Export:** the manuscript as a Word manuscript (standard manuscript format, for submissions), a Word document, an e-book, a web page, Markdown or text; sheets and notes as Markdown; print or PDF; AO3 sharing.
 - **Backup:** back up this story or all of them, encrypt backups, restore, save the notebook file, encrypt the file and the save reminder.
-- **Display:** sidebar or tabs, field hints, stats detail, intense focus, the sprint and word count above the text, the progress bar, status colours, highlighted name and beat chips, the buttons above the text, theme, page width and text column width.
+- **Display:** sidebar or tabs, field hints, stats detail, intense focus, the sprint and word count above the text, the progress bar, status colors, highlighted name and beat chips, the buttons above the text, theme, page width and text column width.
 - **Text:** Google Fonts, the Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indents, smart quotes and their style, dashes, ellipses and the question before splitting a chapter.
 - **Chapter history:** how soon after a pause a snapshot is taken, thinning out old versions, and whether history goes into the saved file.
 
-**Themes:** pick one of six (Light, Twilight, Dark, Sepia, Lamplight, Ember), or **+ New theme…** to make your own from four colours. Quire works out the other shades, previews the theme as you go and checks the text stays readable.
+**Themes:** pick one of six (Light, Twilight, Dark, Sepia, Lamplight, Ember), or **+ New theme…** to make your own from four colors. Quire works out the other shades, previews the theme as you go and checks the text stays readable.
 
 ![Making a theme, starting from Lamplight](tutorial/theme.png)
 
@@ -189,11 +189,11 @@ Everything is in **Options**. This is the whole menu, laid out in three columns:
 
 ![The e-book settings](tutorial/ebook.png)
 
-## 16. The bin
+## 16. The trash
 
-Deleting a chapter, sheet, note, story arc or whole story moves it to the bin (Story → Bin) for 30 days, and Undo appears right after deleting. Restoring brings it back as it was, with its places in viewpoints, cast lists, arcs and speaker marks. *Delete for good* or *Empty the bin* removes things for good straight away.
+Deleting a chapter, sheet, note, story arc or whole story moves it to the trash (Story → Trash) for 30 days, and Undo appears right after deleting. Restoring brings it back as it was, with its places in viewpoints, cast lists, arcs and speaker marks. *Delete for good* or *Empty the trash* removes things for good straight away.
 
-![The bin](tutorial/bin.png)
+![The trash](tutorial/bin.png)
 
 ## 17. On a phone
 
@@ -207,6 +207,6 @@ To use the same notebook on your phone, copy `quire.html` there (with a cloud fo
 
 Options → **Help and info** explains every feature, with topics to jump to and a search: press `/`, type, and Enter steps through the matches.
 
-![Help, searching for "bin"](tutorial/help.png)
+![Help, searching for "trash"](tutorial/help.png)
 
 Found a bug or have an idea? [Open an issue](https://github.com/antariuk/quire/issues/new/choose).

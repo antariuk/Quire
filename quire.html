@@ -1372,7 +1372,7 @@ mark.spk.on{background:var(--hi-wash)}
           <button data-menu="example">Open the example story</button>
           <button data-menu="dup-story" data-needs-story>Duplicate this story</button>
           <button data-menu="del-story" data-needs-story class="menu-danger">Delete this story…</button>
-          <button data-menu="bin" id="binItem">Bin</button>
+          <button data-menu="bin" id="binItem">Trash</button>
           <hr class="menu-sep">
           <button data-menu="replace" data-needs-story>Find and replace…</button>
           <button data-menu="import" data-needs-story>Import chapters…</button>
@@ -1421,8 +1421,8 @@ mark.spk.on{background:var(--hi-wash)}
         <label class="menu-check"><input type="checkbox" id="tsSprintItem" data-toggle="tssprint"><span>Sprint above the text <span class="muted">Shows a running sprint above the text you’re writing. In focus mode, also a button to start one.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="tsWordsItem" data-toggle="tswords"><span>Word count above the text <span class="muted">Counts as you type, in focus mode too.</span></span></label>
         <label class="menu-check"><input type="checkbox" id="progBarItem" data-toggle="progbar"><span>Progress bar under the text <span class="muted">During a sprint, or when a chapter has a word target, a slim bar stays at the bottom of the screen.</span></span></label>
-        <label class="menu-check"><input type="checkbox" id="stColorsItem" data-toggle="stcolors"><span>Colour chapters by status <span class="muted">Chapter lists show each chapter’s status as a colour, with a strip of the whole manuscript on top.</span></span></label>
-        <label class="menu-check"><input type="checkbox" id="chipHiItem" data-toggle="chiphi"><span>Highlight characters, places and beats <span class="muted">Bold, coloured name chips on chapters and story arcs, easier to spot.</span></span></label>
+        <label class="menu-check"><input type="checkbox" id="stColorsItem" data-toggle="stcolors"><span>Color chapters by status <span class="muted">Chapter lists show each chapter’s status as a color, with a strip of the whole manuscript on top.</span></span></label>
+        <label class="menu-check"><input type="checkbox" id="chipHiItem" data-toggle="chiphi"><span>Highlight characters, places and beats <span class="muted">Bold, colored name chips on chapters and story arcs, easier to spot.</span></span></label>
         <button data-menu="th-arrange">Buttons above the text…</button>
         <hr class="menu-sep menu-sep-soft">
         <div class="menu-row stack theme-row"><span>Theme</span><div class="seg-toggle" role="group" aria-label="Cool themes"><button data-set="theme" data-v="light">Light</button><button data-set="theme" data-v="twilight">Twilight</button><button data-set="theme" data-v="dark">Dark</button></div><div class="seg-toggle" role="group" aria-label="Warm themes, easier on the eyes"><button data-set="theme" data-v="sepia">Sepia</button><button data-set="theme" data-v="lamplight">Lamplight</button><button data-set="theme" data-v="ember">Ember</button></div><div class="ct-row" id="ctRow" role="group" aria-label="Your own themes"></div></div>
@@ -1695,7 +1695,7 @@ const app = $('#app'), desk = $('#desk');
 const RM_PRESETS = ['5', '10', '30'];
 function remindOK(v){ const n = Math.round(+v); return v !== '' && v != null && Number.isFinite(n) && n >= 1 && n <= 480; }
 function loadPrefs(){ try { return JSON.parse(localStorage.getItem('storybible.ui') || '{}') || {}; } catch { return {}; } }
-/* ---------- your own themes: four colours, the other shades worked out from them ---------- */
+/* ---------- your own themes: four colors, the other shades worked out from them ---------- */
 const THEME_PRESETS = {light: ['Light', '#FAFBF8', '#1C2129', '#ECEEEA', '#A4313D'], twilight: ['Twilight', '#3F4659', '#EDE8DE', '#353B4D', '#F2A08F'], dark: ['Dark', '#1C1F24', '#E6E4DE', '#14161A', '#E5757F'],
   sepia: ['Sepia', '#FAF4E4', '#2F2718', '#EDE3CC', '#9E4426'], lamplight: ['Lamplight', '#453B2B', '#F2E7CD', '#3A3123', '#F1A469'], ember: ['Ember', '#211C16', '#EBDFC6', '#181410', '#E99665']};
 const THEME_KEYS = ['paper', 'text', 'bg', 'accent'];
@@ -1734,7 +1734,7 @@ function teCheck(){
   const d = S.themeDraft, el = $('#teCheck'), save = $('#themeEd [data-te-act="save"]'); if (!d || !el) return;
   const c = contrastOf(d.text, d.paper), a = contrastOf(d.accent, d.paper);
   const word = c >= 7 ? 'very easy to read' : c >= 4.5 ? 'easy to read' : c >= 3 ? 'hard to read in long passages' : 'too faint to read';
-  el.innerHTML = `<span class="te-ratio${c < 4.5 ? ' warn' : ''}"><b>Text on paper ${c.toFixed(1)} : 1</b>, ${word}.</span>${a < 3 ? ' <span class="te-ratio warn">The accent is faint on this paper, so labels and buttons in it may be hard to see.</span>' : ''}${c < 3 ? ' Choose colours further apart to save the theme.' : ''}`;
+  el.innerHTML = `<span class="te-ratio${c < 4.5 ? ' warn' : ''}"><b>Text on paper ${c.toFixed(1)} : 1</b>, ${word}.</span>${a < 3 ? ' <span class="te-ratio warn">The accent is faint on this paper, so labels and buttons in it may be hard to see.</span>' : ''}${c < 3 ? ' Choose colors further apart to save the theme.' : ''}`;
   if (save) save.disabled = c < 3;
 }
 function teHTML(){
@@ -1743,7 +1743,7 @@ function teHTML(){
   return `<div class="te-head"><h2 id="teTitle">${e.id ? 'Edit theme' : 'New theme'}</h2><button class="btn small" data-te-act="cancel" aria-label="Cancel and close">×</button></div>
     <label class="dlg-f"><span>Name</span><input id="teName" maxlength="40" value="${esc(e.name)}" autocomplete="off"></label>
     <div class="te-from"><span class="te-lab">Start from</span><div class="te-presets">${Object.entries(THEME_PRESETS).map(([k, p]) => `<button type="button" class="ct-b" data-te-from="${k}" title="Start from ${p[0]}">${ctSwatch(themeFromPreset(k))}<span>${p[0]}</span></button>`).join('')}</div></div>
-    ${rows.map(([k, l, hint]) => `<div class="te-row"><input type="color" id="te-${k}" data-te="${k}" value="${d[k].toLowerCase()}"><label for="te-${k}"><b>${l}</b><span>${hint}</span></label><input class="te-hex mono" data-te-hex="${k}" value="${d[k].toUpperCase()}" maxlength="7" spellcheck="false" autocomplete="off" aria-label="${l} colour code"></div>`).join('')}
+    ${rows.map(([k, l, hint]) => `<div class="te-row"><input type="color" id="te-${k}" data-te="${k}" value="${d[k].toLowerCase()}"><label for="te-${k}"><b>${l}</b><span>${hint}</span></label><input class="te-hex mono" data-te-hex="${k}" value="${d[k].toUpperCase()}" maxlength="7" spellcheck="false" autocomplete="off" aria-label="${l} color code"></div>`).join('')}
     <p class="te-check" id="teCheck" aria-live="polite"></p>
     <div class="te-b"><button class="btn primary" data-te-act="save">Save theme</button><button class="btn" data-te-act="cancel">Cancel</button>${e.id ? '<button class="btn danger" data-te-act="delete">Delete</button>' : ''}</div>`;
 }
@@ -2272,10 +2272,38 @@ function applyFont(rte, key){
     sel.removeAllRanges(); sel.addRange(r);
   }
   if (key) loadFont(key);
+  /* Text that already has a font (Quire's own, or pasted from Google Docs or Word) keeps it in data-font.
+     Drop it from everything inside the selection first, so the new choice is the only one left. */
+  if (sel.rangeCount) { const r = sel.getRangeAt(0); for (const n of $$('[data-font]', bodyEl)) if (fontCovered(r, n)) n.removeAttribute('data-font'); }
   exec('styleWithCSS', true);
   exec('fontName', key ? FONT[key].stack : 'inherit');
   exec('styleWithCSS', false);
+  fontTidy(bodyEl);
   richChanged(bodyEl); updateToolbar(bodyEl);
+}
+/* Is all of n's text inside the range? (The saved selection ends inside text nodes, so containsNode is too strict.) */
+function fontCovered(r, n){
+  const tw = document.createTreeWalker(n, NodeFilter.SHOW_TEXT); let first = null, last = null, t;
+  while ((t = tw.nextNode())) { if (!t.data.length) continue; if (!first) first = t; last = t; }
+  if (!first) return r.intersectsNode(n);
+  return r.comparePoint(first, 0) === 0 && r.comparePoint(last, last.data.length) === 0;
+}
+/* The browser writes the chosen font as an inline style. Turn it into data-font, which is what gets saved,
+   so the text looks the same after a reload as it does now. "Default font" (inherit) removes the font. */
+function fontTidy(bodyEl){
+  for (const n of $$('[style]', bodyEl)) {
+    if (!n.style.fontFamily) continue;
+    const k = fontKeyFrom(n.style.fontFamily);
+    n.style.fontFamily = '';
+    if (k) n.setAttribute('data-font', k); else n.removeAttribute('data-font');
+    if (!n.getAttribute('style')) n.removeAttribute('style');
+  }
+  for (const n of $$('font', bodyEl)) {   /* some browsers write <font face> instead */
+    const k = fontKeyFrom(n.getAttribute('face') || ''), sp = document.createElement('span');
+    if (k) sp.setAttribute('data-font', k);
+    sp.append(...n.childNodes); n.replaceWith(sp);
+  }
+  for (const n of $$('span', bodyEl)) if (!n.attributes.length) n.replaceWith(...n.childNodes);
 }
 
 /* ---------- rich text: sanitizing and embeds ---------- */
@@ -2356,7 +2384,8 @@ function clean(src, dst){
     if (tag === 'SPAN' || tag === 'FONT') {
       const st = (n.getAttribute('style') || '').toLowerCase();
       let wrap = dst;
-      const fk = FONT[n.getAttribute('data-font')] ? n.getAttribute('data-font') : fontKeyFrom((st.match(/font-family:\s*([^;]+)/) || [])[1] || n.getAttribute('face') || '');
+      const sf = (st.match(/font-family:\s*([^;]+)/) || [])[1];   /* an inline font is the newer choice, so it wins over data-font */
+      const fk = sf ? fontKeyFrom(sf) : FONT[n.getAttribute('data-font')] ? n.getAttribute('data-font') : fontKeyFrom(n.getAttribute('face') || '');
       if (fk) { const sp = document.createElement('span'); sp.setAttribute('data-font', fk); wrap.appendChild(sp); wrap = sp; }
       const ws = [];
       if (/font-weight:\s*(bold|[6-9]00)/.test(st)) ws.push('b');
@@ -2407,7 +2436,7 @@ function renderBar(){
   $('#ovBtn').setAttribute('aria-pressed', !S.openId && S.panel === 'overview');
   $('#stBtn').setAttribute('aria-pressed', !S.openId && S.panel === 'stats');
   for (const b of $$('[data-needs-story]')) b.disabled = !project();
-  { const n = binTop().length; $('#binItem').textContent = n ? `Bin (${n})` : 'Bin'; }
+  { const n = binTop().length; $('#binItem').textContent = n ? `Trash (${n})` : 'Trash'; }
   status();
 }
 
@@ -2435,7 +2464,7 @@ function cardMore(e){
   const bits = [[names(e.povs), 'Viewpoint'], [names(e.places), 'Places'], [beats, 'Beats']].filter(x => x[0].length).map(([v, l]) => `<span><b>${l}</b> ${esc(v.join(', '))}</span>`);
   return bits.length ? `<span class="item-c">${bits.join('')}</span>` : '';
 }
-/* Status colours: a ramp from grey ideas to green finished chapters, built from each theme's own colours */
+/* Status colors: a ramp from gray ideas to green finished chapters, built from each theme's own colors */
 const ST_KEY = {'Idea':'idea', 'Outlined':'outlined', 'Drafting':'drafting', 'First draft':'firstdraft', 'Revising':'revising', 'Done':'done'};
 const stAttr = e => e.kind === 'chapter' && S.stColors ? ` data-st="${ST_KEY[e.status] || 'none'}"` : '';
 function statusStripHTML(){
@@ -2616,7 +2645,7 @@ function emptyHTML(){
     <p>Quire keeps everything about a story in one place: chapters, loose notes, a sheet for every character and setting, and story arcs on a tension curve that shows how closely your draft follows them.</p>
     <p class="empty-note">${S.mode === 'db' ? 'Everything saves as you type.' : S.mode === 'file' ? 'Your work is kept in this browser as you type. Use <b>Save file</b> (Ctrl+S) to store it inside this HTML file, which is your real copy to keep, back up and move between computers.' : 'Nothing is saved in this view, so treat it as a place to try things out.'} <a href="#" data-act="help-open" data-section="saving">How saving works</a></p>
     <div class="row"><button class="btn primary" data-act="start-story">Start a new story</button><button class="btn" data-act="load-example">Open an example story</button></div>
-    ${S.bin.size ? `<p class="empty-note">Deleted a story by mistake? <button class="link-btn" data-act="bin-open">Open the bin</button> (${plural(binTop().length, 'item')}).</p>` : ''}
+    ${S.bin.size ? `<p class="empty-note">Deleted a story by mistake? <button class="link-btn" data-act="bin-open">Open the trash</button> (${plural(binTop().length, 'item')}).</p>` : ''}
   </div>`;
 }
 
@@ -2849,7 +2878,7 @@ const TOOLS = [
   {c:'al-center', t:'Center', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M4 6.5h8M2 10h12M4 13.5h8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>', s:'align:center'},
   {c:'al-right', t:'Align right', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M6 6.5h8M2 10h12M6 13.5h8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>', s:'align:right'},
   {c:'al-justify', t:'Justify', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M2 6.5h12M2 10h12M2 13.5h12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>', s:'align:justify'},
-  {c:'align', t:'Alignment: left, centre, right or justified', i:'<span class="al-ico"></span><svg class="al-caret" viewBox="0 0 8 8" width="7" height="7" aria-hidden="true"><path d="M1 2.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
+  {c:'align', t:'Alignment: left, center, right or justified', i:'<span class="al-ico"></span><svg class="al-caret" viewBox="0 0 8 8" width="7" height="7" aria-hidden="true"><path d="M1 2.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
   {c:'indent', t:'Indent paragraphs: book-style first-line indents instead of gaps (for all texts)', s:'indent', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M7 3h7M2 6.5h12M2 10h12M2 13.5h9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M2 1.4l2.6 1.6L2 4.6z" fill="currentColor"/></svg>'},
   {c:'link', t:'Web link', i:'<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M6.8 9.2a2.6 2.6 0 0 0 3.7 0l2.2-2.2a2.6 2.6 0 0 0-3.7-3.7l-.9.9M9.2 6.8a2.6 2.6 0 0 0-3.7 0L3.3 9a2.6 2.6 0 0 0 3.7 3.7l.9-.9" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>'},
   {c:'entry', t:'Link to an entry', i:'[[ ]]'},
@@ -3039,7 +3068,7 @@ function posNote(c){
 function footHTML(e){
   const when = `<span class="mono muted">Edited ${esc(ago(e.updated))}</span>`;
   if (S.confirm === 'merge:' + e.id) { const chs = manuscript(), nx = chs[chs.findIndex(c => c.id === e.id) + 1]; if (nx) return footRow(`<span>Add “${esc(titleOf(nx))}” to the end of this chapter? It’s then removed, along with its own version history.</span><button class="btn primary small" data-act="merge-yes">Merge</button><button class="btn small" data-act="merge-no">Cancel</button>`, when); }
-  if (S.confirm === 'del:' + e.id) return footRow(`<span>Delete “${esc(titleOf(e))}”? It goes to the bin, where you can restore it for ${BIN_DAYS} days.</span><button class="btn danger primary small" data-act="del-yes">Delete</button><button class="btn small" data-act="del-no">Keep it</button>`, when);
+  if (S.confirm === 'del:' + e.id) return footRow(`<span>Delete “${esc(titleOf(e))}”? It goes to the trash, where you can restore it for ${BIN_DAYS} days.</span><button class="btn danger primary small" data-act="del-yes">Delete</button><button class="btn small" data-act="del-no">Keep it</button>`, when);
   let move = '';
   if (e.kind === 'chapter') {
     const chs = manuscript(), i = chs.findIndex(c => c.id === e.id);
@@ -3219,7 +3248,7 @@ function overviewHTML(p){
 }
 function storyFootHTML(p){
   const n = [...S.entries.values()].filter(e => e.project === p.id).length;
-  if (S.confirm === 'story:' + p.id) return `<span>Delete “${esc(p.title || 'Untitled story')}” and its ${plural(n, 'entry', 'entries')}? The story goes to the bin, where you can restore it for ${BIN_DAYS} days.</span><button class="btn danger primary small" data-act="story-del-yes">Delete story</button><button class="btn small" data-act="story-del-no">Keep it</button>`;
+  if (S.confirm === 'story:' + p.id) return `<span>Delete “${esc(p.title || 'Untitled story')}” and its ${plural(n, 'entry', 'entries')}? The story goes to the trash, where you can restore it for ${BIN_DAYS} days.</span><button class="btn danger primary small" data-act="story-del-yes">Delete story</button><button class="btn small" data-act="story-del-no">Keep it</button>`;
   return `<button class="btn ghost danger small" data-act="story-del">Delete this story</button><span class="mono muted">Started ${esc(ago(p.created))}</span>`;
 }
 
@@ -3847,7 +3876,7 @@ async function restore(file){
   toast(`Restored ${plural(n, 'entry', 'entries')}${kept ? `; kept ${kept} that ${kept === 1 ? 'was' : 'were'} newer here` : ''}${skipped - tooBig ? `; skipped ${skipped - tooBig} that couldn’t be read` : ''}${tooBig ? `; ${tooBig} too long to store here, so split them in the offline file first` : ''}.`);
 }
 
-/* ---------- rich editor behaviour ---------- */
+/* ---------- rich editor behavior ---------- */
 function saveRange(bodyEl){
   const sel = getSelection();
   if (sel.rangeCount) { const r = sel.getRangeAt(0); if (bodyEl.contains(r.commonAncestorContainer)) return r.cloneRange(); }
@@ -3977,7 +4006,7 @@ function updateToolbar(bodyEl){
   const ab = bar.querySelector('[data-cmd="align"]');
   if (ab) { let al = 'left'; try { const bk = blockAt(bodyEl); al = bk ? (bk.getAttribute('data-align') || bk.style.textAlign || 'left') : 'left'; } catch {} if (al === 'start' || !AL_NAMES[al]) al = 'left'; const ic = ab.querySelector('.al-ico'); if (ic && ic.dataset.al !== al) { ic.dataset.al = al; ic.innerHTML = TOOL['al-' + al].i; } const lab = `Alignment: ${AL_NAMES[al]}. Opens a menu`; if (ab.getAttribute('aria-label') !== lab) { ab.setAttribute('aria-label', lab); ab.title = `Alignment: ${AL_NAMES[al]}`; } }
 }
-const AL_NAMES = {left:'Left', center:'Centre', right:'Right', justify:'Justify'};
+const AL_NAMES = {left:'Left', center:'Center', right:'Right', justify:'Justify'};
 function alignMenuClose(refocus){ const p = $('#alignPop'); if (!p) return; const btn = p.parentElement && p.parentElement.querySelector('[data-cmd="align"]'); p.remove(); if (btn) { btn.setAttribute('aria-expanded', 'false'); if (refocus) btn.focus({preventScroll:true}); } }
 function alignMenu(rte){
   const bar = rte.querySelector('.rte-bar'), btn = bar.querySelector('[data-cmd="align"]'), open = $('#alignPop');
@@ -4106,7 +4135,7 @@ function cmtList(rte){
   ms.forEach(m => { if (m.title !== m.dataset.c) m.title = m.dataset.c || ''; });
   const ps = new Map(); for (const m of $$('.rte-body mark.ptag[data-pid]', rte)) { const p = ps.get(m.dataset.pid); const tl = imgTagList(m.dataset.t).join(', '); if (m.title !== tl) m.title = tl; if (p) p.text += ' ' + m.textContent; else ps.set(m.dataset.pid, {tags: tl, text: m.textContent}); }
   const sp = new Map(), sids = new Set();
-  for (const m of $$('.rte-body mark.spk[data-spk]', rte)) { const o = S.entries.get(m.dataset.spk), b = !o && S.bin.get(m.dataset.spk), nm = o ? titleOf(o) : b ? `${titleOf(b)} (in the bin)` : 'Unknown'; const tl = `Spoken by ${nm}`; if (m.title !== tl) m.title = tl; if (sids.has(m.dataset.sid)) continue; sids.add(m.dataset.sid); sp.set(nm, (sp.get(nm) || 0) + 1); }
+  for (const m of $$('.rte-body mark.spk[data-spk]', rte)) { const o = S.entries.get(m.dataset.spk), b = !o && S.bin.get(m.dataset.spk), nm = o ? titleOf(o) : b ? `${titleOf(b)} (in the trash)` : 'Unknown'; const tl = `Spoken by ${nm}`; if (m.title !== tl) m.title = tl; if (sids.has(m.dataset.sid)) continue; sids.add(m.dataset.sid); sp.set(nm, (sp.get(nm) || 0) + 1); }
   box.hidden = !ms.length && !ps.size && !sp.size;
   box.innerHTML = (ms.length ? `<p class="cmt-h">${plural(ms.length, 'comment')}</p>${ms.map((m, i) => `<button class="cmt-item" data-act="cmt-go" data-i="${i}"><span class="cmt-q">“${esc(m.textContent.trim().slice(0, 80))}”</span><span>${esc(m.dataset.c || '')}</span></button>`).join('')}` : '')
     + (ps.size ? `<p class="cmt-h${ms.length ? ' cmt-h2' : ''}">${plural(ps.size, 'tagged passage')}</p>${[...ps].map(([pid, p]) => `<button class="cmt-item pt-li" data-act="ptag-go" data-pid="${esc(pid)}"><span class="cmt-q">“${esc(p.text.replace(/\s+/g, ' ').trim().slice(0, 80))}”</span><span class="pt-li-t">${esc(p.tags)}</span></button>`).join('')}` : '')
@@ -5036,7 +5065,7 @@ function sentSpans(text){
   if (start < text.length) out.push([start, text.length]);
   return out.map(([a, b]) => { while (a < b && /\s/.test(text[a])) a++; while (b > a && /\s/.test(text[b - 1])) b--; return [a, b]; }).filter(([a, b]) => b > a);
 }
-/* Capitalised words used mid-sentence (not right after a quote mark) and never in lower case: most likely names. */
+/* Capitalized words used mid-sentence (not right after a quote mark) and never in lower case: most likely names. */
 function nameWords(text){
   const up = new Set(), low = new Set();
   for (const para of text.split(/\n+/)) for (const [a, b] of sentSpans(para)) {
@@ -5329,7 +5358,7 @@ function voicesHTML(p){
   const dist = vsDistinct(ma, B ? [mb] : others.map(mOf), skip, mode === 'narr' ? 3 : 2);
   h += `<div class="two vs-two"><div><h4 class="prose-h">${dist.mode === 'rel' ? `Words ${esc(nameOf(A))} uses more${B ? ` than ${esc(nameOf(B))}` : ''}` : 'Most used words'}</h4>${dist.list.length ? `<div class="vs-words">${dist.list.map(([w, k]) => `<span class="vs-w">${esc(w)} <b class="mono">${k}</b></span>`).join('')}</div>` : '<p class="stat-note">Nothing stands out yet.</p>'}</div>`;
   const ph = vsPhrases(set.get(A).segs, mode === 'narr' ? 3 : 2);
-  h += `<div><h4 class="prose-h">Favourite phrases</h4>${ph.length ? `<ul class="vs-ph">${ph.map(([g, k]) => `<li>“${esc(g)}” <b class="mono">${k}×</b></li>`).join('')}</ul>` : '<p class="stat-note">No phrase repeats often enough yet.</p>'}</div></div>`;
+  h += `<div><h4 class="prose-h">Favorite phrases</h4>${ph.length ? `<ul class="vs-ph">${ph.map(([g, k]) => `<li>“${esc(g)}” <b class="mono">${k}×</b></li>`).join('')}</ul>` : '<p class="stat-note">No phrase repeats often enough yet.</p>'}</div></div>`;
   if (mode === 'narr') {
     const tot = ma.sense.reduce((a, [, k]) => a + k, 0) || 1;
     h += `<h4 class="prose-h">Senses</h4><p class="stat-note">Which senses ${esc(nameOf(A))}’s narration leans on, by the words it uses.</p><div class="seg" role="img" aria-label="Sense words">${ma.sense.map(([l, k], i) => k ? `<span style="flex:${k};background:color-mix(in oklab, var(--hi) ${[100, 75, 55, 38, 24][i]}%, var(--wash))" title="${l}: ${Math.round(k / tot * 100)}%"></span>` : '').join('')}</div><div class="seg-legend">${ma.sense.map(([l, k], i) => `<span><i style="background:color-mix(in oklab, var(--hi) ${[100, 75, 55, 38, 24][i]}%, var(--wash))"></i>${l} <b class="mono">${Math.round(k / tot * 100)}%</b></span>`).join('')}</div>`;
@@ -5493,7 +5522,7 @@ async function wwEdit(first){
 }
 
 /* ---------- help and info ---------- */
-const QUIRE_VERSION = '1.4.1', QUIRE_DATE = '2026-10-28';
+const QUIRE_VERSION = '1.4.2', QUIRE_DATE = '2026-10-29';
 function helpFacts(){
   const all = [...S.entries.values()], count = k => all.filter(e => e.kind === k).length;
   const where = S.mode === 'db' ? 'Your private storage in Claude, saved automatically as you type'
@@ -5527,7 +5556,7 @@ function helpSupport(){
     <tr><td>Compression</td><td>${yn(has.gzip, 'Chapter history is stored compressed.', 'History is stored uncompressed, so it takes more space.')}</td></tr>
     <tr><td>Clipboard</td><td>${yn(has.clip, 'Copy buttons work directly.', 'Copy selects the text for you to copy with Ctrl+C.')}</td></tr>
     <tr><td>Sound</td><td>${yn(has.audio, 'The sprint chime can play.', 'Sprints end silently.')}</td></tr>
-    <tr><td>Modern layout</td><td>${yn(has.css, 'All layout features are supported.', 'Some colours and side-by-side layouts fall back to simpler versions. Updating the browser fixes this.')}</td></tr>
+    <tr><td>Modern layout</td><td>${yn(has.css, 'All layout features are supported.', 'Some colors and side-by-side layouts fall back to simpler versions. Updating the browser fixes this.')}</td></tr>
   </tbody></table>`;
 }
 function helpHTML(){
@@ -5564,7 +5593,7 @@ function helpHTML(){
       <tr><td><b>Suits</b></td><td>Wide screens and many entries.</td><td>Phones, narrow windows, more room for the page.</td></tr>
     </tbody></table>
     <ul>
-      <li><b>The title bar</b> holds the story picker (at the top of the sidebar on wide screens), the Story menu (go to, new, duplicate, delete, the bin, find and replace, import chapters), Overview, Stats, Sprint, Save file and Options.</li>
+      <li><b>The title bar</b> holds the story picker (at the top of the sidebar on wide screens), the Story menu (go to, new, duplicate, delete, the trash, find and replace, import chapters), Overview, Stats, Sprint, Save file and Options.</li>
       <li><b>Tags</b> on an entry are links that search the story for that tag.</li>
       <li><b>Order:</b> each list has an order switch (chapters 1–9, characters and places A–Z, notes Recent). Choose Custom, then drag the ⋮⋮ handles, or click one and use ↑ ↓. Undo appears after each move.</li>
       <li><b>Dropping files:</b> a Word (.docx), .txt or .md manuscript imports its chapters, a backup (.json) restores it, and images go into any text or onto a portrait.</li>
@@ -5585,8 +5614,8 @@ function helpHTML(){
       <tr><td><b>Import chapters</b><br><span class="muted">Story ▾</span></td><td>New chapters from a Word document (.docx), a .txt or .md file, or pasted text.</td><td>Bring writing in. It only adds chapters.</td></tr>
     </tbody></table>
     <ul>
-      <li><b>Restoring</b> a backup asks before touching entries that already exist, and by default keeps whichever version is newer. An entry restored from a backup leaves the bin.</li>
-      <li><b>The bin</b> (Story ▾ → Bin): deleted chapters, sheets, notes, story arcs and whole stories wait here for 30 days, then they’re deleted for good. Right after deleting, Undo on the message brings it straight back. Restoring from the bin brings back an entry as it was, with its places in viewpoints, casts, arcs, links and speaker marks. Binned entries stay in the notebook${S.mode === 'file' ? ' and the saved file' : ''} (encrypted along with it, if you use encryption) but are left out of backups, exports and search. To get rid of something now, use Delete for good, or Empty the bin.</li>
+      <li><b>Restoring</b> a backup asks before touching entries that already exist, and by default keeps whichever version is newer. An entry restored from a backup leaves the trash.</li>
+      <li><b>The trash</b> (Story ▾ → Trash): deleted chapters, sheets, notes, story arcs and whole stories wait here for 30 days, then they’re deleted for good. Right after deleting, Undo on the message brings it straight back. Restoring from the trash brings back an entry as it was, with its places in viewpoints, casts, arcs, links and speaker marks. Trashed entries stay in the notebook${S.mode === 'file' ? ' and the saved file' : ''} (encrypted along with it, if you use encryption) but are left out of backups, exports and search. To get rid of something now, use Delete for good, or Empty the trash.</li>
       <li><b>Encrypted backups</b> (Options → Backup → Encrypt backups): each backup asks for a password and is saved as <code>…-encrypted.json</code>. Restoring asks for the same password.</li>
       <li><b>Encrypting the file</b> (Options → Backup → Encrypt this file, in a downloaded Quire): from the next Save file on, the notebook inside the HTML file is encrypted. Opening the file shows a lock screen first. Change the file’s password… sets a new one; copies saved before keep the old one.</li>
       <li><b>Choosing a password:</b> a meter rates it as you type and estimates how long guessing it would take. Several unrelated words make a strong, memorable password; names from your story, years and common passwords make a weak one. Very weak passwords aren’t accepted.</li>
@@ -5630,7 +5659,7 @@ function helpHTML(){
       <li><b>Word manuscript</b> (Options → Export) uses standard manuscript format, for submissions: 12-point type, double spacing, a title page with word count, each chapter on a new page and a running header. Check the file once in your word processor before sending.</li>
       <li><b>Word document</b> (Options → Export) is the story as a reader would see it: your formatting, scene breaks and images, with real Word headings so Word’s navigation pane lists the chapters. Choose the typeface, size, line spacing, indented paragraphs or space between them, a title page, page numbers and whether each chapter starts a new page. Your choices are remembered for the story.</li>
       <li><b>E-book</b> (Options → Export) makes an EPUB for e-readers and reading apps: Apple Books, Kobo, Google Play Books, and Kindle through Send to Kindle. It holds your chapters with a table of contents, scene breaks, images, and optionally a title page and a simple cover with the title and byline. Readers pick their own typeface and size. Embedded videos and music become links.</li>
-      <li><b>Importing from Word</b> (Story ▾ → Import chapters): a new chapter starts at each heading (Heading 1, or whichever level the chapters use, in any language of Word) or at lines like “Chapter 3” and “Prologue”. Parts above chapters become part openers. Italics, bold, underlining, centred lines, lists, links, images and scene breaks come along; Word comments become Quire comments; tracked changes are taken as accepted; footnotes go at the end of their chapter. Older .doc files need saving as .docx first.</li>
+      <li><b>Importing from Word</b> (Story ▾ → Import chapters): a new chapter starts at each heading (Heading 1, or whichever level the chapters use, in any language of Word) or at lines like “Chapter 3” and “Prologue”. Parts above chapters become part openers. Italics, bold, underlining, centered lines, lists, links, images and scene breaks come along; Word comments become Quire comments; tracked changes are taken as accepted; footnotes go at the end of their chapter. Older .doc files need saving as .docx first.</li>
       <li><b>Deadline:</b> on the story overview, add a date beside the target length. Quire works out how many words a day finish the story in time, counting today, shows today’s progress toward that share, and says where your pace over the last week would land. Stats repeats it under Writing pace.</li>
       <li><b>Chapter cards</b> (the Chapters page) show each chapter’s viewpoint, places and story arc beats under its synopsis. Full synopses shows the whole synopsis instead of the first lines.</li>
       <li><b>Buttons above a text:</b> Focus mode and full screen, Reference, Watch words, and on chapters Drafts and Version history. Options → Display → Buttons above the text… changes their order and which ones show.</li>
@@ -5638,16 +5667,16 @@ function helpHTML(){
       <li><b>Go to</b> (<kbd>Ctrl</kbd>+<kbd>K</kbd>, or Story ▾ → Go to…): type a few letters to jump to any chapter, character, place, note, story arc, tag or story, or to run a command such as New chapter, Stats, an export or a theme. With nothing typed, it lists what you opened last. <kbd>Shift</kbd>+<kbd>Enter</kbd> puts the chosen entry in the reference panel instead.</li>
       <li><b>Cast check:</b> under a chapter’s characters and places, Quire lists those named in its text that aren’t on the lists yet, with how often they appear, such as “+ Duncan Ross 2×”. Click one to add it. It looks for each name exactly as written (a leading “The” also matches “the”), and for the other names under Also known as, so add “Holmes” there if the text calls Sherlock Holmes that. Nothing is added unless you click.</li>
       <li><b>The toolbar</b> groups style, headings, quotation (smart and fixed quotes), lists, alignment (one button with a menu) and paragraph indent, links and media, then search, Prose checker, comment, tag passage, who says this (in chapters) and split. <b>Splitting</b> a chapter asks first; Merge with next undoes it.</li>
-      <li><b>Options → Text:</b> Google Fonts, Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, coloured chips, themes (including your own) and widths.</li>
+      <li><b>Options → Text:</b> Google Fonts, Prose checker, watch words, typewriter scrolling, text size, how passage tags show, paragraph indent, smart quotes (English, German or French), dashes, ellipses and the split question. <b>Options → Export</b> also switches AO3 sharing on or off. <b>Options → Display:</b> navigation, field hints, stats detail, intense focus, sprint and word count above the text, progress bar, colored chips, themes (including your own) and widths.</li>
       <li><b>Tags</b> has its own page with the tag cloud, image tags, tags used together, rare and missing tags, and renaming a tag everywhere.</li>
       <li><b>Passage tags:</b> select a sentence or a passage, even across paragraphs, and press the tag button in the toolbar. A thin bar in the margin marks the passage; click the bar to change or remove its tags. Options → Text can show an underline instead, or hide the marks while you write. The list under the text shows a chapter’s tagged passages, search finds them with #tag, and on the Tags page a passage tag lists all its passages in story order, so you can follow a thread, a clue or a continuity detail through the book. Passages in drafts count once merged. Exports leave the tags out.</li>
       <li><b>Tags that link:</b> typing in a tag box suggests existing tags and, below them, chapters, characters, places and notes. Pick one with the arrow keys and Enter, or tap it. An entry you pick becomes a linked chip that opens it, and the entry lists “Tagged in” under Links. Searching for #title (the entry’s title as a tag) finds the entries that link to it.</li>
-      <li><b>Your own themes</b> (Options → Display → + New theme…): pick four colours, for the paper, the text, the background and the accent, or start from one of the six themes. Quire works out the other shades, shows the change at once and checks that the text stays readable. Save as many named themes as you like; they’re kept in this browser.</li>
+      <li><b>Your own themes</b> (Options → Display → + New theme…): pick four colors, for the paper, the text, the background and the accent, or start from one of the six themes. Quire works out the other shades, shows the change at once and checks that the text stays readable. Save as many named themes as you like; they’re kept in this browser.</li>
       <li><b>Watch words</b> (the Watch words button above a text, or Options → Text): list words and phrases you want to notice, such as a habit to avoid or a fact to keep straight, each with an optional note. When you type one, a small note appears beside the line for a few seconds; it never takes the cursor. Capitals don’t matter, a star stands for any ending (<b>realiz*</b>), and phrases work too. Words “in every story” stay in this browser; words for one story are saved with it, and words for one chapter (or note or sheet) with that, for something that only matters there for a while. Pasted text doesn’t set off notes. The count at the bottom of the text, and the Prose checker’s Watch words row, mark every one.</li>
       <li><b>Voices</b> (Stats, Standard or In depth): compares how your viewpoint characters narrate, from the text outside quotation marks in their scenes: sentence length and rhythm, questions, contractions, adverbs, filter and thinking words, senses, the words and phrases they use most, and how a narrator’s rhythm changes from chapter to chapter.</li>
       <li><b>Who says this</b> (the speaker button in a chapter’s toolbar): put the cursor in a line of dialogue, or select it, and choose who says it. Once you’ve marked a line, Voices adds a <b>Dialogue</b> view comparing how your characters speak. Only the lines you mark count; Quire never guesses a speaker. Marks are invisible apart from a faint dotted underline, and are left out of every export. Put the cursor in a marked line and press the button again to change the speaker or remove the mark.</li>
       <li><b>Scene viewpoints:</b> give a chapter two or more viewpoint characters and a small label appears at the start of the text and at each scene break. Click it to choose whose scene follows; a scene keeps the viewpoint of the one before until you change it. The Point of view field shows how the chapter’s words divide between them, and Stats uses the same split for the whole story.</li>
-      <li><b>Status colours</b> (Options → Display → Colour chapters by status): chapter lists show each chapter’s status as a colour, and the chapter list starts with a strip of the whole manuscript, each block as wide as its chapter. Click a block to open the chapter.</li>
+      <li><b>Status colors</b> (Options → Display → Color chapters by status): chapter lists show each chapter’s status as a color, and the chapter list starts with a strip of the whole manuscript, each block as wide as its chapter. Click a block to open the chapter.</li>
       <li><b>Image tags:</b> click an image in a chapter or note to tag it; portraits and place images have a tag box underneath. Quire adds each image’s shape (Portrait, Landscape or Square) by itself. Search for #tag or #landscape finds the entries holding those images. Exports leave image tags out.</li>
       <li><b>Word counts</b> skip stand-alone punctuation such as « or a spaced dash.</li>
     </ul>
@@ -5677,7 +5706,7 @@ function helpHTML(){
       <li><b>Data</b> are plain JSON entries in a <code>&lt;script type="application/json"&gt;</code> block inside the file (format version 2; older notebooks upgrade on opening). Browser storage uses IndexedDB, then local storage, then memory.</li>
       <li><b>The editor</b> is the browser’s own rich-text editing. Everything pasted or loaded passes a strict filter that keeps only basic formatting, links, images and media links.</li>
       <li><b>Encryption</b> uses the browser’s own Web Crypto: AES-256-GCM with a key derived from the password by PBKDF2-SHA-256 with 600,000 rounds and a random salt, and a fresh random IV for every save. The settings are authenticated with the data, so a changed or damaged file is refused rather than misread.</li>
-      <li><b>Chapter history</b> stores word-level differences, gzip-compressed by the browser. The sprint chime is synthesised, so there are no sound files.</li>
+      <li><b>Chapter history</b> stores word-level differences, gzip-compressed by the browser. The sprint chime is synthesized, so there are no sound files.</li>
       ${S.mode === 'db' ? '<li><b>This hosted copy</b> uses a private per-user database instead of browser storage, and uploads images privately instead of storing them in the file.</li>' : ''}
     </ul>
 
@@ -6173,7 +6202,7 @@ function importHTML(p){
   return `<article class="sheet" data-panel="import"><h2 class="vh">Import chapters</h2>
     <div class="sheet-top"><button class="btn ghost back" data-act="back">← Menu</button><span class="eyebrow">Import chapters</span><span class="wc mono">${esc(p.title || 'Untitled story')}</span></div>
     <div class="imp-src">
-      <p class="stat-note">Load a Word document (.docx), a plain text (.txt) or a Markdown (.md) file, or paste text below. A new chapter starts at each heading, or at lines like “Chapter 3”, “Chapter Three: The Ferry”, “Prologue” or “Epilogue”. Lines like *** or # become scene breaks. From Word, Quire keeps italics, bold, underlining, centred lines, lists, links, images and comments; tracked changes are taken as accepted, and footnotes go at the end of their chapter.</p>
+      <p class="stat-note">Load a Word document (.docx), a plain text (.txt) or a Markdown (.md) file, or paste text below. A new chapter starts at each heading, or at lines like “Chapter 3”, “Chapter Three: The Ferry”, “Prologue” or “Epilogue”. Lines like *** or # become scene breaks. From Word, Quire keeps italics, bold, underlining, centered lines, lists, links, images and comments; tracked changes are taken as accepted, and footnotes go at the end of their chapter.</p>
       <div class="imp-row"><button class="btn" data-act="imp-file">Choose a file…</button>${S.imp.name ? `<span class="mono muted">${esc(S.imp.name)}</span>` : ''}${S.imp.text || S.imp.chs ? '<button class="btn ghost small" data-act="imp-clear">Clear</button>' : ''}</div>
       ${S.imp.chs ? impInfoHTML(S.imp.info) : `<textarea id="imp-text" data-imp="text" placeholder="…or paste your manuscript here" aria-label="Text to import" spellcheck="false">${esc(S.imp.text)}</textarea>`}
     </div>
@@ -6860,7 +6889,7 @@ function mgAlign(O, X){
   }
   return {map, ins};
 }
-/* Both sides changed neighbouring paragraphs: settle them one paragraph at a time. */
+/* Both sides changed neighboring paragraphs: settle them one paragraph at a time. */
 function mgClash(O, A, B, P){
   const clash = (a, b) => P.items.push({t: 'chg', i: mgChange(P, {k: 'c', a, b})});
   if (O.length * Math.max(A.length, B.length) > 900) return clash(A.join(''), B.join(''));
@@ -7077,9 +7106,9 @@ function openerOf(s, names){
     : names.has(w.replace(/[’'](?:s|d|ll|m|re|ve)$/, '')) || /^(?:mr|mrs|ms|mx|dr|prof|rev|capt|col|gen|lt|sgt|miss|sir|lady|lord|madam|madame|monsieur|herr|frau)$/.test(lw) ? 'name' : lw.length > 4 && lw.endsWith('ing') ? 'ing' : lw.length > 4 && lw.endsWith('ly') && !RD_ADV_OK.has(lw) ? 'adv' : 'other';
   return {cat, w: lw === 'i' ? 'I' : cap(lw)};
 }
-/* Capitalised words that appear in the middle of sentences and never in lower case: probably names. */
+/* Capitalized words that appear in the middle of sentences and never in lower case: probably names. */
 const properNames = sents => nameWords(sents.map(x => x.s).join('\n'));
-const PUNCT = [['!', 'Exclamation marks', /!/g], ['?', 'Question marks', /\?/g], ['…', 'Ellipses', /…|\.\.\./g], ['—', 'Dashes', /—|\s–\s|\s--\s/g], [';', 'Semicolons', /;/g], [':', 'Colons', /:/g], ['( )', 'Brackets', /\(/g]];
+const PUNCT = [['!', 'Exclamation marks', /!/g], ['?', 'Question marks', /\?/g], ['…', 'Ellipses', /…|\.\.\./g], ['—', 'Dashes', /—|\s–\s|\s--\s/g], [';', 'Semicolons', /;/g], [':', 'Colons', /:/g], ['( )', 'Parentheses', /\(/g]];
 const punctRates = (text, w) => PUNCT.map(([, , re]) => (text.match(re) || []).length / Math.max(1, w) * 1000);
 function paraDensity(t){
   const ws = t.match(/[A-Za-z][A-Za-z’'-]*/g) || [], n = countWords(t); if (!n) return null;
@@ -7465,7 +7494,7 @@ function ptagThreadHTML(lt){
   return `<div class="pt-thread"><span class="lab">Passages, in story order</span>${th.map(({e, p, label}) => `<button class="pt-item" data-act="ptag-open" data-id="${esc(e.id)}" data-pid="${esc(p.pid)}"><span class="pt-where">${esc(label)}</span><span class="pt-ex">“${esc(p.text.length > 220 ? p.text.slice(0, 219) + '…' : p.text)}”</span>${p.tags.length > 1 ? `<span class="pt-also">${p.tags.filter(t => t.toLowerCase() !== lt).map(esc).join(' · ')}</span>` : ''}</button>`).join('')}</div>`;
 }
 const ptMarks = (bodyEl, pid) => [...bodyEl.querySelectorAll(`mark.ptag[data-pid="${CSS.escape(pid)}"]`)];
-/* Wrap the text of a range, paragraph by paragraph, in marks made by make(), then join neighbouring pieces with the same key */
+/* Wrap the text of a range, paragraph by paragraph, in marks made by make(), then join neighboring pieces with the same key */
 function markWrap(bodyEl, r, make, sel, key){
   if (r.endContainer.nodeType === 3 && r.endOffset > 0 && r.endOffset < r.endContainer.length) r.endContainer.splitText(r.endOffset);
   if (r.startContainer.nodeType === 3 && r.startOffset > 0 && r.startOffset < r.startContainer.length) { const t = r.startContainer.splitText(r.startOffset); r.setStart(t, 0); }
@@ -7775,7 +7804,7 @@ function svLayout(rte){
   if (!on) { if (layer) layer.remove(); return; }
   if (!layer) { layer = document.createElement('div'); layer.className = 'sv-layer'; rte.appendChild(layer); }
   const rr = rte.getBoundingClientRect(), br = body.getBoundingClientRect(), pad = parseFloat(getComputedStyle(body).paddingLeft) || 16;
-  const x = br.left - rr.left + pad, name = id => titleOf(S.entries.get(id)), mw = Math.round(Math.max(72, Math.min(224, (br.width - 2 * pad) / 2 - 14))); /* keeps clear of the centred ⁂ */
+  const x = br.left - rr.left + pad, name = id => titleOf(S.entries.get(id)), mw = Math.round(Math.max(72, Math.min(224, (br.width - 2 * pad) / 2 - 14))); /* keeps clear of the centered ⁂ */
   let cur = povStartOf(c);
   const pills = [`<button type="button" class="sv-pill" data-sv="start" style="top:${(br.top - rr.top + 8).toFixed(1)}px;left:${x.toFixed(1)}px;max-width:${mw}px" aria-haspopup="true" aria-label="Opening scene viewpoint: ${esc(name(cur))}. Change" title="Opening scene: ${esc(name(cur))}. Click to change.">${EYE}<span class="sv-n">${esc(name(cur))}</span><span class="sv-c" aria-hidden="true">▾</span></button>`];
   [...body.children].forEach((n, i) => {
@@ -8293,7 +8322,7 @@ document.addEventListener('click', ev => {
     case 'bin-purge': case 'bin-empty': S.confirm = act === 'bin-empty' ? 'bin-empty' : 'purge:' + a.dataset.id; return binRefresh();
     case 'bin-purge-no': case 'bin-empty-no': S.confirm = null; return binRefresh();
     case 'bin-purge-yes': { const e = S.bin.get(a.dataset.id); S.confirm = null; if (e) { binPurge(e); toast(`Deleted “${titleOf(e)}” for good.`); } return binRefresh(); }
-    case 'bin-empty-yes': S.confirm = null; binPurge(binTop()); toast('The bin is empty.'); return binRefresh();
+    case 'bin-empty-yes': S.confirm = null; binPurge(binTop()); toast('The trash is empty.'); return binRefresh();
     case 'tagref-del': if (cur) { cur.tagRefs = (cur.tagRefs || []).filter(x => x !== a.dataset.ref); touch(cur); rerenderTags(cur, false); const lk = $('#links'); if (lk) lk.innerHTML = linksHTML(cur); } return;
     case 'story-del': S.confirm = 'story:' + S.projectId; { const p = project(); if (p) $('#foot').innerHTML = storyFootHTML(p); } return;
     case 'story-del-no': S.confirm = null; { const p = project(); if (p) $('#foot').innerHTML = storyFootHTML(p); } return;
@@ -8301,7 +8330,7 @@ document.addEventListener('click', ev => {
       const p = project(); if (!p) return;
       binEntries([...[...S.entries.values()].filter(o => o.project === p.id), p], p.id);
       S.confirm = null; S.projectId = null; S.openId = null; pickProject(); savePrefs();
-      renderAll(); return toast(`Moved “${p.title || 'Untitled story'}” to the bin.`, {label: 'Undo', run: () => binRestore(p.id, true)});
+      renderAll(); return toast(`Moved “${p.title || 'Untitled story'}” to the trash.`, {label: 'Undo', run: () => binRestore(p.id, true)});
     }
     case 'rel-add': if (cur) { cur.rels = [...(cur.rels || []), {to:'', how:''}]; touch(cur); $('#rels').innerHTML = relsHTML(cur); const s = $(`#rel-${cur.rels.length - 1}-to`); if (s) s.focus(); } return;
     case 'rel-del': if (cur) { cur.rels.splice(+a.dataset.i, 1); touch(cur); $('#rels').innerHTML = relsHTML(cur); $('#links').innerHTML = linksHTML(cur); } return;
@@ -8328,8 +8357,8 @@ function removeBeat(arc, beatId){
   S.confirm = null; touch(arc); rerenderArc(arc);
 }
 /* ---------- bin: deleted entries and stories wait here for 30 days ----------
-   A binned entry keeps its links from other entries, so restoring brings everything back as it was;
-   they are only cleared when it is deleted for good. Binned entries live in S.bin, never in S.entries. */
+   A trashed entry keeps its links from other entries, so restoring brings everything back as it was;
+   they are only cleared when it is deleted for good. Trashed entries live in S.bin, never in S.entries. */
 const BIN_DAYS = 30;
 function putLoaded(d){ if (d.bin) { S.entries.delete(d.id); S.bin.set(d.id, d); } else { S.bin.delete(d.id); S.entries.set(d.id, d); } }
 function binEntries(list, by){
@@ -8354,7 +8383,7 @@ function binPurge(list){
   for (const e of list) removeEntry(e.id);
 }
 function binSweep(){ const lim = Date.now() - BIN_DAYS * 864e5; binPurge([...S.bin.values()].filter(e => e.bin < lim)); }
-/* What the bin lists: binned stories, and entries whose own story is still here (or gone entirely) */
+/* What the trash lists: trashed stories, and entries whose own story is still here (or gone entirely) */
 const binTop = () => [...S.bin.values()].filter(e => e.kind === 'project' || !S.bin.has(e.project)).sort((a, b) => b.bin - a.bin);
 function binRowHTML(e){
   const days = Math.max(1, Math.ceil((e.bin + BIN_DAYS * 864e5 - Date.now()) / 864e5));
@@ -8370,12 +8399,12 @@ function binHTML(){
   const top = binTop(), groups = new Map();
   for (const e of top) { const k = e.kind === 'project' ? '' : e.project; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(e); }
   const head = k => { if (!k) return 'Stories'; const p = S.entries.get(k); return p ? `From “${p.title || 'Untitled story'}”` : 'From a story that’s no longer here'; };
-  return `<article class="sheet" data-panel="bin"><h2 class="vh">Bin</h2>
-    <div class="sheet-top"><span class="eyebrow">Bin</span><span class="wc mono">${plural(top.length, 'item')}</span><button class="btn small" data-act="bin-close">Close the bin</button></div>
+  return `<article class="sheet" data-panel="bin"><h2 class="vh">Trash</h2>
+    <div class="sheet-top"><span class="eyebrow">Trash</span><span class="wc mono">${plural(top.length, 'item')}</span><button class="btn small" data-act="bin-close">Close the trash</button></div>
     <p class="stat-note">Deleted stories and entries wait here for ${BIN_DAYS} days, then they’re deleted for good. Until then they’re still in this notebook${S.mode === 'file' ? ' and in the saved file' : ''}, but not in backups, exports or search. Restoring brings back an entry with its links, viewpoints and speaker marks.</p>
     ${top.length ? [...groups].sort((a, b) => (a[0] ? 1 : 0) - (b[0] ? 1 : 0)).map(([k, rows]) => `<h3 class="bin-g">${esc(head(k))}</h3><div class="bin-list">${rows.map(binRowHTML).join('')}</div>`).join('')
-      + `<div class="bin-foot">${S.confirm === 'bin-empty' ? `<span class="bin-q">Delete everything in the bin for good?</span><button class="btn danger primary small" data-act="bin-empty-yes">Empty the bin</button><button class="btn small" data-act="bin-empty-no">Keep it</button>` : `<button class="btn ghost danger small" data-act="bin-empty">Empty the bin</button>`}</div>`
-      : '<p class="lp-empty">The bin is empty.</p>'}
+      + `<div class="bin-foot">${S.confirm === 'bin-empty' ? `<span class="bin-q">Delete everything in the trash for good?</span><button class="btn danger primary small" data-act="bin-empty-yes">Empty the trash</button><button class="btn small" data-act="bin-empty-no">Keep it</button>` : `<button class="btn ghost danger small" data-act="bin-empty">Empty the trash</button>`}</div>`
+      : '<p class="lp-empty">The trash is empty.</p>'}
   </article>`;
 }
 function binRefresh(){
@@ -8389,7 +8418,7 @@ function deleteEntry(cur){
   S.confirm = null; S.openId = null; S.view = 'list';
   if (S.nav === 'tabs' && KINDS[kind]) { S.kind = kind; S.panel = 'list'; S.lpq = ''; }
   renderBar(); renderIndex(); renderDesk();
-  toast(`Moved “${title}” to the bin.`, {label: 'Undo', run: () => binRestore(id, true)});
+  toast(`Moved “${title}” to the trash.`, {label: 'Undo', run: () => binRestore(id, true)});
 }
 /* Entries deleted for good leave no links behind: viewpoints, casts, places, relationships, arc beats, tag links and speaker marks */
 function unref(gone){
@@ -8770,7 +8799,7 @@ function qsItems(){
     for (const [m, t] of [['replace', 'Find and replace'], ['import', 'Import chapters'], ['dup-story', 'Duplicate this story'], ['export-docx', 'Export: Word manuscript'], ['export-doc', 'Export: Word document'], ['export-epub', 'Export: e-book (EPUB)'], ['export-html', 'Export: web page'], ['export-ms-md', 'Export: Markdown'], ['export-txt', 'Export: text'], ['export-md', 'Export: sheets and notes as Markdown'], ['print', 'Print or save as PDF'], ['backup-story', 'Back up this story']]) cmd(t, () => menuAction(m));
   }
   if (S.mode === 'file') cmd('Save file', () => menuAction('offline'), 'Ctrl+S');
-  for (const [m, t] of [['new-story', 'New story'], ['bin', 'Bin'], ['backup', 'Back up all stories'], ['restore', 'Restore from a backup'], ['help', 'Help']]) cmd(t, () => menuAction(m));
+  for (const [m, t] of [['new-story', 'New story'], ['bin', 'Trash'], ['backup', 'Back up all stories'], ['restore', 'Restore from a backup'], ['help', 'Help']]) cmd(t, () => menuAction(m));
   for (const [v, n] of [...Object.entries(THEME_PRESETS).map(([v, x]) => [v, x[0]]), ...(S.themes || []).map(x => ['c:' + x.id, x.name])]) cmd(`Theme: ${n}`, () => qsFire({set: 'theme', v}));
   return out;
 }

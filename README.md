@@ -37,8 +37,8 @@ How saving works, in short:
 - Focus mode in two stages: *Focus* hides the navigation; *Intense focus* leaves only the text, its toolbar and the buttons above it. On larger screens, full screen hides the browser's own bars too.
 - Picks up where you left off: Quire reopens the chapter you were writing, at the spot where you stopped
 - A reference panel keeps a character, place, note or another chapter beside the text while you write, and Go to (Ctrl+K) jumps to any entry, tag or command in a few keystrokes
-- Typewriter scrolling, adjustable text size and page width, six themes from light to a warm dark, and your own themes from four colours
-- Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints, towards a chapter's word target, or towards today's share of a deadline
+- Typewriter scrolling, adjustable text size and page width, six themes from light to a warm dark, and your own themes from four colors
+- Writing sprints with a timer, a word goal and a chime; a progress bar at the bottom of the screen during sprints, toward a chapter's word target, or toward today's share of a deadline
 - Word targets per chapter and for the whole story, a deadline that works out the words a day it takes, a word count for any selection, and find and replace
 
 **Drafts and history**
@@ -52,7 +52,7 @@ How saving works, in short:
 - Tags on three levels: entries, images (sorted as portrait, landscape or square by themselves) and individual passages. A passage tag lists its passages in story order, so you can follow a subplot or a clue through the book.
 - Tag suggestions as you type, including chapters, characters, places and notes, which become links
 - Scene viewpoints: label whose point of view each scene follows, and see how a chapter's words, and the whole story's, divide between them
-- Status colours: every chapter coloured by its status, with a strip of the whole manuscript at a glance
+- Status colors: every chapter colored by its status, with a strip of the whole manuscript at a glance
 - Chapter cards with each chapter's synopsis, viewpoint, places and story arc beats, to drag into a new order
 - A cast check that lists the characters and places named in a chapter but missing from its lists
 
@@ -61,14 +61,14 @@ How saving works, in short:
 - Watch words: list habits to avoid or facts to keep straight, and a quiet note appears beside the line when you type one
 - Comments on any passage
 - Stats from basic to in-depth: daily progress, dialogue share, sentence rhythm, word variety, reading level, sentence openers, punctuation, repeated phrases and a narration check
-- Voices: compare how your viewpoint characters narrate, with their favourite words and phrases, rhythm, and how a voice changes from chapter to chapter; mark who says a line, and compare how your characters speak too
+- Voices: compare how your viewpoint characters narrate, with their favorite words and phrases, rhythm, and how a voice changes from chapter to chapter; mark who says a line, and compare how your characters speak too
 
 **Saving and sharing**
 - Export the manuscript as a Word manuscript in standard format for submissions, a regular Word document with real headings, an e-book (EPUB) for e-readers and reading apps, a web page, Markdown or plain text, or print it or save it as PDF
 - Import chapters from Word (.docx), keeping italics, scene breaks, images and comments, or from text and Markdown files
 - Optional AO3 sharing: copy a chapter for AO3 in one click and open the right page there
 - Backups of one story or all of them, optionally encrypted
-- A bin: deleted chapters, sheets, notes and whole stories wait there for 30 days, and come back with all their links
+- Trash: deleted chapters, sheets, notes and whole stories wait there for 30 days, and come back with all their links
 - An optional password on the saved file itself
 
 Built-in help, with search, explains every feature, and the [tutorial](docs/TUTORIAL.md) walks through the core features and settings with screenshots.
